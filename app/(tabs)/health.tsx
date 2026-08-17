@@ -10,6 +10,7 @@ import { addDays, isValidDateKey, todayKey } from '@/domain/dates';
 import { BMI_ADULT_REFERENCE_DISCLAIMER, BMI_CATEGORY_LABELS, bmiResult } from '@/domain/health';
 import type { DailySummary, HealthMeasurement } from '@/domain/types';
 import { colors, font, spacing } from '@/theme';
+import { useFocusEffect } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -42,9 +43,11 @@ export default function HealthScreen() {
     }
   }, [repo, range]);
 
-  useEffect(() => {
-    void load();
-  }, [load]);
+  useFocusEffect(
+    useCallback(() => {
+      void load();
+    }, [load]),
+  );
 
   const current = measurements.find((m) => m.measuredAt <= todayKey()) ?? null;
   const bmi = current?.weightKg != null && current?.heightCm != null ? bmiResult(current.weightKg, current.heightCm) : null;

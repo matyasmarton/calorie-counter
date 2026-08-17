@@ -7,7 +7,7 @@ import { Button, Card, EmptyState, ErrorBanner, Screen, SectionTitle } from '@/c
 import { addDays, formatDateKey, todayKey } from '@/domain/dates';
 import type { DailySummary } from '@/domain/types';
 import { colors, font, spacing } from '@/theme';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -33,9 +33,11 @@ export default function HistoryScreen() {
     }
   }, [repo]);
 
-  useEffect(() => {
-    void load();
-  }, [load]);
+  useFocusEffect(
+    useCallback(() => {
+      void load();
+    }, [load]),
+  );
 
   const byDate = new Map(summaries.map((s) => [s.logDate, s]));
   const rows: { date: string; summary: DailySummary | null }[] = [];

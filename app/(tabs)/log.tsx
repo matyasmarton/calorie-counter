@@ -13,7 +13,7 @@ import { addDays, formatDateKey, isValidDateKey, todayKey } from '@/domain/dates
 import type { DailyEntry, Food } from '@/domain/types';
 import { useSyncStatus, syncStatusLabel } from '@/hooks/useSyncStatus';
 import { colors, font, spacing } from '@/theme';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -54,9 +54,11 @@ export default function LogScreen() {
     setDate((prev) => (params.date && isValidDateKey(params.date) ? params.date : prev));
   }, [params.date]);
 
-  useEffect(() => {
-    void loadEntries(date);
-  }, [date, loadEntries]);
+  useFocusEffect(
+    useCallback(() => {
+      void loadEntries(date);
+    }, [date, loadEntries]),
+  );
 
   const total = useMemo(() => entries.reduce((sum, e) => sum + e.calories, 0), [entries]);
   const isFuture = date > todayKey();

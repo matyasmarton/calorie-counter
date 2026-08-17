@@ -7,6 +7,7 @@ import { Button, Card, Chip, EmptyState, ErrorBanner, Field, Screen, SectionTitl
 import type { Serving, UserFood } from '@/domain/types';
 import { colors, font, spacing } from '@/theme';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 interface ServingRow {
@@ -29,6 +30,11 @@ const PRESETS: { label: string; grams: number }[] = [
 let keySeq = 0;
 const newKey = () => `sv-${++keySeq}`;
 
+const defaultRows = (): ServingRow[] => [
+  { key: newKey(), label: 'g', grams: '1' },
+  { key: newKey(), label: 'oz', grams: '28.35' },
+];
+
 export default function FoodsScreen() {
   const { repo } = useApp();
   const [foods, setFoods] = useState<UserFood[]>([]);
@@ -37,7 +43,7 @@ export default function FoodsScreen() {
   const [editing, setEditing] = useState<UserFood | null>(null);
   const [name, setName] = useState('');
   const [kcal, setKcal] = useState('');
-  const [rows, setRows] = useState<ServingRow[]>([]);
+  const [rows, setRows] = useState<ServingRow[]>(defaultRows);
   const [formError, setFormError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
@@ -51,15 +57,17 @@ export default function FoodsScreen() {
     }
   }, [repo]);
 
-  useEffect(() => {
-    void load();
-  }, [load]);
+  useFocusEffect(
+    useCallback(() => {
+      void load();
+    }, [load]),
+  );
 
   const resetForm = useCallback(() => {
     setEditing(null);
     setName('');
     setKcal('');
-    setRows([{ key: newKey(), label: 'g', grams: '1' }, { key: newKey(), label: 'oz', grams: '28.35' }]);
+    setRows(defaultRows());
     setFormError(null);
   }, []);
 
