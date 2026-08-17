@@ -1,0 +1,9 @@
+#!/bin/sh
+# Clickable launcher for Calorie Counter (Expo web).
+# This wrapper runs without a terminal window and hands control to the
+# repository launcher; its exit code is the launcher's exit code, so
+# failures surface through the launcher's macOS notification path.
+#
+# Fixed repository path: if the repo moves, update this path, then rerun
+# `npm run desktop:install`.
+exec "/Users/Meltwater_User/calorie-counter/scripts/launch-desktop.sh"
