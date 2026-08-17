@@ -23,6 +23,13 @@ export function DailyEntryRow({
           {entry.amount} × {entry.servingLabel}
           {entry.servingGrams !== 1 ? ` (${entry.servingGrams} g)` : ''} · {entry.grams} g
         </Text>
+        {entry.proteinGrams != null && entry.carbsGrams != null && entry.fatGrams != null ? (
+          <Text style={styles.macros}>
+            P {entry.proteinGrams} · C {entry.carbsGrams} · F {entry.fatGrams} g
+          </Text>
+        ) : (
+          <Text style={styles.macrosMuted}>Macros unavailable</Text>
+        )}
       </View>
       <Text style={styles.kcal}>{entry.calories} kcal</Text>
       <Pressable accessibilityRole="button" accessibilityLabel={`Edit ${entry.foodName}`} onPress={onEdit} style={styles.action}>
@@ -52,6 +59,8 @@ const styles = StyleSheet.create({
   info: { flex: 1, gap: 2 },
   name: { fontSize: font.body, color: colors.text, fontWeight: '500' },
   sub: { fontSize: font.caption, color: colors.textMuted },
+  macros: { fontSize: font.caption, color: colors.primaryDark },
+  macrosMuted: { fontSize: font.caption, color: colors.textMuted, fontStyle: 'italic' },
   kcal: { fontSize: font.body, fontWeight: '700', color: colors.text },
   action: { padding: 4 },
   actionText: { fontSize: font.caption, color: colors.primary, fontWeight: '600' },

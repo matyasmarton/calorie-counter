@@ -61,6 +61,18 @@ export default function LogScreen() {
   );
 
   const total = useMemo(() => entries.reduce((sum, e) => sum + e.calories, 0), [entries]);
+  const macroTotals = useMemo(
+    () =>
+      entries.reduce(
+        (sum, e) => ({
+          protein: sum.protein + (e.proteinGrams ?? 0),
+          carbs: sum.carbs + (e.carbsGrams ?? 0),
+          fat: sum.fat + (e.fatGrams ?? 0),
+        }),
+        { protein: 0, carbs: 0, fat: 0 },
+      ),
+    [entries],
+  );
   const isFuture = date > todayKey();
 
   const startEdit = useCallback(
@@ -77,6 +89,9 @@ export default function LogScreen() {
           name: entry.foodName,
           category: 'Custom',
           caloriesPer100g: entry.caloriesPer100g,
+          proteinPer100g: entry.proteinGrams ?? null,
+          carbsPer100g: entry.carbsGrams ?? null,
+          fatPer100g: entry.fatGrams ?? null,
           servings: [
             {
               id: entry.servingId,
@@ -175,6 +190,10 @@ export default function LogScreen() {
         <Text style={styles.totalValue} testID="daily-total">
           {total.toLocaleString()} kcal
         </Text>
+        <Text style={styles.macroLine} testID="daily-macros">
+          P {Math.round(macroTotals.protein * 10) / 10} · C {Math.round(macroTotals.carbs * 10) / 10} · F{' '}
+          {Math.round(macroTotals.fat * 10) / 10} g
+        </Text>
         <Text style={styles.totalCount}>
           {entries.length} entr{entries.length === 1 ? 'y' : 'ies'} · {syncStatusLabel(status, pending)}
         </Text>
@@ -196,6 +215,9 @@ export default function LogScreen() {
               <Text style={styles.selectedName}>{selectedFood.name}</Text>
               <Text style={styles.selectedSub}>
                 {selectedFood.caloriesPer100g} kcal/100 g · {selectedFood.source === 'user' ? 'custom food' : 'catalog'}
+                {selectedFood.proteinPer100g != null && selectedFood.carbsPer100g != null && selectedFood.fatPer100g != null
+                  ? ` · P ${selectedFood.proteinPer100g} C ${selectedFood.carbsPer100g} F ${selectedFood.fatPer100g}`
+                  : ' · macros unavailable'}
               </Text>
             </View>
             <Button variant="ghost" label="Change" onPress={() => setSelectedFood(null)} />
@@ -249,6 +271,7 @@ const styles = StyleSheet.create({
   totalCard: { alignItems: 'center' },
   totalLabel: { fontSize: font.caption, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 1 },
   totalValue: { fontSize: 34, fontWeight: '800', color: colors.primaryDark },
+  macroLine: { fontSize: font.body, fontWeight: '600', color: colors.text },
   totalCount: { fontSize: font.caption, color: colors.textMuted },
   selectedHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   selectedInfo: { flex: 1 },

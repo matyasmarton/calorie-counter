@@ -23,6 +23,12 @@ export interface Food {
   category: string;
   /** Integer kilocalories per 100 g. */
   caloriesPer100g: number;
+  /** Grams of protein per 100 g; null for legacy rows without USDA macro data. */
+  proteinPer100g: number | null;
+  /** Grams of carbohydrate per 100 g; null for legacy rows without USDA macro data. */
+  carbsPer100g: number | null;
+  /** Grams of total fat per 100 g; null for legacy rows without USDA macro data. */
+  fatPer100g: number | null;
   servings: Serving[];
   source: 'catalog' | 'user';
   /** Owner auth id — set only for user rows; null for catalog rows. */
@@ -58,6 +64,12 @@ export interface DailyEntry {
   grams: number;
   /** Whole calories computed at write time. */
   calories: number;
+  /** Snapshot grams of protein at write time; null for legacy entries. */
+  proteinGrams: number | null;
+  /** Snapshot grams of carbohydrate at write time; null for legacy entries. */
+  carbsGrams: number | null;
+  /** Snapshot grams of total fat at write time; null for legacy entries. */
+  fatGrams: number | null;
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
@@ -80,13 +92,33 @@ export interface HealthMeasurement {
 export interface DailySummary {
   logDate: string;
   calories: number;
+  proteinGrams: number;
+  carbsGrams: number;
+  fatGrams: number;
   entryCount: number;
   /** Latest measurement with measuredAt <= logDate (null when none exists yet). */
   weightKg: number | null;
   heightCm: number | null;
 }
 
-export type SyncTable = 'foods' | 'daily_entries' | 'health_measurements';
+/** Explicit aggregation window for calorie/macro totals. */
+export type SummaryRange = 'day' | 'week' | 'month';
+
+/** Totals over an explicit range (day, ISO week, or calendar month). */
+export interface MacroSummary {
+  range: SummaryRange;
+  /** Inclusive start date key (YYYY-MM-DD, local). */
+  from: string;
+  /** Inclusive end date key (YYYY-MM-DD, local). */
+  to: string;
+  calories: number;
+  proteinGrams: number;
+  carbsGrams: number;
+  fatGrams: number;
+  entryCount: number;
+}
+
+export type SyncTable = 'foods' | 'daily_entries' | 'health_measurements' | 'saved_recipes';
 
 /** Queue row describing one local change awaiting push. */
 export interface SyncRecord {
@@ -109,4 +141,32 @@ export interface CatalogMetadata {
   foodCount: number;
   importedAt: string;
   notes: string;
+}
+
+/** A confirmed localized recipe/alias saved with explicit user consent. */
+export interface SavedRecipe {
+  id: string;
+  /** User's name, e.g. "Mom's hamburger" / "lecsó". */
+  name: string;
+  /** Ingredient list as confirmed by the user (amounts + serving labels). */
+  ingredients: Array<{
+    raw: string;
+    foodQuery: string | null;
+    amount: number | null;
+    servingLabel: string | null;
+  }>;
+  /** Resolved catalog food ids per ingredient (deterministic matching only). */
+  foodIds: string[];
+  /** Snapshot: calculated per-serving grams/calories/macros at save time. */
+  servingGrams: number;
+  calories: number;
+  proteinGrams: number | null;
+  carbsGrams: number | null;
+  fatGrams: number | null;
+  /** Aliases this recipe can be found under ("mom's burger", …). */
+  aliases: string[];
+  ownerId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
 }

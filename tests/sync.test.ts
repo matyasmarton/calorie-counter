@@ -37,6 +37,7 @@ interface RemoteTables {
   user_foods: RemoteRow[];
   daily_entries: RemoteRow[];
   health_measurements: RemoteRow[];
+  saved_recipes: RemoteRow[];
 }
 
 interface FakeClientOptions {
@@ -102,6 +103,7 @@ async function makeEnv(opts?: Partial<FakeClientOptions>) {
     user_foods: [],
     daily_entries: [],
     health_measurements: [],
+    saved_recipes: [],
   };
   const client = makeFakeClient({
     remote: remote as unknown as Record<string, RemoteRow[]>,
@@ -251,7 +253,7 @@ describe('SyncEngine', () => {
   it('syncs user foods and measurements as well as entries', async () => {
     const { repo, engine, remote } = await makeEnv();
     const food = await repo.createUserFood(
-      { name: 'Test Fuel', caloriesPer100g: 200, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] },
+      { name: 'Test Fuel', caloriesPer100g: 200, proteinPer100g: 10, carbsPer100g: 30, fatPer100g: 5, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] },
       'user-1',
     );
     const m = await repo.addHealthMeasurement({ measuredAt: '2026-08-17', weightKg: 70.5, heightCm: null });
@@ -260,5 +262,76 @@ describe('SyncEngine', () => {
     expect(remote.user_foods[0]!).toMatchObject({ id: food.id, name: 'Test Fuel' });
     expect(remote.health_measurements.length).toBe(1);
     expect(remote.health_measurements[0]!).toMatchObject({ id: m.id, weight_kg: 70.5 });
+  });
+
+  it('round-trips macros on foods and entries in both directions', async () => {
+    const { repo, engine, remote } = await makeEnv();
+    const food = await repo.createUserFood(
+      { name: 'Macro Fuel', caloriesPer100g: 220, proteinPer100g: 15.5, carbsPer100g: 30.2, fatPer100g: 4.8, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] },
+      'user-1',
+    );
+    const entry = await repo.addEntry({ logDate: '2026-08-17', foodId: food.id, servingId: 'g', amount: 100 });
+    expect(entry.proteinGrams).not.toBeNull();
+    await engine.sync();
+
+    // push: snake_case macro columns with the local values
+    expect(remote.user_foods[0]!).toMatchObject({
+      protein_per_100g: 15.5,
+      carbs_per_100g: 30.2,
+      fat_per_100g: 4.8,
+    });
+    expect(remote.daily_entries[0]!).toMatchObject({
+      protein_grams: entry.proteinGrams,
+      carbs_grams: entry.carbsGrams,
+      fat_grams: entry.fatGrams,
+    });
+
+    // pull: a remote edit with macros applies into the local camelCase shape
+    const remoteEntry = { ...remote.daily_entries[0]! };
+    remoteEntry.protein_grams = 99.9;
+    remoteEntry.updated_at = '2099-01-01T00:00:00.000Z';
+    remote.daily_entries[0] = remoteEntry;
+    await engine.sync();
+    const local = await repo.getDailyEntries('2026-08-17');
+    expect(local[0]!.proteinGrams).toBe(99.9);
+
+    // legacy rows without macro columns come back as null, never undefined
+    const legacyRemote = { ...remote.daily_entries[0]! };
+    delete legacyRemote.protein_grams;
+    delete legacyRemote.carbs_grams;
+    delete legacyRemote.fat_grams;
+    legacyRemote.updated_at = '2099-02-01T00:00:00.000Z';
+    remote.daily_entries[0] = legacyRemote;
+    await engine.sync();
+    const legacyLocal = await repo.getDailyEntries('2026-08-17');
+    expect(legacyLocal[0]!.proteinGrams).toBeNull();
+    expect(legacyLocal[0]!.carbsGrams).toBeNull();
+    expect(legacyLocal[0]!.fatGrams).toBeNull();
+  });
+
+  it('syncs saved recipes (consent-gated memory) in both directions', async () => {
+    const { repo, engine, remote } = await makeEnv();
+    const peppers = await repo.searchFoods('Pepper, bell, green', 1);
+    const recipe = await repo.saveRecipe({
+      name: 'lecsó',
+      ingredients: [{ raw: 'green peppers', foodQuery: 'Pepper, bell, green', amount: 3, servingLabel: 'piece' }],
+      foodIds: [peppers[0]!.id],
+      servingGrams: 250,
+      aliases: ['lecsó', 'hungarian pepper stew'],
+    });
+    await engine.sync();
+    expect(remote.saved_recipes.length).toBe(1);
+    expect(remote.saved_recipes[0]!).toMatchObject({
+      name: 'lecsó',
+      serving_grams: 250,
+      aliases: ['lecsó', 'hungarian pepper stew'],
+    });
+
+    // pull a remote recipe back into a fresh repo
+    const { repo: repo2, engine: engine2 } = await makeEnv();
+    await engine2.sync(); // pulls the recipe already on the fake remote
+    const found = await repo2.searchRecipes('pepper stew');
+    expect(found.map((r) => r.name)).toEqual(['lecsó']);
+    expect(found[0]!.foodIds).toEqual([peppers[0]!.id]);
   });
 });

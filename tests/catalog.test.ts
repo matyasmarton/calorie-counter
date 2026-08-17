@@ -36,6 +36,17 @@ describe('data/foods.json', () => {
     }
   });
 
+  it('every food has finite non-negative USDA macro values per 100 g', () => {
+    for (const f of bundle.foods) {
+      expect(Number.isFinite(f.proteinPer100g), `${f.name}: protein`).toBe(true);
+      expect(Number.isFinite(f.carbsPer100g), `${f.name}: carbs`).toBe(true);
+      expect(Number.isFinite(f.fatPer100g), `${f.name}: fat`).toBe(true);
+      expect(f.proteinPer100g!).toBeGreaterThanOrEqual(0);
+      expect(f.carbsPer100g!).toBeGreaterThanOrEqual(0);
+      expect(f.fatPer100g!).toBeGreaterThanOrEqual(0);
+    }
+  });
+
   it('every food carries the base serving set: g, oz, cup, tbsp, tsp', () => {
     for (const f of bundle.foods) {
       const labels = new Set(f.servings.map((s) => s.label));

@@ -93,6 +93,9 @@ interface FoodRow {
   name: string;
   category: string;
   caloriesPer100g: number;
+  proteinPer100g: number;
+  carbsPer100g: number;
+  fatPer100g: number;
   servings: Serving[];
   source: 'catalog';
   ownerId: null;
@@ -124,7 +127,21 @@ function main() {
   };
 
   const foodById = new Map(foodsCsv.map((r) => [r.fdc_id!, r]));
-  const energyByFood = new Map(energyCsv.map((r) => [r.fdc_id!, Number(r.amount!)]));
+  const nutrientsByFood = new Map<string, Map<string, string>>();
+  for (const r of energyCsv) {
+    let map = nutrientsByFood.get(r.fdc_id!);
+    if (!map) {
+      map = new Map();
+      nutrientsByFood.set(r.fdc_id!, map);
+    }
+    map.set(r.nutrient_id!, r.amount!);
+  }
+  const nutrientOf = (fdcId: string, nutrientId: string): number | null => {
+    const amount = nutrientsByFood.get(fdcId)?.get(nutrientId);
+    if (amount === undefined || amount === '') return null;
+    const v = Number(amount);
+    return Number.isFinite(v) ? v : null;
+  };
   const portionsByFood = new Map<string, typeof portionCsv>();
   for (const p of portionCsv) {
     const list = portionsByFood.get(p.fdc_id!) ?? [];
@@ -173,9 +190,31 @@ const KEEP_UNITS = new Set([    'cup', 'tablespoon', 'teaspoon', 'fl oz', 'slice
   for (const e of sel) {
     const fdc = foodById.get(e.fdcId!);
     if (!fdc) throw new Error(`missing food.csv row for ${e.name} (${e.fdcId})`);
-    const kcal = energyByFood.get(e.fdcId!);
-    if (kcal === undefined || !Number.isFinite(kcal) || kcal < 0) {
+    const kcal = nutrientOf(e.fdcId!, '1008') ?? nutrientOf(e.fdcId!, '2047') ?? nutrientOf(e.fdcId!, '208');
+    if (kcal === null || !Number.isFinite(kcal) || kcal < 0) {
       throw new Error(`missing/negative energy for ${e.name}`);
+    }
+    // USDA nutrient ids: 1003 protein, 1004 total lipid/fat, 1005 carbohydrate.
+    // A food missing any macro is a build error — never emit null/zero as a fallback.
+    const protein = nutrientOf(e.fdcId!, '1003');
+    const fat = nutrientOf(e.fdcId!, '1004');
+    let carbs = nutrientOf(e.fdcId!, '1005');
+    if (protein === null || !Number.isFinite(protein) || protein < 0) {
+      throw new Error(`missing/negative protein (nutrient 1003) for ${e.name} (${e.fdcId})`);
+    }
+    if (fat === null || !Number.isFinite(fat) || fat < 0) {
+      throw new Error(`missing/negative fat (nutrient 1004) for ${e.name} (${e.fdcId})`);
+    }
+    if (carbs === null || !Number.isFinite(carbs) || carbs < 0) {
+      // USDA "carbohydrate, by difference" can land a fraction of a gram below
+      // zero from rounding (e.g. lean pork: 100 − water − protein − fat − ash).
+      // Physical floor is 0; clamp only tiny by-difference artifacts, never
+      // fabricate data for a missing row.
+      if (carbs !== null && Number.isFinite(carbs) && carbs > -1) {
+        carbs = 0;
+      } else {
+        throw new Error(`missing/negative carbohydrate (nutrient 1005) for ${e.name} (${e.fdcId})`);
+      }
     }
     const base = fdc!.description ?? e.name;
 
@@ -242,6 +281,9 @@ const KEEP_UNITS = new Set([    'cup', 'tablespoon', 'teaspoon', 'fl oz', 'slice
       name: e.name,
       category: e.category,
       caloriesPer100g: Math.round(kcal),
+      proteinPer100g: Math.round(protein * 10) / 10,
+      carbsPer100g: Math.round(carbs * 10) / 10,
+      fatPer100g: Math.round(fat * 10) / 10,
       servings,
       source: 'catalog',
       ownerId: null,

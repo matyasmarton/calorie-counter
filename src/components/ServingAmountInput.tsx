@@ -3,6 +3,7 @@
  * before save (the plan's required "converted grams/calories before save").
  */
 import { calculateCalories, servingAmountToGrams } from '@/domain/calories';
+import { calculateMacros } from '@/domain/macros';
 import type { Food } from '@/domain/types';
 import { colors, font, spacing } from '@/theme';
 import React from 'react';
@@ -25,6 +26,10 @@ export function ServingAmountInput({
   const valid = Number.isFinite(amountNum) && amountNum > 0;
   const grams = valid ? servingAmountToGrams(serving, amountNum) : null;
   const calories = valid ? calculateCalories(food.caloriesPer100g, amountNum, serving.grams) : null;
+  const macros =
+    valid && food.proteinPer100g != null && food.carbsPer100g != null && food.fatPer100g != null
+      ? calculateMacros(food.proteinPer100g, food.carbsPer100g, food.fatPer100g, amountNum, serving.grams)
+      : null;
   const isApprox = serving.approx;
 
   return (
@@ -62,6 +67,15 @@ export function ServingAmountInput({
             {isApprox ? ' (approx)' : ''} ·{' '}
             <Text style={styles.previewStrong}>{calories} kcal</Text>
           </Text>
+          {macros ? (
+            <Text style={styles.previewText}>
+              P <Text style={styles.previewStrong}>{macros.proteinGrams} g</Text> · C{' '}
+              <Text style={styles.previewStrong}>{macros.carbsGrams} g</Text> · F{' '}
+              <Text style={styles.previewStrong}>{macros.fatGrams} g</Text>
+            </Text>
+          ) : (
+            <Text style={styles.previewMuted}>Macros unavailable</Text>
+          )}
         </View>
       ) : null}
     </View>
@@ -93,5 +107,6 @@ const styles = StyleSheet.create({
     padding: spacing.md,
   },
   previewText: { fontSize: font.body, color: colors.text },
+  previewMuted: { fontSize: font.caption, color: colors.textMuted, fontStyle: 'italic' },
   previewStrong: { fontWeight: '700', color: colors.primaryDark },
 });

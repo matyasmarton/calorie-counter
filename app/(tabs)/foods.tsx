@@ -43,6 +43,9 @@ export default function FoodsScreen() {
   const [editing, setEditing] = useState<UserFood | null>(null);
   const [name, setName] = useState('');
   const [kcal, setKcal] = useState('');
+  const [protein, setProtein] = useState('');
+  const [carbs, setCarbs] = useState('');
+  const [fat, setFat] = useState('');
   const [rows, setRows] = useState<ServingRow[]>(defaultRows);
   const [formError, setFormError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -67,6 +70,9 @@ export default function FoodsScreen() {
     setEditing(null);
     setName('');
     setKcal('');
+    setProtein('');
+    setCarbs('');
+    setFat('');
     setRows(defaultRows());
     setFormError(null);
   }, []);
@@ -75,6 +81,9 @@ export default function FoodsScreen() {
     setEditing(f);
     setName(f.name);
     setKcal(String(f.caloriesPer100g));
+    setProtein(f.proteinPer100g == null ? '' : String(f.proteinPer100g));
+    setCarbs(f.carbsPer100g == null ? '' : String(f.carbsPer100g));
+    setFat(f.fatPer100g == null ? '' : String(f.fatPer100g));
     setRows(f.servings.map((s) => ({ key: newKey(), label: s.label, grams: String(s.grams) })));
     setFormError(null);
   }, []);
@@ -83,12 +92,31 @@ export default function FoodsScreen() {
     const servings: Serving[] = rows
       .map((r) => ({ id: r.key, label: r.label.trim(), grams: Number(r.grams), approx: true }))
       .filter((s) => s.label !== '');
+    const parseMacro = (v: string): number | null => {
+      const n = Number(v);
+      return v.trim() === '' ? null : n;
+    };
     if (!name.trim()) {
       setFormError('Name is required');
       return;
     }
     if (!Number.isFinite(Number(kcal)) || Number(kcal) < 0) {
       setFormError('Calories per 100 g must be a non-negative number');
+      return;
+    }
+    const p = parseMacro(protein);
+    const c = parseMacro(carbs);
+    const f = parseMacro(fat);
+    if (p != null && (!Number.isFinite(p) || p < 0)) {
+      setFormError('Protein per 100 g must be a non-negative number');
+      return;
+    }
+    if (c != null && (!Number.isFinite(c) || c < 0)) {
+      setFormError('Carbohydrates per 100 g must be a non-negative number');
+      return;
+    }
+    if (f != null && (!Number.isFinite(f) || f < 0)) {
+      setFormError('Fat per 100 g must be a non-negative number');
       return;
     }
     if (servings.length === 0 || servings.some((s) => !Number.isFinite(s.grams) || s.grams <= 0)) {
@@ -98,10 +126,11 @@ export default function FoodsScreen() {
     setSaving(true);
     setFormError(null);
     try {
+      const input = { name, caloriesPer100g: Number(kcal), proteinPer100g: p, carbsPer100g: c, fatPer100g: f, servings };
       if (editing) {
-        await repo.updateUserFood(editing.id, { name, caloriesPer100g: Number(kcal), servings });
+        await repo.updateUserFood(editing.id, input);
       } else {
-        await repo.createUserFood({ name, caloriesPer100g: Number(kcal), servings });
+        await repo.createUserFood(input);
       }
       resetForm();
       await load();
@@ -110,7 +139,7 @@ export default function FoodsScreen() {
     } finally {
       setSaving(false);
     }
-  }, [repo, editing, name, kcal, rows, load, resetForm]);
+  }, [repo, editing, name, kcal, protein, carbs, fat, rows, load, resetForm]);
 
   const remove = useCallback(
     async (id: string) => {
@@ -138,6 +167,15 @@ export default function FoodsScreen() {
         </Field>
         <Field label="Calories per 100 g" hint="Use the value on the package or a trusted source.">
           <TextInput value={kcal} onChangeText={setKcal} keyboardType="decimal-pad" placeholder="e.g. 420" testID="food-kcal" />
+        </Field>
+        <Field label="Protein per 100 g (g)" hint="Optional for legacy foods; needed for macro totals.">
+          <TextInput value={protein} onChangeText={setProtein} keyboardType="decimal-pad" placeholder="e.g. 18" testID="food-protein" />
+        </Field>
+        <Field label="Carbs per 100 g (g)" hint="Optional for legacy foods; needed for macro totals.">
+          <TextInput value={carbs} onChangeText={setCarbs} keyboardType="decimal-pad" placeholder="e.g. 30" testID="food-carbs" />
+        </Field>
+        <Field label="Fat per 100 g (g)" hint="Optional for legacy foods; needed for macro totals.">
+          <TextInput value={fat} onChangeText={setFat} keyboardType="decimal-pad" placeholder="e.g. 8" testID="food-fat" />
         </Field>
         <Field label="Serving sizes" hint="Each serving stores grams — all calorie math uses the same formula.">
           <View style={styles.presets}>
@@ -183,6 +221,11 @@ export default function FoodsScreen() {
                 <Text style={styles.rowName}>{f.name}</Text>
                 <Text style={styles.rowMeta}>
                   {f.caloriesPer100g} kcal/100 g · {f.servings.length} serving{f.servings.length === 1 ? '' : 's'}
+                </Text>
+                <Text style={styles.rowMeta}>
+                  {f.proteinPer100g != null && f.carbsPer100g != null && f.fatPer100g != null
+                    ? `P ${f.proteinPer100g} · C ${f.carbsPer100g} · F ${f.fatPer100g} g/100 g`
+                    : 'Macros unavailable'}
                 </Text>
               </View>
               <Pressable accessibilityRole="button" accessibilityLabel={`Edit ${f.name}`} onPress={() => startEdit(f)} style={styles.rowAction}>

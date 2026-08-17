@@ -12,6 +12,7 @@
  *  - entries snapshot food/serving values at write time
  */
 import { calculateCalories, servingAmountToGrams } from '@/domain/calories';
+import { calculateMacros } from '@/domain/macros';
 import { isValidDateKey, todayKey } from '@/domain/dates';
 import type {
   CatalogMetadata,
@@ -19,11 +20,15 @@ import type {
   DailySummary,
   Food,
   HealthMeasurement,
+  MacroSummary,
+  SavedRecipe,
   Serving,
+  SummaryRange,
   SyncRecord,
   SyncTable,
   UserFood,
 } from '@/domain/types';
+import type { MealIngredient } from '@/local-ai/types';
 import { uuid } from '@/domain/uuid';
 import { CATALOG_VERSION_KEY, seedCatalog, type CatalogBundle } from './seedCatalog';
 import type { Row, StorageAdapter } from './storage';
@@ -53,6 +58,10 @@ export interface FoodInput {
   name: string;
   category?: string;
   caloriesPer100g: number;
+  /** Grams per 100 g; null keeps legacy behavior ("Macros unavailable"). */
+  proteinPer100g: number | null;
+  carbsPer100g: number | null;
+  fatPer100g: number | null;
   servings: Serving[];
 }
 
@@ -64,7 +73,7 @@ export interface MeasurementInput {
 
 export interface BackupPayload {
   app: 'calorie-counter';
-  version: 1;
+  version: 2;
   exportedAt: string;
   userFoods: UserFood[];
   entries: DailyEntry[];
@@ -93,6 +102,14 @@ function assertServing(s: Serving): void {
   }
   if (!Number.isFinite(s.grams) || s.grams <= 0) {
     throw new ValidationError(`Serving "${s.label}" grams must be a positive number`);
+  }
+}
+
+/** Nullable macros are valid (legacy rows); present values must be finite and non-negative. */
+function assertMacroNullable(value: number | null | undefined, label: string): void {
+  if (value == null) return;
+  if (!Number.isFinite(value) || value < 0) {
+    throw new ValidationError(`${label} must be a non-negative number`);
   }
 }
 
@@ -158,6 +175,9 @@ export class Repository {
     if (!Number.isFinite(input.caloriesPer100g) || input.caloriesPer100g < 0) {
       throw new ValidationError('Calories per 100 g must be a non-negative number');
     }
+    assertMacroNullable(input.proteinPer100g, 'Protein per 100 g');
+    assertMacroNullable(input.carbsPer100g, 'Carbohydrates per 100 g');
+    assertMacroNullable(input.fatPer100g, 'Fat per 100 g');
     if (!Array.isArray(input.servings) || input.servings.length === 0) {
       throw new ValidationError('At least one serving size is required');
     }
@@ -168,6 +188,9 @@ export class Repository {
       name,
       category: input.category?.trim() || 'Custom',
       caloriesPer100g: Math.round(input.caloriesPer100g),
+      proteinPer100g: input.proteinPer100g == null ? null : Math.round(input.proteinPer100g * 10) / 10,
+      carbsPer100g: input.carbsPer100g == null ? null : Math.round(input.carbsPer100g * 10) / 10,
+      fatPer100g: input.fatPer100g == null ? null : Math.round(input.fatPer100g * 10) / 10,
       servings: input.servings.map((s) => ({ ...s, label: s.label.trim() })),
       source: 'user',
       ownerId: ownerId ?? null,
@@ -188,6 +211,9 @@ export class Repository {
     if (!Number.isFinite(input.caloriesPer100g) || input.caloriesPer100g < 0) {
       throw new ValidationError('Calories per 100 g must be a non-negative number');
     }
+    assertMacroNullable(input.proteinPer100g, 'Protein per 100 g');
+    assertMacroNullable(input.carbsPer100g, 'Carbohydrates per 100 g');
+    assertMacroNullable(input.fatPer100g, 'Fat per 100 g');
     if (!Array.isArray(input.servings) || input.servings.length === 0) {
       throw new ValidationError('At least one serving size is required');
     }
@@ -198,6 +224,9 @@ export class Repository {
       name,
       category: input.category?.trim() || food.category,
       caloriesPer100g: Math.round(input.caloriesPer100g),
+      proteinPer100g: input.proteinPer100g == null ? null : Math.round(input.proteinPer100g * 10) / 10,
+      carbsPer100g: input.carbsPer100g == null ? null : Math.round(input.carbsPer100g * 10) / 10,
+      fatPer100g: input.fatPer100g == null ? null : Math.round(input.fatPer100g * 10) / 10,
       servings: input.servings.map((s) => ({ ...s, label: s.label.trim() })),
       updatedAt: new Date().toISOString(),
     };
@@ -247,6 +276,10 @@ export class Repository {
     }
     const grams = servingAmountToGrams(serving, input.amount);
     const calories = calculateCalories(food.caloriesPer100g, input.amount, serving.grams);
+    const macroSnap =
+      food.proteinPer100g != null && food.carbsPer100g != null && food.fatPer100g != null
+        ? calculateMacros(food.proteinPer100g, food.carbsPer100g, food.fatPer100g, input.amount, serving.grams)
+        : null;
     const now = new Date().toISOString();
     const entry: DailyEntry = {
       id: uuid(),
@@ -254,6 +287,9 @@ export class Repository {
       foodId: food.id,
       foodName: food.name,
       caloriesPer100g: food.caloriesPer100g,
+      proteinGrams: macroSnap?.proteinGrams ?? null,
+      carbsGrams: macroSnap?.carbsGrams ?? null,
+      fatGrams: macroSnap?.fatGrams ?? null,
       servingId: serving.id,
       servingLabel: serving.label,
       servingGrams: serving.grams,
@@ -285,6 +321,10 @@ export class Repository {
     }
     const grams = servingAmountToGrams(serving, amount);
     const calories = calculateCalories(food.caloriesPer100g, amount, serving.grams);
+    const macroSnap =
+      food.proteinPer100g != null && food.carbsPer100g != null && food.fatPer100g != null
+        ? calculateMacros(food.proteinPer100g, food.carbsPer100g, food.fatPer100g, amount, serving.grams)
+        : null;
     const updated: DailyEntry = {
       ...entry,
       servingId: serving.id,
@@ -293,6 +333,9 @@ export class Repository {
       amount,
       grams,
       calories,
+      proteinGrams: macroSnap?.proteinGrams ?? null,
+      carbsGrams: macroSnap?.carbsGrams ?? null,
+      fatGrams: macroSnap?.fatGrams ?? null,
       updatedAt: new Date().toISOString(),
     };
     await this.writeAndQueue('daily_entries', updated as unknown as Row);
@@ -386,8 +429,118 @@ export class Repository {
   }
 
   /* ------------------------------------------------------------------ */
-  /* summaries                                                           */
+  /* localized recipe memory (consent-gated)                            */
   /* ------------------------------------------------------------------ */
+
+  /**
+   * Search saved recipes by name/alias. Only recipes the user explicitly
+   * confirmed (via saveRecipeWithConsent) are ever stored.
+   */
+  async searchRecipes(query: string, limit = 10): Promise<SavedRecipe[]> {
+    const q = query.trim().toLowerCase();
+    const rows = (await this.db.query('saved_recipes', {
+      filter: (r) => {
+        const rec = r as unknown as SavedRecipe;
+        if (rec.deletedAt) return false;
+        if (q === '') return true;
+        return (
+          rec.name.toLowerCase().includes(q) ||
+          rec.aliases.some((a: string) => a.toLowerCase().includes(q))
+        );
+      },
+    })) as unknown as SavedRecipe[];
+    rows.sort((a, b) => a.name.localeCompare(b.name));
+    return rows.slice(0, limit);
+  }
+
+  /**
+   * Save a confirmed localized recipe. Deterministic ingredient→food
+   * resolution happens BEFORE this call; the caller passes the resolved
+   * food ids and the calculated snapshot. Never call this without an
+   * explicit `Save this recipe for future searches?` confirmation.
+   */
+  async saveRecipe(
+    input: {
+      name: string;
+      ingredients: MealIngredient[];
+      foodIds: string[];
+      servingGrams: number;
+      aliases?: string[];
+      ownerId?: string | null;
+    },
+  ): Promise<SavedRecipe> {
+    const name = input.name.trim();
+    if (!name) throw new ValidationError('Recipe name is required');
+    if (!Array.isArray(input.ingredients) || input.ingredients.length === 0) {
+      throw new ValidationError('A recipe needs at least one ingredient');
+    }
+    if (!Array.isArray(input.foodIds) || input.foodIds.length !== input.ingredients.length) {
+      throw new ValidationError('Every ingredient must resolve to one catalog food');
+    }
+    for (const id of input.foodIds) {
+      const food = await this.db.get('foods', id);
+      if (!food) throw new NotFoundError(`Food ${id} not found`);
+    }
+    if (!Number.isFinite(input.servingGrams) || input.servingGrams <= 0) {
+      throw new ValidationError('Recipe serving grams must be positive');
+    }
+    const now = new Date().toISOString();
+    const recipe: SavedRecipe = {
+      id: uuid(),
+      name,
+      ingredients: input.ingredients,
+      foodIds: input.foodIds,
+      servingGrams: Math.round(input.servingGrams * 10) / 10,
+      calories: 0,
+      proteinGrams: null,
+      carbsGrams: null,
+      fatGrams: null,
+      aliases: (input.aliases ?? []).map((a) => a.trim()).filter(Boolean),
+      ownerId: input.ownerId ?? null,
+      createdAt: now,
+      updatedAt: now,
+      deletedAt: null,
+    };
+    await this.writeAndQueue('saved_recipes', recipe as unknown as Row);
+    return recipe;
+  }
+
+  /** Tombstone a saved recipe (consent can be withdrawn). */
+  async deleteRecipe(id: string): Promise<void> {
+    const row = await this.db.get('saved_recipes', id);
+    if (!row) throw new NotFoundError(`Recipe ${id} not found`);
+    await this.tombstoneAndQueue('saved_recipes', id);
+  }
+
+
+  async getMacroSummary(range: SummaryRange, anchorDate: string): Promise<MacroSummary> {
+    assertDate(anchorDate, 'anchor date');
+    const { from, to } = rangeBounds(range, anchorDate);
+    const entries = (await this.db.query('daily_entries', {
+      index: 'logDate',
+      lower: from,
+      upper: to,
+      filter: (r) => !(r as unknown as DailyEntry).deletedAt,
+    })) as unknown as DailyEntry[];
+    const sum = { calories: 0, proteinGrams: 0, carbsGrams: 0, fatGrams: 0, entryCount: 0 };
+    for (const e of entries) {
+      sum.calories += e.calories;
+      sum.proteinGrams += e.proteinGrams ?? 0;
+      sum.carbsGrams += e.carbsGrams ?? 0;
+      sum.fatGrams += e.fatGrams ?? 0;
+      sum.entryCount += 1;
+    }
+    return {
+      range,
+      from,
+      to,
+      calories: sum.calories,
+      proteinGrams: roundMacroSum(sum.proteinGrams),
+      carbsGrams: roundMacroSum(sum.carbsGrams),
+      fatGrams: roundMacroSum(sum.fatGrams),
+      entryCount: sum.entryCount,
+    };
+  }
 
   /**
    * One DailySummary per date in [from, to] that has any data (food entries
@@ -413,10 +566,13 @@ export class Repository {
     })) as unknown as HealthMeasurement[];
     allMeasurements.sort((a, b) => (a.measuredAt < b.measuredAt ? -1 : 1)); // ascending
 
-    const byDate = new Map<string, { calories: number; entryCount: number }>();
+    const byDate = new Map<string, { calories: number; proteinGrams: number; carbsGrams: number; fatGrams: number; entryCount: number }>();
     for (const e of entries) {
-      const agg = byDate.get(e.logDate) ?? { calories: 0, entryCount: 0 };
+      const agg = byDate.get(e.logDate) ?? { calories: 0, proteinGrams: 0, carbsGrams: 0, fatGrams: 0, entryCount: 0 };
       agg.calories += e.calories;
+      agg.proteinGrams += e.proteinGrams ?? 0;
+      agg.carbsGrams += e.carbsGrams ?? 0;
+      agg.fatGrams += e.fatGrams ?? 0;
       agg.entryCount += 1;
       byDate.set(e.logDate, agg);
     }
@@ -432,6 +588,9 @@ export class Repository {
         out.push({
           logDate: d,
           calories: agg?.calories ?? 0,
+          proteinGrams: roundMacroSum(agg?.proteinGrams ?? 0),
+          carbsGrams: roundMacroSum(agg?.carbsGrams ?? 0),
+          fatGrams: roundMacroSum(agg?.fatGrams ?? 0),
           entryCount: agg?.entryCount ?? 0,
           weightKg: latest?.weightKg ?? null,
           heightCm: latest?.heightCm ?? null,
@@ -522,7 +681,7 @@ export class Repository {
       .filter((r) => !r.deletedAt) as unknown as HealthMeasurement[];
     return {
       app: 'calorie-counter',
-      version: 1,
+      version: 2,
       exportedAt: new Date().toISOString(),
       userFoods,
       entries,
@@ -540,7 +699,7 @@ export class Repository {
     payload: unknown,
     opts: { restore: boolean },
   ): Promise<{ userFoods: number; entries: number; measurements: number }> {
-    const data = payload as Partial<BackupPayload>;
+    const data = payload as { version?: unknown; app?: unknown; userFoods?: unknown[]; entries?: unknown[]; measurements?: unknown[] };
     if (
       !data ||
       typeof data !== 'object' ||
@@ -551,18 +710,40 @@ export class Repository {
     ) {
       throw new ValidationError('Not a valid calorie-counter backup');
     }
+    if (data.version !== 1 && data.version !== 2) {
+      throw new ValidationError(`Unsupported backup version ${String(data.version)}`);
+    }
     const foods = data.userFoods as unknown as Food[];
     const entries = data.entries as unknown as DailyEntry[];
     const measurements = data.measurements as unknown as HealthMeasurement[];
+    // version-1 backups have no macro columns; normalize to null (legacy)
+    if (data.version === 1) {
+      for (const f of foods) {
+        f.proteinPer100g = null;
+        f.carbsPer100g = null;
+        f.fatPer100g = null;
+      }
+      for (const e of entries) {
+        e.proteinGrams = null;
+        e.carbsGrams = null;
+        e.fatGrams = null;
+      }
+    }
     for (const f of foods) {
       if (typeof f.id !== 'string' || typeof f.updatedAt !== 'string' || f.source !== 'user') {
         throw new ValidationError('Backup contains an invalid user food');
       }
+      assertMacroNullable(f.proteinPer100g, 'Protein per 100 g');
+      assertMacroNullable(f.carbsPer100g, 'Carbohydrates per 100 g');
+      assertMacroNullable(f.fatPer100g, 'Fat per 100 g');
     }
     for (const e of entries) {
       if (typeof e.id !== 'string' || typeof e.updatedAt !== 'string' || typeof e.logDate !== 'string') {
         throw new ValidationError('Backup contains an invalid daily entry');
       }
+      assertMacroNullable(e.proteinGrams, 'Protein grams');
+      assertMacroNullable(e.carbsGrams, 'Carbohydrate grams');
+      assertMacroNullable(e.fatGrams, 'Fat grams');
     }
     for (const m of measurements) {
       if (typeof m.id !== 'string' || typeof m.updatedAt !== 'string' || typeof m.measuredAt !== 'string') {
@@ -642,4 +823,32 @@ function nextDateKey(key: string): string {
   const mm = String(dt.getMonth() + 1).padStart(2, '0');
   const dd = String(dt.getDate()).padStart(2, '0');
   return `${yy}-${mm}-${dd}`;
+}
+
+/** Local-calendar bounds for a day, ISO Monday–Sunday week, or calendar month. */
+function rangeBounds(range: SummaryRange, anchorDate: string): { from: string; to: string } {
+  const [y, m, d] = anchorDate.split('-').map(Number) as [number, number, number];
+  if (range === 'day') return { from: anchorDate, to: anchorDate };
+  if (range === 'week') {
+    // ISO week: Monday = 1 ... Sunday = 7. daysSinceMonday = (jsDay + 6) % 7.
+    const jsDay = new Date(y, m - 1, d).getDay();
+    const daysSinceMonday = (jsDay + 6) % 7;
+    const monday = new Date(y, m - 1, d - daysSinceMonday);
+    const sunday = new Date(y, m - 1, d - daysSinceMonday + 6);
+    return { from: keyOf(monday), to: keyOf(sunday) };
+  }
+  const lastDay = new Date(y, m, 0).getDate();
+  return { from: `${anchorDate.slice(0, 8)}01`, to: `${anchorDate.slice(0, 8)}${String(lastDay).padStart(2, '0')}` };
+}
+
+function keyOf(dt: Date): string {
+  const yy = dt.getFullYear();
+  const mm = String(dt.getMonth() + 1).padStart(2, '0');
+  const dd = String(dt.getDate()).padStart(2, '0');
+  return `${yy}-${mm}-${dd}`;
+}
+
+/** One-decimal rounding for aggregated macro gram totals. */
+function roundMacroSum(value: number): number {
+  return Math.round((value + Number.EPSILON) * 10) / 10;
 }
