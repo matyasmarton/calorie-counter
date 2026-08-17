@@ -1,0 +1,171 @@
+fdc_id,data_type,description,food_category_id,publication_date
+2512378,foundation_food,"Buckwheat, whole grain",20,2023-04-20
+747693,foundation_food,"Ketchup, restaurant",11,2019-12-16
+2346406,foundation_food,"Cucumber, with peel, raw",11,2022-10-28
+321360,foundation_food,"Tomatoes, grape, raw",11,2019-04-01
+331960,foundation_food,"Chicken, broiler or fryers, breast, skinless, boneless, meat only, cooked, braised",5,2019-04-01
+2263892,foundation_food,"Applesauce, unsweetened, with added vitamin C",9,2022-04-28
+2709458,survey_fndds_food,"Potato, french fries, from fresh, fried",6804,2022-10-28
+2705885,survey_fndds_food,"Bacon, NS as to type of meat, cooked",2604,2022-10-28
+2258588,foundation_food,"Peppers, bell, green, raw",11,2022-04-28
+325430,foundation_food,"Peaches, yellow, raw",9,2019-04-01
+331897,foundation_food,"Chicken, broilers or fryers, drumstick, meat only, cooked, braised",5,2019-04-01
+2262073,foundation_food,"Sesame butter, creamy",12,2022-04-28
+2646169,foundation_food,"Pork, loin, tenderloin, boneless, raw",10,2023-10-26
+2707425,survey_fndds_food,"Lentils, from dried, no added fat",2802,2022-10-28
+2727570,foundation_food,"Lamb, ground, raw",17,2025-04-24
+2515376,foundation_food,"Peanuts, raw",16,2023-04-20
+2263888,foundation_food,"Raspberries, raw",9,2022-04-28
+2515374,foundation_food,"Nuts, cashew nuts, raw",12,2023-04-20
+322559,foundation_food,"Milk, nonfat, fluid, with added vitamin A and vitamin D (fat free or skim)",1,2019-04-01
+325524,foundation_food,"Seeds, sunflower seed kernels, dry roasted, with salt added",12,2019-04-01
+2644291,foundation_food,"Peas, green, sweet, canned, sodium added, sugar added, drained and rinsed",11,2023-10-26
+2685568,foundation_food,"Squash, summer, green, zucchini, includes skin, raw",11,2024-04-18
+2706166,survey_fndds_food,"Hot dog, NFS",2606,2022-10-28
+2710212,survey_fndds_food,Ranch dressing,8012,2022-10-28
+2710828,foundation_food,"Farro, pearled, dry, raw",20,2024-10-31
+321359,foundation_food,"Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D",1,2019-04-01
+2512381,foundation_food,"Rice, white, long grain, unenriched, raw",20,2023-04-20
+326135,foundation_food,"Cheese, swiss",1,2019-04-01
+323121,foundation_food,"Frankfurter, beef, unheated",7,2019-04-01
+2646170,foundation_food,"Chicken, breast, boneless, skinless, raw",5,2023-10-26
+2262075,foundation_food,"Flaxseed, ground",12,2022-04-28
+2515380,foundation_food,"Seeds, pumpkin seeds (pepitas), raw",12,2023-04-20
+334247,foundation_food,"Sugars, granulated",19,2019-04-01
+2646168,foundation_food,"Pork, loin, boneless, raw",10,2023-10-26
+2707198,survey_fndds_food,"Egg omelet or scrambled egg, NS as to fat",2502,2022-10-28
+330458,foundation_food,"Oil, coconut",4,2019-04-01
+2707824,survey_fndds_food,"Tortilla, flour",4208,2022-10-28
+323505,foundation_food,"Kale, raw",11,2019-04-01
+2710820,foundation_food,"Bulgur, dry, raw",20,2024-10-31
+2263890,foundation_food,"Grapes, red, seedless, raw",9,2022-04-28
+2346385,foundation_food,"Cream cheese, full fat, block",1,2022-10-28
+330137,foundation_food,"Yogurt, Greek, plain, nonfat",1,2019-04-01
+2258586,foundation_food,"Carrots, mature, raw",11,2022-04-28
+2685573,foundation_food,"Cauliflower, raw",11,2024-04-18
+2512380,foundation_food,"Rice, brown, long grain, unenriched, raw",20,2023-04-20
+2346397,foundation_food,"Oats, whole grain, steel cut",20,2022-10-28
+332791,foundation_food,"Olives, green, Manzanilla, stuffed with pimiento",9,2019-04-01
+2512379,foundation_food,"Millet, whole grain",20,2023-04-20
+747997,foundation_food,"Eggs, Grade A, Large, egg white",1,2019-12-16
+2644288,foundation_food,"Chickpeas (garbanzo beans, bengal gram), canned, sodium added, drained and rinsed",16,2023-10-26
+325871,foundation_food,"Bread, white, commercially prepared",18,2019-04-01
+2706363,survey_fndds_food,"Shrimp, steamed or boiled",2404,2022-10-28
+2710826,foundation_food,"Corn, sweet, yellow and white kernels,  fresh, raw",11,2024-10-31
+329370,foundation_food,"Cheese, mozzarella, low moisture, part-skim",1,2019-04-01
+2710819,foundation_food,"Chia seeds, dry, raw",20,2024-10-31
+790991,foundation_food,"Bananas, ripe and slightly ripe, raw",9,2020-04-01
+324317,foundation_food,"Onion rings, breaded, par fried, frozen, prepared, heated in oven",11,2019-04-01
+2710375,survey_fndds_food,"Coffee, brewed",7302,2022-10-28
+2515379,foundation_food,"Nuts, pistachio nuts, raw",12,2023-04-20
+2709211,survey_fndds_food,"Prune, dried",6016,2022-10-28
+2710155,survey_fndds_food,"Butter, stick",8002,2022-10-28
+2684442,foundation_food,"Fish, tilapia, farm raised, raw",15,2024-04-18
+321358,foundation_food,"Hummus, commercial",16,2019-04-01
+335240,foundation_food,"Bread, whole-wheat, commercially prepared",18,2019-04-01
+2346400,foundation_food,"Beans, snap, green, raw",11,2022-10-28
+746775,foundation_food,"Salt, table, iodized",2,2019-12-16
+334194,foundation_food,"Fish, tuna, light, canned in water, drained solids",15,2019-04-01
+2710689,survey_fndds_food,"Wine, white",7504,2022-10-28
+327357,foundation_food,"Nectarines, raw",9,2019-04-01
+789890,foundation_food,"Flour, wheat, all-purpose, enriched, bleached",20,2020-04-01
+1104647,foundation_food,"Garlic, raw",11,2020-10-30
+2644292,foundation_food,"Beans, pinto, canned, sodium added, drained and rinsed",16,2023-10-26
+2257045,foundation_food,"Almond milk, unsweetened, plain, refrigerated",14,2022-04-28
+746773,foundation_food,"Pears, raw, bartlett",9,2019-12-16
+2710823,foundation_food,"Asparagus, green, raw",11,2024-10-31
+2707823,survey_fndds_food,"Tortilla, corn",4208,2022-10-28
+2346388,foundation_food,"Lettuce, iceberg, raw",11,2022-10-28
+2346384,foundation_food,"Cottage cheese, full fat, large or small curd",1,2022-10-28
+2710204,survey_fndds_food,"Mayonnaise, regular",8010,2022-10-28
+2710833,foundation_food,"Mango, Tommy Atkins, peeled, raw",9,2024-10-31
+2727574,foundation_food,"Beef, top sirloin steak, raw",13,2025-04-24
+324653,foundation_food,"Pickles, cucumber, dill or kosher dill",11,2019-04-01
+1750352,foundation_food,"Spinach, baby",11,2021-04-28
+2003591,foundation_food,"Orange juice, no pulp, not fortified, from concentrate, refrigerated",9,2021-10-28
+2257046,foundation_food,"Oat milk, unsweetened, plain, refrigerated",14,2022-04-28
+746771,foundation_food,"Oranges, raw, navels",9,2019-12-16
+2710186,survey_fndds_food,Olive oil,8012,2022-10-28
+332397,foundation_food,"Ham, sliced, pre-packaged, deli meat (96%fat free, water added)",7,2019-04-01
+2684441,foundation_food,"Fish, salmon, Atlantic, farm raised, raw",15,2024-04-18
+2710188,survey_fndds_food,Canola oil,8012,2022-10-28
+327198,foundation_food,"Melons, cantaloupe, raw",9,2019-04-01
+2705956,survey_fndds_food,"Chicken breast, baked, broiled, or roasted, skin not eaten, from raw",2202,2022-10-28
+2644283,foundation_food,"Lentils, dry",16,2023-10-26
+2709270,survey_fndds_food,"Watermelon, raw",6014,2022-10-28
+2346398,foundation_food,"Pineapple, raw",9,2022-10-28
+2685576,foundation_food,"Beets, raw",11,2024-04-18
+2710616,survey_fndds_food,Beer,7502,2022-10-28
+748967,foundation_food,"Eggs, Grade A, Large, egg whole",1,2019-12-16
+2707442,survey_fndds_food,Soy sauce,8404,2022-10-28
+2262072,foundation_food,"Peanut butter, creamy",16,2022-04-28
+2727575,foundation_food,"Pork, chop, center cut, raw",10,2025-04-24
+2708381,survey_fndds_food,"Oatmeal, regular or quick, made with water, no added fat",4802,2022-10-28
+2710822,foundation_food,"Arugula, baby, raw",11,2024-10-31
+2346394,foundation_food,"Nuts, walnuts, English, halves, raw",12,2022-10-28
+2708352,survey_fndds_food,"Noodles, cooked",4004,2022-10-28
+326905,foundation_food,"Figs, dried, uncooked",9,2019-04-01
+2346393,foundation_food,"Nuts, almonds, whole, raw",12,2022-10-28
+326698,foundation_food,"Mustard, prepared, yellow",2,2019-04-01
+2263891,foundation_food,"Grapes, green, seedless, raw",9,2022-04-28
+2346401,foundation_food,"Potatoes, russet, without skin, raw",11,2022-10-28
+2706286,survey_fndds_food,"Fish, salmon, baked or broiled",2402,2022-10-28
+2259793,foundation_food,"Yogurt, plain, whole milk",1,2022-04-28
+2708409,survey_fndds_food,"Rice, brown, cooked, NS as to fat",4002,2022-10-28
+2346407,foundation_food,"Cabbage, green, raw",11,2022-10-28
+2708403,survey_fndds_food,"Rice, white, cooked, NS as to fat",4002,2022-10-28
+2706105,survey_fndds_food,"Turkey, light meat, skin not eaten",2206,2022-10-28
+325658,foundation_food,"Sausage, Italian, pork, mild, cooked, pan-fried",7,2019-04-01
+2262074,foundation_food,"Almond butter, creamy",12,2022-04-28
+2708614,survey_fndds_food,"Pizza, cheese, from restaurant or fast food, NS as to type of crust",3602,2022-10-28
+2003590,foundation_food,"Apple juice, with added vitamin C, from concentrate, shelf stable",9,2021-10-28
+1105430,foundation_food,"Apples, red delicious, with skin, raw",9,2020-10-30
+325036,foundation_food,"Cheese, parmesan, grated",1,2019-04-01
+2346404,foundation_food,"Sweet potatoes, orange flesh, without skin, raw",11,2022-10-28
+2514747,foundation_food,"Turkey, ground, 93% lean/ 7% fat, raw",5,2023-04-20
+321900,foundation_food,"Broccoli, raw",11,2019-04-01
+2646171,foundation_food,"Chicken, thigh, boneless, skinless, raw",5,2023-10-26
+2708441,survey_fndds_food,"Couscous, plain, cooked",4004,2022-10-28
+2259792,foundation_food,"Buttermilk, low fat",1,2022-04-28
+2708357,survey_fndds_food,"Pasta, cooked",4004,2022-10-28
+2710688,survey_fndds_food,"Wine, red",7504,2022-10-28
+2685577,foundation_food,"Eggplant, raw",11,2024-04-18
+322228,foundation_food,"Milk, lowfat, fluid, 1% milkfat, with added vitamin A and vitamin D",1,2019-04-01
+328637,foundation_food,"Cheese, cheddar",1,2019-04-01
+2514743,foundation_food,"Beef, ground, 90% lean meat / 10% fat, raw",13,2023-04-20
+2346399,foundation_food,"Cherries, sweet, dark red, raw",9,2022-10-28
+2727573,foundation_food,"Beef, tenderloin steak, raw",13,2025-04-24
+2684444,foundation_food,"Fish, cod, Atlantic, wild caught, raw",15,2024-04-18
+2684443,foundation_food,"Crustaceans, shrimp, farm raised, raw",15,2024-04-18
+2685575,foundation_food,"Brussels sprouts, raw",11,2024-04-18
+2346405,foundation_food,"Celery, raw",11,2022-10-28
+2514744,foundation_food,"Beef, ground, 80% lean meat / 20% fat, raw",13,2023-04-20
+2258590,foundation_food,"Peppers, bell, red, raw",11,2022-04-28
+2685570,foundation_food,"Squash, winter, butternut, raw",11,2024-04-18
+2706241,survey_fndds_food,"Fish, cod, baked or broiled",2402,2022-10-28
+2259796,foundation_food,"Cheese, feta, whole milk, crumbled",1,2022-04-28
+327699,foundation_food,"Strawberries, raw",9,2019-04-01
+2710821,foundation_food,"Wild rice, dry, raw",20,2024-10-31
+2646172,foundation_food,"Beef, ribeye, steak, boneless, choice, raw",13,2023-10-26
+2707153,survey_fndds_food,"Egg, whole, cooked, NS as to cooking method",2502,2022-10-28
+2708400,survey_fndds_food,"Quinoa, no added fat",4004,2022-10-28
+2710824,foundation_food,"Avocado, Hass, peeled, raw",9,2024-10-31
+2644285,foundation_food,"Beans, black, canned, sodium added, drained and rinsed",16,2023-10-26
+2346395,foundation_food,"Nuts, pecans, halves, raw",12,2022-10-28
+327923,foundation_food,"Lettuce, cos or romaine, raw",11,2019-04-01
+2644289,foundation_food,"Beans, kidney, dark red, canned, sodium added, sugar added, drained and rinsed",16,2023-10-26
+324038,foundation_food,"Sauce, salsa, ready-to-serve",6,2019-04-01
+1750337,foundation_food,"Soy milk, unsweetened, plain, shelf stable",16,2021-04-28
+1750347,foundation_food,"Mushrooms, white button",11,2021-04-28
+2710386,survey_fndds_food,"Coffee, Latte",7302,2022-10-28
+327046,foundation_food,"Kiwifruit, green, raw",9,2019-04-01
+2710472,survey_fndds_food,"Coffee, Cappuccino",7302,2022-10-28
+2707396,survey_fndds_food,Refried beans,2802,2022-10-28
+2705630,survey_fndds_food,"Ice cream, vanilla",5802,2022-10-28
+2346387,foundation_food,"Cream, sour, full fat",1,2022-10-28
+790646,foundation_food,"Onions, yellow, raw",11,2020-04-01
+322892,foundation_food,"Milk, whole, 3.25% milkfat, with added vitamin D",1,2019-04-01
+2263889,foundation_food,"Blueberries, raw",9,2022-04-28
+2346386,foundation_food,"Cream, heavy",1,2022-10-28
+2684440,foundation_food,"Fish, salmon, sockeye, wild caught, raw",15,2024-04-18
+2346396,foundation_food,"Oats, whole grain, rolled, old fashioned",20,2022-10-28

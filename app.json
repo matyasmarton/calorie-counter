@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Calorie Counter",
+    "slug": "calorie-counter",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "caloriecounter",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.caloriecounter.app"
+    },
+    "android": {
+      "package": "com.caloriecounter.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#16a34a"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png",
+      "name": "Calorie Counter",
+      "shortName": "Calories",
+      "description": "Offline-capable personal calorie counter with account sync.",
+      "themeColor": "#16a34a",
+      "backgroundColor": "#f8fafc",
+      "icons": [
+        { "src": "./assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "./assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+      ]
+    },
+    "plugins": ["expo-router", "expo-sqlite"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

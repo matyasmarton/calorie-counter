@@ -1,0 +1,20 @@
+{
+  "catalog": "USDA FoodData Central",
+  "datasets": [
+    {
+      "name": "FoodData Central \u2014 Foundation Foods",
+      "release": "2025-04-24",
+      "url": "https://fdc.nal.usda.gov/download-datasets.html",
+      "license": "Public domain \u2014 U.S. Government work. No copyright; USDA requests citation."
+    },
+    {
+      "name": "FoodData Central \u2014 Survey Foods (FNDDS)",
+      "release": "2024-10-31",
+      "url": "https://fdc.nal.usda.gov/download-datasets.html",
+      "license": "Public domain \u2014 U.S. Government work. No copyright; USDA requests citation."
+    }
+  ],
+  "notes": "EU-origin national food-composition databases (EuroFIR FoodEXplorer and national FDCs) were not bundled because their redistribution licenses do not permit checked-in exports. The catalog therefore ships USDA FoodData Central rows (public domain) with per-row provenance; EU-oriented foods are included where USDA coverage exists and are labeled with their USDA source. No nutrient rows from different sources are merged under one ID.",
+  "selection": "data/raw/selection.json",
+  "generatedBy": "scripts/build-food-catalog.ts"
+}

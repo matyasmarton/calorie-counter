@@ -1,0 +1,1255 @@
+[
+  {
+    "fdcId": "1105430",
+    "source": "foundation",
+    "name": "Apple, red delicious, with skin, raw",
+    "category": "Fruits",
+    "pieceGrams": 182,
+    "approxCupGrams": 109
+  },
+  {
+    "fdcId": "2263892",
+    "source": "foundation",
+    "name": "Applesauce, unsweetened",
+    "category": "Fruits",
+    "approxCupGrams": 244
+  },
+  {
+    "fdcId": "790991",
+    "source": "foundation",
+    "name": "Banana, ripe, raw",
+    "category": "Fruits",
+    "pieceGrams": 118,
+    "approxCupGrams": 150
+  },
+  {
+    "fdcId": "2263889",
+    "source": "foundation",
+    "name": "Blueberries, raw",
+    "category": "Fruits",
+    "handfulGrams": 30,
+    "approxCupGrams": 148
+  },
+  {
+    "fdcId": "2263888",
+    "source": "foundation",
+    "name": "Raspberries, raw",
+    "category": "Fruits",
+    "handfulGrams": 30,
+    "approxCupGrams": 123
+  },
+  {
+    "fdcId": "327699",
+    "source": "foundation",
+    "name": "Strawberries, raw",
+    "category": "Fruits",
+    "handfulGrams": 30,
+    "approxCupGrams": 152
+  },
+  {
+    "fdcId": "2263890",
+    "source": "foundation",
+    "name": "Grapes, red, seedless, raw",
+    "category": "Fruits",
+    "handfulGrams": 40,
+    "approxCupGrams": 151
+  },
+  {
+    "fdcId": "2263891",
+    "source": "foundation",
+    "name": "Grapes, green, seedless, raw",
+    "category": "Fruits",
+    "handfulGrams": 40,
+    "approxCupGrams": 151
+  },
+  {
+    "fdcId": "2346399",
+    "source": "foundation",
+    "name": "Cherries, sweet, raw",
+    "category": "Fruits",
+    "approxCupGrams": 154
+  },
+  {
+    "fdcId": "325430",
+    "source": "foundation",
+    "name": "Peach, yellow, raw",
+    "category": "Fruits",
+    "pieceGrams": 150,
+    "approxCupGrams": 154
+  },
+  {
+    "fdcId": "746773",
+    "source": "foundation",
+    "name": "Pear, bartlett, raw",
+    "category": "Fruits",
+    "pieceGrams": 178,
+    "approxCupGrams": 140
+  },
+  {
+    "fdcId": "2346398",
+    "source": "foundation",
+    "name": "Pineapple, raw",
+    "category": "Fruits",
+    "approxCupGrams": 165
+  },
+  {
+    "fdcId": "2710833",
+    "source": "foundation",
+    "name": "Mango, Tommy Atkins, raw",
+    "category": "Fruits",
+    "pieceGrams": 200,
+    "approxCupGrams": 165
+  },
+  {
+    "fdcId": "327046",
+    "source": "foundation",
+    "name": "Kiwifruit, green, raw",
+    "category": "Fruits",
+    "pieceGrams": 69,
+    "approxCupGrams": 180
+  },
+  {
+    "fdcId": "327198",
+    "source": "foundation",
+    "name": "Melons, cantaloupe, raw",
+    "category": "Fruits",
+    "approxCupGrams": 160
+  },
+  {
+    "fdcId": "2710824",
+    "source": "foundation",
+    "name": "Avocado, Hass, raw",
+    "category": "Fruits",
+    "pieceGrams": 100,
+    "approxCupGrams": 146
+  },
+  {
+    "fdcId": "327357",
+    "source": "foundation",
+    "name": "Nectarine, raw",
+    "category": "Fruits",
+    "pieceGrams": 142
+  },
+  {
+    "fdcId": "326905",
+    "source": "foundation",
+    "name": "Figs, dried, uncooked",
+    "category": "Fruits",
+    "handfulGrams": 30,
+    "approxCupGrams": 149
+  },
+  {
+    "fdcId": "746771",
+    "source": "foundation",
+    "name": "Orange, navel, raw",
+    "category": "Fruits",
+    "pieceGrams": 131,
+    "approxCupGrams": 165
+  },
+  {
+    "fdcId": "2709270",
+    "source": "survey",
+    "name": "Watermelon, raw",
+    "category": "Fruits",
+    "match": "Watermelon, raw",
+    "approxCupGrams": 152
+  },
+  {
+    "fdcId": "2709211",
+    "source": "survey",
+    "name": "Prune, dried",
+    "category": "Fruits",
+    "match": "Prune, dried",
+    "pieceGrams": 9.5,
+    "approxCupGrams": 174
+  },
+  {
+    "fdcId": "321900",
+    "source": "foundation",
+    "name": "Broccoli, raw",
+    "category": "Vegetables"
+  },
+  {
+    "fdcId": "2685573",
+    "source": "foundation",
+    "name": "Cauliflower, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 107
+  },
+  {
+    "fdcId": "2258586",
+    "source": "foundation",
+    "name": "Carrot, mature, raw",
+    "category": "Vegetables",
+    "pieceGrams": 61,
+    "approxCupGrams": 128
+  },
+  {
+    "fdcId": "2346407",
+    "source": "foundation",
+    "name": "Cabbage, green, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 89
+  },
+  {
+    "fdcId": "323505",
+    "source": "foundation",
+    "name": "Kale, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 67
+  },
+  {
+    "fdcId": "1750352",
+    "source": "foundation",
+    "name": "Spinach, baby, raw",
+    "category": "Vegetables",
+    "handfulGrams": 30,
+    "approxCupGrams": 30
+  },
+  {
+    "fdcId": "327923",
+    "source": "foundation",
+    "name": "Lettuce, romaine, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 47
+  },
+  {
+    "fdcId": "2346388",
+    "source": "foundation",
+    "name": "Lettuce, iceberg, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 72
+  },
+  {
+    "fdcId": "2346405",
+    "source": "foundation",
+    "name": "Celery, raw",
+    "category": "Vegetables",
+    "pieceGrams": 40,
+    "approxCupGrams": 101
+  },
+  {
+    "fdcId": "2346406",
+    "source": "foundation",
+    "name": "Cucumber, with peel, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 104
+  },
+  {
+    "fdcId": "321360",
+    "source": "foundation",
+    "name": "Tomatoes, grape, raw",
+    "category": "Vegetables",
+    "pieceGrams": 17,
+    "approxCupGrams": 152
+  },
+  {
+    "fdcId": "2258590",
+    "source": "foundation",
+    "name": "Pepper, bell, red, raw",
+    "category": "Vegetables",
+    "pieceGrams": 119,
+    "approxCupGrams": 149
+  },
+  {
+    "fdcId": "2258588",
+    "source": "foundation",
+    "name": "Pepper, bell, green, raw",
+    "category": "Vegetables",
+    "pieceGrams": 119,
+    "approxCupGrams": 149
+  },
+  {
+    "fdcId": "790646",
+    "source": "foundation",
+    "name": "Onion, yellow, raw",
+    "category": "Vegetables",
+    "pieceGrams": 110,
+    "approxCupGrams": 160
+  },
+  {
+    "fdcId": "1104647",
+    "source": "foundation",
+    "name": "Garlic, raw",
+    "category": "Vegetables",
+    "pieceGrams": 3,
+    "approxCupGrams": 136
+  },
+  {
+    "fdcId": "1750347",
+    "source": "foundation",
+    "name": "Mushrooms, white button, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 96
+  },
+  {
+    "fdcId": "2710823",
+    "source": "foundation",
+    "name": "Asparagus, green, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 134
+  },
+  {
+    "fdcId": "2685576",
+    "source": "foundation",
+    "name": "Beets, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 136
+  },
+  {
+    "fdcId": "2685577",
+    "source": "foundation",
+    "name": "Eggplant, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 82
+  },
+  {
+    "fdcId": "2685568",
+    "source": "foundation",
+    "name": "Squash, summer, zucchini, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 124
+  },
+  {
+    "fdcId": "2685570",
+    "source": "foundation",
+    "name": "Squash, winter, butternut, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 140
+  },
+  {
+    "fdcId": "2346404",
+    "source": "foundation",
+    "name": "Sweet potato, orange flesh, raw",
+    "category": "Vegetables",
+    "pieceGrams": 130,
+    "approxCupGrams": 133
+  },
+  {
+    "fdcId": "2346401",
+    "source": "foundation",
+    "name": "Potato, russet, raw",
+    "category": "Vegetables",
+    "pieceGrams": 213,
+    "approxCupGrams": 156
+  },
+  {
+    "fdcId": "2710826",
+    "source": "foundation",
+    "name": "Corn, sweet, fresh, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 145
+  },
+  {
+    "fdcId": "2346400",
+    "source": "foundation",
+    "name": "Beans, snap, green, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 100
+  },
+  {
+    "fdcId": "2685575",
+    "source": "foundation",
+    "name": "Brussels sprouts, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 88
+  },
+  {
+    "fdcId": "2710822",
+    "source": "foundation",
+    "name": "Arugula, baby, raw",
+    "category": "Vegetables",
+    "approxCupGrams": 20
+  },
+  {
+    "fdcId": "324653",
+    "source": "foundation",
+    "name": "Pickles, cucumber, dill",
+    "category": "Vegetables",
+    "pieceGrams": 45,
+    "approxCupGrams": 63
+  },
+  {
+    "fdcId": "332791",
+    "source": "foundation",
+    "name": "Olives, green, stuffed with pimiento",
+    "category": "Vegetables",
+    "pieceGrams": 4,
+    "approxCupGrams": 130
+  },
+  {
+    "fdcId": "324317",
+    "source": "foundation",
+    "name": "Onion rings, breaded, heated in oven",
+    "category": "Vegetables",
+    "approxCupGrams": 110
+  },
+  {
+    "fdcId": "322892",
+    "source": "foundation",
+    "name": "Milk, whole, 3.25% milkfat",
+    "category": "Dairy & Eggs"
+  },
+  {
+    "fdcId": "321359",
+    "source": "foundation",
+    "name": "Milk, reduced fat, 2% milkfat",
+    "category": "Dairy & Eggs"
+  },
+  {
+    "fdcId": "322228",
+    "source": "foundation",
+    "name": "Milk, lowfat, 1% milkfat",
+    "category": "Dairy & Eggs"
+  },
+  {
+    "fdcId": "322559",
+    "source": "foundation",
+    "name": "Milk, nonfat (skim)",
+    "category": "Dairy & Eggs"
+  },
+  {
+    "fdcId": "2259792",
+    "source": "foundation",
+    "name": "Buttermilk, low fat",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 245
+  },
+  {
+    "fdcId": "2259793",
+    "source": "foundation",
+    "name": "Yogurt, plain, whole milk",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 245
+  },
+  {
+    "fdcId": "330137",
+    "source": "foundation",
+    "name": "Yogurt, Greek, plain, nonfat",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 245
+  },
+  {
+    "fdcId": "2346384",
+    "source": "foundation",
+    "name": "Cottage cheese, full fat",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 226
+  },
+  {
+    "fdcId": "328637",
+    "source": "foundation",
+    "name": "Cheese, cheddar",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 132
+  },
+  {
+    "fdcId": "329370",
+    "source": "foundation",
+    "name": "Cheese, mozzarella, part-skim",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 112
+  },
+  {
+    "fdcId": "325036",
+    "source": "foundation",
+    "name": "Cheese, parmesan, grated",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 100,
+    "pieceGrams": 5
+  },
+  {
+    "fdcId": "326135",
+    "source": "foundation",
+    "name": "Cheese, swiss",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 108
+  },
+  {
+    "fdcId": "2259796",
+    "source": "foundation",
+    "name": "Cheese, feta, crumbled",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 150
+  },
+  {
+    "fdcId": "2346386",
+    "source": "foundation",
+    "name": "Cream, heavy",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 240
+  },
+  {
+    "fdcId": "2346387",
+    "source": "foundation",
+    "name": "Sour cream, full fat",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 230,
+    "pieceGrams": 14
+  },
+  {
+    "fdcId": "2346385",
+    "source": "foundation",
+    "name": "Cream cheese, full fat",
+    "category": "Dairy & Eggs",
+    "approxCupGrams": 232,
+    "pieceGrams": 14
+  },
+  {
+    "fdcId": "2710155",
+    "source": "survey",
+    "name": "Butter, stick, salted",
+    "category": "Dairy & Eggs",
+    "match": "Butter, stick"
+  },
+  {
+    "fdcId": "748967",
+    "source": "foundation",
+    "name": "Egg, whole, Grade A large",
+    "category": "Dairy & Eggs"
+  },
+  {
+    "fdcId": "747997",
+    "source": "foundation",
+    "name": "Egg white, Grade A large",
+    "category": "Dairy & Eggs",
+    "pieceGrams": 33
+  },
+  {
+    "fdcId": "2646170",
+    "source": "foundation",
+    "name": "Chicken, breast, skinless, raw",
+    "category": "Meat & Poultry",
+    "pieceGrams": 118
+  },
+  {
+    "fdcId": "331960",
+    "source": "foundation",
+    "name": "Chicken, breast, meat only, cooked, braised",
+    "category": "Meat & Poultry",
+    "pieceGrams": 118
+  },
+  {
+    "fdcId": "331897",
+    "source": "foundation",
+    "name": "Chicken, drumstick, meat only, cooked, braised",
+    "category": "Meat & Poultry",
+    "pieceGrams": 52
+  },
+  {
+    "fdcId": "2646171",
+    "source": "foundation",
+    "name": "Chicken, thigh, skinless, raw",
+    "category": "Meat & Poultry",
+    "pieceGrams": 130
+  },
+  {
+    "fdcId": "2514747",
+    "source": "foundation",
+    "name": "Turkey, ground, 93% lean, raw",
+    "category": "Meat & Poultry",
+    "approxCupGrams": 125
+  },
+  {
+    "fdcId": "2514744",
+    "source": "foundation",
+    "name": "Beef, ground, 80% lean / 20% fat, raw",
+    "category": "Meat & Poultry",
+    "approxCupGrams": 125
+  },
+  {
+    "fdcId": "2514743",
+    "source": "foundation",
+    "name": "Beef, ground, 90% lean / 10% fat, raw",
+    "category": "Meat & Poultry",
+    "approxCupGrams": 125
+  },
+  {
+    "fdcId": "2646172",
+    "source": "foundation",
+    "name": "Beef, ribeye steak, boneless, raw",
+    "category": "Meat & Poultry"
+  },
+  {
+    "fdcId": "2727573",
+    "source": "foundation",
+    "name": "Beef, tenderloin steak, raw",
+    "category": "Meat & Poultry"
+  },
+  {
+    "fdcId": "2727574",
+    "source": "foundation",
+    "name": "Beef, top sirloin steak, raw",
+    "category": "Meat & Poultry"
+  },
+  {
+    "fdcId": "2727575",
+    "source": "foundation",
+    "name": "Pork, chop, center cut, raw",
+    "category": "Meat & Poultry",
+    "pieceGrams": 145
+  },
+  {
+    "fdcId": "2646168",
+    "source": "foundation",
+    "name": "Pork, loin, boneless, raw",
+    "category": "Meat & Poultry"
+  },
+  {
+    "fdcId": "2646169",
+    "source": "foundation",
+    "name": "Pork, loin, tenderloin, boneless, raw",
+    "category": "Meat & Poultry"
+  },
+  {
+    "fdcId": "332397",
+    "source": "foundation",
+    "name": "Ham, sliced, pre-packaged, deli",
+    "category": "Meat & Poultry",
+    "pieceGrams": 28
+  },
+  {
+    "fdcId": "323121",
+    "source": "foundation",
+    "name": "Frankfurter, beef",
+    "category": "Meat & Poultry",
+    "pieceGrams": 57
+  },
+  {
+    "fdcId": "325658",
+    "source": "foundation",
+    "name": "Sausage, Italian, pork, cooked",
+    "category": "Meat & Poultry",
+    "pieceGrams": 78
+  },
+  {
+    "fdcId": "2727570",
+    "source": "foundation",
+    "name": "Lamb, ground, raw",
+    "category": "Meat & Poultry"
+  },
+  {
+    "fdcId": "2705885",
+    "source": "survey",
+    "name": "Bacon, cooked",
+    "category": "Meat & Poultry",
+    "match": "Bacon, NS as to type of meat, cooked",
+    "pieceGrams": 8
+  },
+  {
+    "fdcId": "2706166",
+    "source": "survey",
+    "name": "Hot dog, NFS",
+    "category": "Meat & Poultry",
+    "match": "Hot dog, NFS",
+    "pieceGrams": 57
+  },
+  {
+    "fdcId": "2707198",
+    "source": "survey",
+    "name": "Egg, omelet or scrambled, NS as to fat",
+    "category": "Dairy & Eggs",
+    "match": "Egg omelet or scrambled egg, NS as to fat",
+    "pieceGrams": 61
+  },
+  {
+    "fdcId": "2707153",
+    "source": "survey",
+    "name": "Egg, whole, cooked, NS as to method",
+    "category": "Dairy & Eggs",
+    "match": "Egg, whole, cooked, NS as to cooking method",
+    "pieceGrams": 61
+  },
+  {
+    "fdcId": "2705956",
+    "source": "survey",
+    "name": "Chicken, breast, baked, skin not eaten",
+    "category": "Meat & Poultry",
+    "match": "Chicken breast, baked, broiled, or roasted, skin not eaten, from raw",
+    "pieceGrams": 118
+  },
+  {
+    "fdcId": "2706105",
+    "source": "survey",
+    "name": "Turkey, light meat, skin not eaten",
+    "category": "Meat & Poultry",
+    "match": "Turkey, light meat, skin not eaten"
+  },
+  {
+    "fdcId": "2684440",
+    "source": "foundation",
+    "name": "Salmon, sockeye, wild caught, raw",
+    "category": "Fish & Seafood"
+  },
+  {
+    "fdcId": "2684441",
+    "source": "foundation",
+    "name": "Salmon, Atlantic, farm raised, raw",
+    "category": "Fish & Seafood"
+  },
+  {
+    "fdcId": "2684444",
+    "source": "foundation",
+    "name": "Cod, Atlantic, wild caught, raw",
+    "category": "Fish & Seafood"
+  },
+  {
+    "fdcId": "2684442",
+    "source": "foundation",
+    "name": "Tilapia, farm raised, raw",
+    "category": "Fish & Seafood"
+  },
+  {
+    "fdcId": "2684443",
+    "source": "foundation",
+    "name": "Shrimp, farm raised, raw",
+    "category": "Fish & Seafood",
+    "approxCupGrams": 145
+  },
+  {
+    "fdcId": "334194",
+    "source": "foundation",
+    "name": "Tuna, light, canned in water, drained",
+    "category": "Fish & Seafood",
+    "approxCupGrams": 135
+  },
+  {
+    "fdcId": "2706286",
+    "source": "survey",
+    "name": "Salmon, baked or broiled",
+    "category": "Fish & Seafood",
+    "match": "Fish, salmon, baked or broiled"
+  },
+  {
+    "fdcId": "2706241",
+    "source": "survey",
+    "name": "Cod, baked or broiled",
+    "category": "Fish & Seafood",
+    "match": "Fish, cod, baked or broiled"
+  },
+  {
+    "fdcId": "2706363",
+    "source": "survey",
+    "name": "Shrimp, steamed or boiled",
+    "category": "Fish & Seafood",
+    "match": "Shrimp, steamed or boiled"
+  },
+  {
+    "fdcId": "2644285",
+    "source": "foundation",
+    "name": "Black beans, canned, drained",
+    "category": "Legumes & Beans",
+    "approxCupGrams": 180
+  },
+  {
+    "fdcId": "2644292",
+    "source": "foundation",
+    "name": "Pinto beans, canned, drained",
+    "category": "Legumes & Beans",
+    "approxCupGrams": 180
+  },
+  {
+    "fdcId": "2644289",
+    "source": "foundation",
+    "name": "Kidney beans, dark red, canned, drained",
+    "category": "Legumes & Beans",
+    "approxCupGrams": 177
+  },
+  {
+    "fdcId": "2644288",
+    "source": "foundation",
+    "name": "Chickpeas, canned, drained",
+    "category": "Legumes & Beans",
+    "approxCupGrams": 164
+  },
+  {
+    "fdcId": "2644283",
+    "source": "foundation",
+    "name": "Lentils, dry",
+    "category": "Legumes & Beans",
+    "approxCupGrams": 192
+  },
+  {
+    "fdcId": "2644291",
+    "source": "foundation",
+    "name": "Peas, green, canned, drained",
+    "category": "Legumes & Beans",
+    "approxCupGrams": 170
+  },
+  {
+    "fdcId": "321358",
+    "source": "foundation",
+    "name": "Hummus, commercial",
+    "category": "Legumes & Beans",
+    "approxCupGrams": 246,
+    "pieceGrams": 15
+  },
+  {
+    "fdcId": "2707425",
+    "source": "survey",
+    "name": "Lentils, cooked, from dried",
+    "category": "Legumes & Beans",
+    "match": "Lentils, from dried, no added fat",
+    "approxCupGrams": 198
+  },
+  {
+    "fdcId": "2707396",
+    "source": "survey",
+    "name": "Refried beans",
+    "category": "Legumes & Beans",
+    "match": "Refried beans",
+    "approxCupGrams": 238
+  },
+  {
+    "fdcId": "2512381",
+    "source": "foundation",
+    "name": "Rice, white, long grain, raw",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 185
+  },
+  {
+    "fdcId": "2512380",
+    "source": "foundation",
+    "name": "Rice, brown, long grain, raw",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 180
+  },
+  {
+    "fdcId": "2346396",
+    "source": "foundation",
+    "name": "Oats, rolled, old fashioned",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 81
+  },
+  {
+    "fdcId": "2346397",
+    "source": "foundation",
+    "name": "Oats, steel cut",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 80
+  },
+  {
+    "fdcId": "2512378",
+    "source": "foundation",
+    "name": "Buckwheat, whole grain",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 168
+  },
+  {
+    "fdcId": "2512379",
+    "source": "foundation",
+    "name": "Millet, whole grain",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 200
+  },
+  {
+    "fdcId": "2710821",
+    "source": "foundation",
+    "name": "Wild rice, dry",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 160
+  },
+  {
+    "fdcId": "2710820",
+    "source": "foundation",
+    "name": "Bulgur, dry",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 152
+  },
+  {
+    "fdcId": "2710828",
+    "source": "foundation",
+    "name": "Farro, pearled, dry",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 200
+  },
+  {
+    "fdcId": "789890",
+    "source": "foundation",
+    "name": "Flour, wheat, all-purpose",
+    "category": "Grains & Cereals",
+    "approxCupGrams": 125
+  },
+  {
+    "fdcId": "2708403",
+    "source": "survey",
+    "name": "Rice, white, cooked",
+    "category": "Grains & Cereals",
+    "match": "Rice, white, cooked, NS as to fat",
+    "approxCupGrams": 158
+  },
+  {
+    "fdcId": "2708409",
+    "source": "survey",
+    "name": "Rice, brown, cooked",
+    "category": "Grains & Cereals",
+    "match": "Rice, brown, cooked, NS as to fat",
+    "approxCupGrams": 195
+  },
+  {
+    "fdcId": "2708357",
+    "source": "survey",
+    "name": "Pasta, cooked",
+    "category": "Grains & Cereals",
+    "match": "Pasta, cooked",
+    "approxCupGrams": 140
+  },
+  {
+    "fdcId": "2708352",
+    "source": "survey",
+    "name": "Noodles, cooked",
+    "category": "Grains & Cereals",
+    "match": "Noodles, cooked",
+    "approxCupGrams": 160
+  },
+  {
+    "fdcId": "2708381",
+    "source": "survey",
+    "name": "Oatmeal, cooked, made with water",
+    "category": "Grains & Cereals",
+    "match": "Oatmeal, regular or quick, made with water, no added fat",
+    "approxCupGrams": 234
+  },
+  {
+    "fdcId": "2708400",
+    "source": "survey",
+    "name": "Quinoa, cooked",
+    "category": "Grains & Cereals",
+    "match": "Quinoa, no added fat",
+    "approxCupGrams": 185
+  },
+  {
+    "fdcId": "2708441",
+    "source": "survey",
+    "name": "Couscous, cooked",
+    "category": "Grains & Cereals",
+    "match": "Couscous, plain, cooked",
+    "approxCupGrams": 157
+  },
+  {
+    "fdcId": "325871",
+    "source": "foundation",
+    "name": "Bread, white, commercially prepared",
+    "category": "Breads & Tortillas"
+  },
+  {
+    "fdcId": "335240",
+    "source": "foundation",
+    "name": "Bread, whole-wheat, commercially prepared",
+    "category": "Breads & Tortillas"
+  },
+  {
+    "fdcId": "2707824",
+    "source": "survey",
+    "name": "Tortilla, flour",
+    "category": "Breads & Tortillas",
+    "match": "Tortilla, flour",
+    "pieceGrams": 49
+  },
+  {
+    "fdcId": "2707823",
+    "source": "survey",
+    "name": "Tortilla, corn",
+    "category": "Breads & Tortillas",
+    "match": "Tortilla, corn",
+    "pieceGrams": 26
+  },
+  {
+    "fdcId": "2346393",
+    "source": "foundation",
+    "name": "Almonds, whole, raw",
+    "category": "Nuts & Seeds",
+    "handfulGrams": 30,
+    "approxCupGrams": 143
+  },
+  {
+    "fdcId": "2346394",
+    "source": "foundation",
+    "name": "Walnuts, English, halves, raw",
+    "category": "Nuts & Seeds",
+    "handfulGrams": 30,
+    "approxCupGrams": 117
+  },
+  {
+    "fdcId": "2346395",
+    "source": "foundation",
+    "name": "Pecans, halves, raw",
+    "category": "Nuts & Seeds",
+    "handfulGrams": 30,
+    "approxCupGrams": 109
+  },
+  {
+    "fdcId": "2515374",
+    "source": "foundation",
+    "name": "Cashews, raw",
+    "category": "Nuts & Seeds",
+    "handfulGrams": 30,
+    "approxCupGrams": 130
+  },
+  {
+    "fdcId": "2515379",
+    "source": "foundation",
+    "name": "Pistachios, raw",
+    "category": "Nuts & Seeds",
+    "handfulGrams": 30,
+    "approxCupGrams": 123
+  },
+  {
+    "fdcId": "2515376",
+    "source": "foundation",
+    "name": "Peanuts, raw",
+    "category": "Nuts & Seeds",
+    "handfulGrams": 30,
+    "approxCupGrams": 146
+  },
+  {
+    "fdcId": "2710819",
+    "source": "foundation",
+    "name": "Chia seeds, dry",
+    "category": "Nuts & Seeds",
+    "approxCupGrams": 172,
+    "pieceGrams": 12
+  },
+  {
+    "fdcId": "2262075",
+    "source": "foundation",
+    "name": "Flaxseed, ground",
+    "category": "Nuts & Seeds",
+    "approxCupGrams": 112,
+    "pieceGrams": 7
+  },
+  {
+    "fdcId": "2515380",
+    "source": "foundation",
+    "name": "Pumpkin seeds, pepitas, raw",
+    "category": "Nuts & Seeds",
+    "handfulGrams": 30,
+    "approxCupGrams": 129
+  },
+  {
+    "fdcId": "325524",
+    "source": "foundation",
+    "name": "Sunflower seed kernels, dry roasted",
+    "category": "Nuts & Seeds",
+    "handfulGrams": 30,
+    "approxCupGrams": 140
+  },
+  {
+    "fdcId": "2262072",
+    "source": "foundation",
+    "name": "Peanut butter, creamy",
+    "category": "Spreads & Sauces",
+    "approxCupGrams": 258,
+    "pieceGrams": 16
+  },
+  {
+    "fdcId": "2262074",
+    "source": "foundation",
+    "name": "Almond butter, creamy",
+    "category": "Spreads & Sauces",
+    "approxCupGrams": 258,
+    "pieceGrams": 16
+  },
+  {
+    "fdcId": "2262073",
+    "source": "foundation",
+    "name": "Tahini (sesame butter), creamy",
+    "category": "Spreads & Sauces",
+    "approxCupGrams": 240,
+    "pieceGrams": 15
+  },
+  {
+    "fdcId": "324038",
+    "source": "foundation",
+    "name": "Salsa, ready-to-serve",
+    "category": "Spreads & Sauces",
+    "approxCupGrams": 245,
+    "pieceGrams": 15
+  },
+  {
+    "fdcId": "747693",
+    "source": "foundation",
+    "name": "Ketchup",
+    "category": "Spreads & Sauces",
+    "approxCupGrams": 240,
+    "pieceGrams": 17
+  },
+  {
+    "fdcId": "326698",
+    "source": "foundation",
+    "name": "Mustard, prepared, yellow",
+    "category": "Spreads & Sauces",
+    "approxCupGrams": 240,
+    "pieceGrams": 15
+  },
+  {
+    "fdcId": "2707442",
+    "source": "survey",
+    "name": "Soy sauce",
+    "category": "Spreads & Sauces",
+    "match": "Soy sauce",
+    "pieceGrams": 16
+  },
+  {
+    "fdcId": "2710204",
+    "source": "survey",
+    "name": "Mayonnaise, regular",
+    "category": "Spreads & Sauces",
+    "match": "Mayonnaise, regular",
+    "pieceGrams": 14
+  },
+  {
+    "fdcId": "2710212",
+    "source": "survey",
+    "name": "Ranch dressing, regular",
+    "category": "Spreads & Sauces",
+    "match": "Ranch dressing",
+    "pieceGrams": 15
+  },
+  {
+    "fdcId": "2710186",
+    "source": "survey",
+    "name": "Oil, olive, extra virgin",
+    "category": "Oils & Fats",
+    "match": "Olive oil"
+  },
+  {
+    "fdcId": "2710188",
+    "source": "survey",
+    "name": "Oil, canola",
+    "category": "Oils & Fats",
+    "match": "Canola oil"
+  },
+  {
+    "fdcId": "330458",
+    "source": "foundation",
+    "name": "Oil, coconut",
+    "category": "Oils & Fats",
+    "pieceGrams": 13.6
+  },
+  {
+    "fdcId": "334247",
+    "source": "foundation",
+    "name": "Sugar, granulated",
+    "category": "Sweets & Snacks",
+    "approxCupGrams": 200,
+    "pieceGrams": 4.2
+  },
+  {
+    "fdcId": "2705630",
+    "source": "survey",
+    "name": "Ice cream, vanilla",
+    "category": "Sweets & Snacks",
+    "match": "Ice cream, vanilla",
+    "approxCupGrams": 132
+  },
+  {
+    "fdcId": "2708614",
+    "source": "survey",
+    "name": "Pizza, cheese, from restaurant",
+    "category": "Sweets & Snacks",
+    "match": "Pizza, cheese, from restaurant or fast food, NS as to type of crust",
+    "pieceGrams": 107
+  },
+  {
+    "fdcId": "2709458",
+    "source": "survey",
+    "name": "French fries, from fresh, fried",
+    "category": "Sweets & Snacks",
+    "match": "Potato, french fries, from fresh, fried"
+  },
+  {
+    "fdcId": "2257045",
+    "source": "foundation",
+    "name": "Almond milk, unsweetened",
+    "category": "Beverages",
+    "approxCupGrams": 240
+  },
+  {
+    "fdcId": "1750337",
+    "source": "foundation",
+    "name": "Soy milk, unsweetened",
+    "category": "Beverages",
+    "approxCupGrams": 243
+  },
+  {
+    "fdcId": "2257046",
+    "source": "foundation",
+    "name": "Oat milk, unsweetened",
+    "category": "Beverages",
+    "approxCupGrams": 240
+  },
+  {
+    "fdcId": "2003590",
+    "source": "foundation",
+    "name": "Apple juice, from concentrate",
+    "category": "Beverages",
+    "approxCupGrams": 248,
+    "pieceGrams": 31
+  },
+  {
+    "fdcId": "2003591",
+    "source": "foundation",
+    "name": "Orange juice, from concentrate",
+    "category": "Beverages",
+    "approxCupGrams": 248,
+    "pieceGrams": 31
+  },
+  {
+    "fdcId": "2710688",
+    "source": "survey",
+    "name": "Wine, red",
+    "category": "Beverages",
+    "match": "Wine, red",
+    "approxCupGrams": 240,
+    "pieceGrams": 30
+  },
+  {
+    "fdcId": "2710689",
+    "source": "survey",
+    "name": "Wine, white",
+    "category": "Beverages",
+    "match": "Wine, white",
+    "approxCupGrams": 240,
+    "pieceGrams": 30
+  },
+  {
+    "fdcId": "2710616",
+    "source": "survey",
+    "name": "Beer",
+    "category": "Beverages",
+    "match": "Beer",
+    "approxCupGrams": 240,
+    "pieceGrams": 29.6
+  },
+  {
+    "fdcId": "2710375",
+    "source": "survey",
+    "name": "Coffee, brewed",
+    "category": "Beverages",
+    "match": "Coffee, brewed",
+    "approxCupGrams": 240
+  },
+  {
+    "fdcId": "2710472",
+    "source": "survey",
+    "name": "Cappuccino",
+    "category": "Beverages",
+    "match": "Coffee, Cappuccino",
+    "approxCupGrams": 180
+  },
+  {
+    "fdcId": "2710386",
+    "source": "survey",
+    "name": "Latte",
+    "category": "Beverages",
+    "match": "Coffee, Latte",
+    "approxCupGrams": 240
+  },
+  {
+    "fdcId": "746775",
+    "source": "foundation",
+    "name": "Salt, table, iodized",
+    "category": "Other"
+  }
+]
