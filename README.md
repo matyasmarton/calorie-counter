@@ -11,7 +11,7 @@ Offline-capable personal calorie counter with account sync. Built with Expo (Rea
 - JSON backup export/import (merge by UUID or explicit restore)
 - Consent-gated localized recipe memory — save dishes like "lecsó" or "Mom's hamburger" for future searches
 - Clickable macOS launcher: `npm run desktop:install` installs a "Calorie Counter" icon in `~/Applications` that starts or reuses the Expo web server (port 8081) and opens the app in the default browser
-- Local AI, fully on-device with no API keys: Cactus Needle 2 (45M grammar-constrained parser) plus an optional Bonsai Qwen3-4B planner via MLX. Quick add parses free-text meals, drives targeted follow-ups for localized dishes (lecsó, menemen, bibimbap), and — with explicit consent — saves dishes as custom foods with deterministic macros and recipe memory. The app works fully without any model.
+- Local AI, fully on-device with no API keys: Bonsai Qwen3-4B (via MLX) extracts meal ingredients into a strict schema, with Cactus Needle 2 (45M, grammar-constrained) as the tiny fallback parser. Quick add parses free-text meals, drives targeted follow-ups for localized dishes (lecsó, menemen, bibimbap), and — with explicit consent — saves dishes as custom foods with deterministic macros and recipe memory. The app works fully without any model.
 
 ## Quickstart
 
@@ -38,7 +38,7 @@ Installs `~/Applications/Calorie Counter.app`. Clicking the icon starts (or reus
 The desktop launcher also starts a local model bridge: a tiny CORS proxy (`scripts/local-llm-proxy.mjs`) in front of the model servers. Everything runs on `127.0.0.1`; nothing leaves the machine.
 
 - **Cactus Needle 2** (parser, always): a 45M-parameter model baked into a self-contained 14.6 MB binary (`scripts/start-local-llm.sh` downloads and ad-hoc signs it on first run). Serves `POST /complete` on port 8080 with grammar-constrained, confidence-scored tool calls.
-- **Bonsai 4B 2-bit** (planner/extractor, default on): Qwen3 4B via `mlx_lm.server` on port 8082 (set `LLM_BONSAI_MODEL=prism-ml/Ternary-Bonsai-8B-mlx-2bit` for the 8B alternative). First start downloads ~1.1 GB from Hugging Face. Needs a Python with mlx-lm: `python3 -m pip install mlx mlx-lm`, or point the launcher at a venv with `LLM_PYTHON=/path/to/venv/bin/python`.
+- **Bonsai 4B 2-bit** (extractor/planner, default on): Qwen3 4B via `mlx_lm.server` on port 8082 (set `LLM_BONSAI_MODEL=prism-ml/Ternary-Bonsai-8B-mlx-2bit` for the 8B alternative). First start downloads ~1.1 GB from Hugging Face. Requires a Python ≥ 3.10 with mlx-lm installed (e.g. `python3 -m venv ~/.calorie-counter-mlx && ~/.calorie-counter-mlx/bin/pip install mlx mlx-lm`) — point the launcher at it with `LLM_PYTHON=~/.calorie-counter-mlx/bin/python` (default: `python3`).
 
 Flow: the Log screen's **Quick add (local AI)** sends free-text meals to the pipeline — Bonsai extracts ingredients into a strict schema (Needle 2 is the grammar-safe fallback when Bonsai is off), the app matches them deterministically to the USDA catalog and computes calories/macros, and unmatched or under-specified dishes trigger targeted follow-up questions (max 3 rounds). Saving a dish as a custom food or recipe memory requires explicit confirmation; neither model ever writes to the database.
 
@@ -52,11 +52,11 @@ Standalone server control: `sh scripts/start-local-llm.sh` starts (or reuses) th
 - `src/domain/` — shared types and deterministic nutrition math (calories, macros, dates)
 - `src/db/` — storage adapters (IndexedDB / SQLite), repository, catalog seeding
 - `src/sync/` — Supabase sync engine and migrations
-- `src/local-ai/` — model contracts, meal-parsing pipeline, draft validation, recipe memory
-- `scripts/` — catalog build, desktop launcher + installer, model benchmark fixture
+- `src/local-ai/` — model contracts, bridge adapter, meal-parsing pipeline, draft validation, recipe memory
+- `scripts/` — catalog build, desktop launcher + installer, local-model bridge (server lifecycle + CORS proxy), model benchmark fixture
 - `data/foods.json` — USDA-provenanced catalog bundle
 
 ## Testing
 
-- `npm test` (vitest): domain math, repository, sync, catalog, local-ai validation
-- `sh scripts/desktop-launcher-smoke.sh`: deterministic launcher/bridge behavior checks on isolated test ports
+- `npm test` (vitest): domain math, repository, sync, catalog, local-ai schema validation, the bridge adapter (against stub HTTP servers), draft→catalog mapping, and deterministic per-100 g macro aggregation
+- `sh scripts/desktop-launcher-smoke.sh`: deterministic launcher/bridge behavior checks on isolated test ports — server reuse, occupied-port errors, CORS proxy round-trips, and missing-binary failures
