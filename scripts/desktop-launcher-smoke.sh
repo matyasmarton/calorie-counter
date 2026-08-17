@@ -21,6 +21,11 @@ BUNDLE="$REPO_ROOT/desktop/Calorie Counter.app"
 P1=18081
 P2=18082
 P3=18083
+LLM_NEEDLE=18086
+LLM_BONSAI=18087
+LLM_PROXY=18088
+LLM_FREE=18089
+LLM_START="$REPO_ROOT/scripts/start-local-llm.sh"
 PASS=0
 FAIL=0
 
@@ -29,7 +34,7 @@ fail() { FAIL=$((FAIL + 1)); echo "FAIL: $1"; }
 
 # Kill everything this script started, scoped to the test ports only.
 cleanup() {
-  for p in "$P1" "$P2" "$P3"; do
+  for p in "$P1" "$P2" "$P3" "$LLM_NEEDLE" "$LLM_BONSAI" "$LLM_PROXY" "$LLM_FREE"; do
     for pid in $(lsof -tnP -iTCP:"$p" -sTCP:LISTEN 2>/dev/null); do
       kill "$pid" 2>/dev/null
     done
@@ -124,6 +129,59 @@ else
   kill -0 "$DUMMY_PID" 2>/dev/null && pass "occupant left alive" || fail "occupant was killed"
 fi
 kill "$DUMMY_PID" 2>/dev/null
+
+echo "== Check 5: local LLM bridge (reuse, proxy, CORS, missing binary) =="
+# Stub backends on test ports — no model binaries needed for the reuse path.
+PORT=$LLM_NEEDLE node -e '
+require("http").createServer((req, res) => {
+  let chunks = [];
+  req.on("data", (c) => chunks.push(c));
+  req.on("end", () => {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({
+      type: "call",
+      success: true,
+      function_calls: [{ name: "parse_meal", arguments: { mealDescription: "x", ingredients: [{ raw: "rice", foodQuery: "rice", amount: 1, servingLabel: "cup" }] } }],
+      confidence: 0.95
+    }));
+  });
+}).listen(process.env.PORT, "127.0.0.1")' >"${TMPDIR:-/tmp}/cc-smoke-needle.log" 2>&1 &
+NEEDLE_PID=$!
+PORT=$LLM_BONSAI node -e '
+require("http").createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "application/json" });
+  if (req.url === "/v1/models") { res.end(JSON.stringify({ data: [{ id: "stub" }] })); return; }
+  res.end(JSON.stringify({ choices: [{ message: { content: "{}" } }] }));
+}).listen(process.env.PORT, "127.0.0.1")' >"${TMPDIR:-/tmp}/cc-smoke-bonsai.log" 2>&1 &
+BONSAI_PID=$!
+i=0
+while [ "$i" -lt 30 ] && { ! lsof -nP -iTCP:"$LLM_NEEDLE" -sTCP:LISTEN >/dev/null 2>&1 || ! lsof -nP -iTCP:"$LLM_BONSAI" -sTCP:LISTEN >/dev/null 2>&1; }; do
+  sleep 1
+  i=$((i + 1))
+done
+if ! lsof -nP -iTCP:"$LLM_NEEDLE" -sTCP:LISTEN >/dev/null 2>&1 || ! lsof -nP -iTCP:"$LLM_BONSAI" -sTCP:LISTEN >/dev/null 2>&1; then
+  fail "LLM stubs did not come up"
+else
+  OUT=$(LLM_PORT=$LLM_NEEDLE LLM_BONSAI_PORT=$LLM_BONSAI LLM_PROXY_PORT=$LLM_PROXY \
+    LLM_BIN=/nonexistent LLM_BONSAI_MODEL=stub sh "$LLM_START" 2>&1)
+  RC=$?
+  [ "$RC" -eq 0 ] && pass "bridge reuses both running servers (exit 0)" || fail "bridge exit $RC: $OUT"
+  printf '%s' "$OUT" | grep -q "reusing existing needle server" && pass "needle server reused" || fail "no needle reuse: $OUT"
+  printf '%s' "$OUT" | grep -q "reusing existing bonsai server" && pass "bonsai server reused" || fail "no bonsai reuse: $OUT"
+  sleep 1
+  H=$(curl -fsS -m 5 "http://127.0.0.1:$LLM_PROXY/health" 2>/dev/null) && printf '%s' "$H" | grep -q '"status":"ok"' && pass "proxy /health ok" || fail "proxy /health failed: $H"
+  HB=$(curl -fsS -m 5 "http://127.0.0.1:$LLM_PROXY/health/bonsai" 2>/dev/null) && printf '%s' "$HB" | grep -q '"status":"ok"' && pass "proxy /health/bonsai ok" || fail "proxy /health/bonsai failed: $HB"
+  CORS=$(curl -s -i -m 5 -X OPTIONS "http://127.0.0.1:$LLM_PROXY/complete" -H 'Origin: http://localhost:8081' -H 'Access-Control-Request-Method: POST' 2>/dev/null)
+  printf '%s' "$CORS" | grep -qi 'access-control-allow-origin: \*' && pass "proxy sends CORS headers" || fail "missing CORS headers: $CORS"
+  BODY=$(curl -fsS -m 5 -X POST "http://127.0.0.1:$LLM_PROXY/complete" -H 'Content-Type: application/json' -d '{"input":"test"}' 2>/dev/null)
+  printf '%s' "$BODY" | grep -q 'function_calls' && pass "proxy forwards /complete" || fail "proxy /complete failed: $BODY"
+fi
+kill "$NEEDLE_PID" "$BONSAI_PID" 2>/dev/null
+sleep 1
+OUT=$(LLM_PORT=$LLM_FREE LLM_PROXY_ENABLED=0 LLM_BIN=/nonexistent sh "$LLM_START" 2>&1)
+RC=$?
+[ "$RC" -ne 0 ] && pass "missing needle binary fails (exit $RC)" || fail "missing binary succeeded: $OUT"
+printf '%s' "$OUT" | grep -q "LLM_BIN" && pass "error names LLM_BIN" || fail "error lacks LLM_BIN: $OUT"
 
 echo
 echo "Results: $PASS passed, $FAIL failed"

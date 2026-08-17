@@ -7,8 +7,10 @@
 import { FoodPicker } from '@/components/FoodPicker';
 import { ServingAmountInput } from '@/components/ServingAmountInput';
 import { DailyEntryRow } from '@/components/DailyEntryRow';
+import { MealQuickAdd } from '@/components/MealQuickAdd';
 import { Button, Card, EmptyState, ErrorBanner, Screen, SectionTitle } from '@/components/ui';
 import { useApp } from '@/app-context';
+import { useLocalModel } from '@/local-ai/model-context';
 import { addDays, formatDateKey, isValidDateKey, todayKey } from '@/domain/dates';
 import type { DailyEntry, Food } from '@/domain/types';
 import { useSyncStatus, syncStatusLabel } from '@/hooks/useSyncStatus';
@@ -19,6 +21,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function LogScreen() {
   const { repo } = useApp();
+  const { adapter, enabled } = useLocalModel();
   const router = useRouter();
   const params = useLocalSearchParams<{ date?: string }>();
   const { status, pending } = useSyncStatus();
@@ -202,6 +205,10 @@ export default function LogScreen() {
       {loadError ? <ErrorBanner message={`Could not load entries: ${loadError}`} /> : null}
       {dbError ? <ErrorBanner message={`Database error: ${dbError}`} /> : null}
       {formError ? <ErrorBanner message={formError} /> : null}
+
+      {enabled && adapter.isReady() ? (
+        <MealQuickAdd logDate={date} onAdded={() => void loadEntries(date)} />
+      ) : null}
 
       {!selectedFood ? (
         <Card>

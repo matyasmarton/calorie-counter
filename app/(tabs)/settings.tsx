@@ -3,16 +3,19 @@
  * and JSON backup export/import (merge by UUID, or explicit restore).
  */
 import { useApp } from '@/app-context';
+import { DEFAULT_LLM_BASE_URL } from '@/local-ai/bridge';
+import { useLocalModel } from '@/local-ai/model-context';
 import { Button, Card, ErrorBanner, Field, Screen, SectionTitle, TextInput } from '@/components/ui';
 import type { CatalogMetadata } from '@/domain/types';
 import { useSyncStatus, syncStatusLabel } from '@/hooks/useSyncStatus';
 import { colors, font, spacing } from '@/theme';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Modal, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Modal, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 
 export default function SettingsScreen() {
   const { repo, sync } = useApp();
   const { status, pending, error } = useSyncStatus();
+  const { models, enabled, setEnabled, refresh: refreshModels } = useLocalModel();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
@@ -205,6 +208,50 @@ export default function SettingsScreen() {
         <View style={styles.actions}>
           <Button label="Export backup" onPress={() => void doExport()} />
           <Button variant="secondary" label="Import backup" onPress={() => { setImportOpen(true); setImportError(null); setImportResult(null); }} />
+        </View>
+      </Card>
+
+      <SectionTitle>Local AI</SectionTitle>
+      <Card>
+        <View style={styles.statusRow}>
+          <View style={styles.statusText}>
+            <Text style={styles.statusTitle}>Use local AI</Text>
+            <Text style={styles.statusSub}>Runs entirely on this computer — no API keys, nothing leaves the machine.</Text>
+          </View>
+          <Switch
+            value={enabled}
+            onValueChange={(v) => void setEnabled(v)}
+            trackColor={{ true: colors.primary, false: colors.border }}
+          />
+        </View>
+        {models.map((m) => (
+          <View key={m.id} style={styles.statusRow}>
+            <Text
+              style={[
+                styles.statusDot,
+                { color: m.status === 'ready' ? colors.primary : m.status === 'downloading' ? colors.warning : colors.textMuted },
+              ]}
+            >
+              ●
+            </Text>
+            <View style={styles.statusText}>
+              <Text style={styles.statusTitle}>
+                {m.id} — {m.status}
+              </Text>
+              {m.detail ? <Text style={styles.statusSub}>{m.detail}</Text> : null}
+            </View>
+          </View>
+        ))}
+        <Text style={styles.hint}>
+          Model server: {DEFAULT_LLM_BASE_URL} · needle-2 parses meals · bonsai-4b plans tool calls.
+          The desktop launcher starts both automatically; scripts/start-local-llm.sh starts them standalone.
+          First run downloads the 14.6 MB needle binary and the Bonsai model (≈1.1 GB for 4B).
+        </Text>
+        {!enabled ? (
+          <Text style={styles.hint}>AI meal parsing and quick add are disabled.</Text>
+        ) : null}
+        <View style={styles.actions}>
+          <Button variant="ghost" label="Refresh" onPress={() => void refreshModels()} />
         </View>
       </Card>
 

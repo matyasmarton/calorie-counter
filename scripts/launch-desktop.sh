@@ -25,6 +25,14 @@ APP_URL="${BASE_URL}/log"
 LOG_FILE="${TMPDIR:-/tmp}/calorie-counter-web.log"
 READY_TIMEOUT=60
 
+# Local model bridge: the app fetches the CORS proxy; Metro inlines this URL.
+export EXPO_PUBLIC_LLM_BASE_URL="${EXPO_PUBLIC_LLM_BASE_URL:-http://127.0.0.1:${LLM_PROXY_PORT:-8090}}"
+if [ "${LLM_ENABLED:-1}" != "0" ]; then
+  # Non-blocking and non-fatal: the app opens regardless; Settings shows the
+  # bridge state if the model servers fail to come up.
+  scripts/start-local-llm.sh >>"${TMPDIR:-/tmp}/calorie-counter-llm.log" 2>&1 &
+fi
+
 # Finder-launched bundles get a stripped PATH; add the standard node homes
 # so `npm` resolves the same way it does from a terminal.
 PATH="/opt/homebrew/bin:/usr/local/bin:${HOME}/.local/bin:${PATH}"

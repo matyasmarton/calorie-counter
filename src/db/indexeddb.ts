@@ -6,7 +6,10 @@ import { TABLES } from './schema';
 import type { Query, Row, StorageAdapter } from './storage';
 
 const DB_NAME = 'calorie-counter';
-const DB_VERSION = 1;
+// Bump when TABLES gains or changes stores: onupgradeneeded only fires on a
+// version change, so existing installs would otherwise keep the old store set
+// (e.g. a pre-saved_recipes database silently lacks that store).
+const DB_VERSION = 2;
 
 function openDb(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -27,6 +30,17 @@ function openDb(): Promise<IDBDatabase> {
     };
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => reject(req.error ?? new Error('indexedDB open failed'));
+    // A version-change upgrade is blocked while another tab holds the old
+    // connection; retry briefly instead of hanging the app forever.
+    req.onblocked = () => {
+      const req2 = indexedDB.open(DB_NAME, DB_VERSION);
+      setTimeout(() => {
+        req2.onupgradeneeded = req.onupgradeneeded;
+        req2.onsuccess = req.onsuccess;
+        req2.onerror = req.onerror;
+        req2.onblocked = () => reject(new Error('indexedDB upgrade blocked by another open tab'));
+      }, 500);
+    };
   });
 }
 
