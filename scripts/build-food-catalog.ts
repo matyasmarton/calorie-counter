@@ -119,21 +119,43 @@ function main() {
   const portionCsv = parseCsv(read('food_portion.csv'));
   const unitsCsv = parseCsv(read('measure_unit.csv'));
   const prov = JSON.parse(read('PROVENANCE.json')) as {
-    datasets: { name: string; release: string }[];
+    datasets: { name: string; release: string; url: string; license: string }[];
+    notes: string;
   };
 
-  const foodById = new Map(foodsCsv.map((r) => [r.fdc_id, r]));
-  const energyByFood = new Map(energyCsv.map((r) => [r.fdc_id, Number(r.amount)]));
+  const foodById = new Map(foodsCsv.map((r) => [r.fdc_id!, r]));
+  const energyByFood = new Map(energyCsv.map((r) => [r.fdc_id!, Number(r.amount!)]));
   const portionsByFood = new Map<string, typeof portionCsv>();
   for (const p of portionCsv) {
-    const list = portionsByFood.get(p.fdc_id) ?? [];
+    const list = portionsByFood.get(p.fdc_id!) ?? [];
     list.push(p);
-    portionsByFood.set(p.fdc_id, list);
+    portionsByFood.set(p.fdc_id!, list);
   }
-  const unitName = new Map(unitsCsv.map((r) => [r.id, r.name]));
+  const unitName = new Map(unitsCsv.map((r) => [r.id!, r.name!]));
 
-  const KEEP_UNITS = new Set([
-    'cup', 'tablespoon', 'teaspoon', 'fl oz', 'slice', 'egg', 'piece', 'pieces',
+  /**
+ * Fallback grams-per-cup per category when neither the source dataset nor the
+ * selection provides a cup measure (used for whole cuts of meat, fish, etc.).
+ * These are documented approximations, flagged `approx: true` per serving.
+ */
+const CATEGORY_CUP: Record<string, number> = {
+  Fruits: 150,
+  Vegetables: 100,
+  'Dairy & Eggs': 240,
+  'Meat & Poultry': 140,
+  'Fish & Seafood': 140,
+  'Legumes & Beans': 170,
+  'Grains & Cereals': 180,
+  'Breads & Tortillas': 120,
+  'Nuts & Seeds': 130,
+  'Spreads & Sauces': 240,
+  'Oils & Fats': 224,
+  'Sweets & Snacks': 120,
+  Beverages: 240,
+  Other: 240,
+};
+
+const KEEP_UNITS = new Set([    'cup', 'tablespoon', 'teaspoon', 'fl oz', 'slice', 'egg', 'piece', 'pieces',
     'pat', 'stick', 'link', 'links', 'spear', 'leaf', 'wedge', 'can', 'fillet',
     'drumstick', 'breast', 'thigh', 'chop', 'steak', 'frankfurter', 'medium',
     'large', 'small', 'each', 'patty', 'patties', 'scoop', 'order', 'wrap',
@@ -155,7 +177,7 @@ function main() {
     if (kcal === undefined || !Number.isFinite(kcal) || kcal < 0) {
       throw new Error(`missing/negative energy for ${e.name}`);
     }
-    const base = fdc.description ?? e.name;
+    const base = fdc!.description ?? e.name;
 
     /* --- servings --- */
     const servings: Serving[] = [];
@@ -173,10 +195,10 @@ function main() {
 
     // official FDC portion gram weights
     for (const p of portionsByFood.get(e.fdcId!) ?? []) {
-      const amount = Number(p.amount);
-      const weight = Number(p.gram_weight);
+      const amount = Number(p.amount!);
+      const weight = Number(p.gram_weight!);
       if (!(weight > 0) || weight > 750) continue;
-      const unit = unitName.get(p.measure_unit_id) ?? '';
+      const unit = unitName.get(p.measure_unit_id!) ?? '';
       const gramsPerUnit = weight / (amount || 1);
       let label = (p.portion_description ?? '').trim();
       if (!label) {
@@ -196,6 +218,19 @@ function main() {
       pushServing('cup', cup, true, 'sv-cup');
       pushServing('tbsp', cup / 16, true, 'sv-tbsp');
       pushServing('tsp', cup / 48, true, 'sv-tsp');
+    }
+
+    // plan requirement: every food carries g / oz / cup / tbsp / tsp.
+    // Derive missing tbsp/tsp from the cup measure (approx, documented).
+    const cupServing = servings.find((s) => s.label.toLowerCase().startsWith('cup'));
+    if (!cupServing) {
+      const cup = e.approxCupGrams ?? CATEGORY_CUP[e.category] ?? 240;
+      pushServing('cup', cup, true, 'sv-cup');
+      pushServing('tbsp', cup / 16, true, 'sv-tbsp');
+      pushServing('tsp', cup / 48, true, 'sv-tsp');
+    } else {
+      if (!servings.some((s) => s.label === 'tbsp')) pushServing('tbsp', cupServing.grams / 16, true, 'sv-tbsp');
+      if (!servings.some((s) => s.label === 'tsp')) pushServing('tsp', cupServing.grams / 48, true, 'sv-tsp');
     }
 
     // manual piece / handful estimates
@@ -227,7 +262,7 @@ function main() {
 
   const out = {
     metadata: {
-      sourceName: prov.datasets.map((d) => d.name).join('; '),
+      sourceName: 'USDA FoodData Central (Foundation + Survey/FNDDS)',
       releases: prov.datasets.map((d) => d.release),
       sourceUrl: prov.datasets[0]?.url ?? 'https://fdc.nal.usda.gov/download-datasets.html',
       license: prov.datasets[0]?.license ?? '',
