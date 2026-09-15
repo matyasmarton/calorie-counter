@@ -17,21 +17,57 @@ import { ValidationError } from './errors';
 import type { Sex, WorkoutCaloriesSource } from './types';
 
 /**
- * Compendium of Physical Activities MET values by workout type. The activity
- * tab's picker is built from these keys, so every offered type has an estimate.
+ * Compendium of Physical Activities MET values by workout type, taken from the
+ * 2024 Adult Compendium (pacompendium.com). The trailing comment on each row
+ * is the compendium's specific-activity code and description, so every number
+ * is checkable against the source rather than remembered. The activity tab's
+ * picker is built from these keys, so every offered type has an estimate.
+ *
+ * Where an activity spans a wide intensity range, the row named "general" for
+ * a self-selected pace is used (the alternatives are noted inline). This is
+ * the MET path only — when heart-rate data is present it wins over these.
  */
 export const MET_BY_TYPE: Record<string, number> = {
-  running: 9.8,
-  cycling: 7.5,
-  swimming: 8.0,
-  walking: 3.8,
-  strength: 6.0,
-  yoga: 3.0,
-  rowing: 7.0,
-  hiking: 6.0,
-  dancing: 5.5,
-  other: 5.0,
+  running: 9.3, // 12050  Running, 6-6.3 mph (10 min/mile); jogging, self-selected 7.5 (12020)
+  cycling: 7.0, // 01014  Bicycling, general; stationary general 6.8 (01200), 12-13.9 mph 8.0 (01030)
+  swimming: 6.0, // 18310  Swimming, leisurely, not lap swimming, general; laps freestyle slow 5.8 (18240), fast 9.8 (18230)
+  walking: 3.8, // 17190  Walking, 2.8-3.4 mph, level, moderate pace, firm surface
+  strength: 6.0, // 02050  Resistance training (free weights/nautilus), vigorous effort; 8-15 reps 3.5 (02054)
+  yoga: 2.3, // 02175  Yoga, general (Hatha 2.3 / 02150; Hot 3.0 / 02155; Power 4.0 / 02160)
+  rowing: 7.3, // 02070  Rowing, stationary ergometer, general, vigorous effort (100-149 W 7.5 / 02072)
+  hiking: 6.0, // 17080  Hiking, cross country; with a daypack 7.8 (17012)
+  dancing: 5.5, // 03030  Ballroom dancing, fast; folk, moderate 5.0 (03033)
+  jump_rope: 11.8, // 15551  Rope jumping, moderate pace, general, 100-120 skips/min, 2-foot skip; fast 12.3 (15550), slow 8.3 (15552)
+  stairmaster: 9.3, // 02065  Stair treadmill ergometer, general (climbing stairs, general 6.8 / 17131)
+  other: 5.0, // deliberate fallback: the midpoint of the moderate 3-6 MET band
 };
+
+/**
+ * Display labels for the built-in types, in picker order. Types synced from
+ * another device that are not in here fall back to a humanized key.
+ */
+export const WORKOUT_TYPE_LABELS: Record<string, string> = {
+  running: 'Running',
+  cycling: 'Cycling',
+  swimming: 'Swimming',
+  walking: 'Walking',
+  strength: 'Strength training',
+  yoga: 'Yoga',
+  rowing: 'Rowing machine',
+  hiking: 'Hiking',
+  dancing: 'Dancing',
+  jump_rope: 'Jump rope',
+  stairmaster: 'Stairmaster',
+  other: 'Other',
+};
+
+/** Human label for a workout type: the built-in one, else "snake_case" → "Snake case". */
+export function workoutTypeLabel(type: string): string {
+  const known = WORKOUT_TYPE_LABELS[type];
+  if (known) return known;
+  const spaced = type.replace(/_/g, ' ').trim();
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+}
 
 /**
  * The Keytel (2005) regressions predict kJ/min, not kcal/min: at typical

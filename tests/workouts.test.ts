@@ -1,9 +1,16 @@
 /**
  * Workout burn math: the fixed precedence (manual → Keytel HR → MET), the
- * kJ→kcal conversion, the low-heart-rate fall-through, and the rejections.
+ * kJ→kcal conversion, the low-heart-rate fall-through, the rejections, and the
+ * MET table's agreement with the 2024 Adult Compendium of Physical Activities.
  */
 import { ValidationError } from '@/domain/errors';
-import { MET_BY_TYPE, estimateWorkoutCalories, resolveAge } from '@/domain/workouts';
+import {
+  MET_BY_TYPE,
+  WORKOUT_TYPE_LABELS,
+  estimateWorkoutCalories,
+  resolveAge,
+  workoutTypeLabel,
+} from '@/domain/workouts';
 import { describe, expect, it } from 'vitest';
 
 const base = {
@@ -52,16 +59,16 @@ describe('estimateWorkoutCalories', () => {
   });
 
   it('falls back to the MET estimate when any HR input is missing', () => {
-    // 9.8 MET × 3.5 × 75 kg / 200 = 12.86 kcal/min × 30 min = 385.9 → 386
+    // 9.3 MET × 3.5 × 75 kg / 200 = 12.21 kcal/min × 30 min = 366.2 → 366
     expect(
       estimateWorkoutCalories({ ...base, avgHr: 150, weightKg: 75, age: 36, sex: null }),
-    ).toEqual({ calories: 386, source: 'met-estimate' });
+    ).toEqual({ calories: 366, source: 'met-estimate' });
     expect(
       estimateWorkoutCalories({ ...base, avgHr: 150, weightKg: 75, age: null, sex: 'male' }),
-    ).toEqual({ calories: 386, source: 'met-estimate' });
+    ).toEqual({ calories: 366, source: 'met-estimate' });
     expect(
       estimateWorkoutCalories({ ...base, avgHr: null, weightKg: 75, age: 36, sex: 'male' }),
-    ).toEqual({ calories: 386, source: 'met-estimate' });
+    ).toEqual({ calories: 366, source: 'met-estimate' });
   });
 
   it('matches the MET value of each built-in type', () => {
@@ -70,7 +77,7 @@ describe('estimateWorkoutCalories', () => {
     expect(MET_BY_TYPE.other).toBeGreaterThan(0);
     // case/whitespace insensitive lookup
     expect(estimateWorkoutCalories({ ...base, workoutType: ' Running ', weightKg: 75 })).toEqual({
-      calories: 386,
+      calories: 366,
       source: 'met-estimate',
     });
   });
@@ -96,7 +103,7 @@ describe('estimateWorkoutCalories', () => {
   it('falls through to MET when the HR reading is too low to be usable', () => {
     // At 50 bpm the male regression is negative — never report negative burn.
     const low = estimateWorkoutCalories({ ...base, avgHr: 50, weightKg: 75, age: 36, sex: 'male' });
-    expect(low).toEqual({ calories: 386, source: 'met-estimate' });
+    expect(low).toEqual({ calories: 366, source: 'met-estimate' });
   });
 
   it('rejects inputs that cannot produce any estimate', () => {
@@ -136,5 +143,99 @@ describe('resolveAge', () => {
 
   it('rejects an invalid anchor date', () => {
     expect(() => resolveAge(1990, '2026-13-01')).toThrow(RangeError);
+  });
+});
+
+describe('jump rope and stair climber', () => {
+  // 11.8 MET (compendium 15551, rope jumping, moderate pace, 100-120 skips/min)
+  it('estimates jump rope from the moderate-pace compendium row', () => {
+    expect(estimateWorkoutCalories({ ...base, workoutType: 'jump_rope', durationMin: 10, weightKg: 75 })).toEqual({
+      calories: 155,
+      source: 'met-estimate',
+    });
+    expect(estimateWorkoutCalories({ ...base, workoutType: 'jump_rope', durationMin: 30, weightKg: 75 })).toEqual({
+      calories: 465,
+      source: 'met-estimate',
+    });
+  });
+
+  // 9.3 MET (compendium 02065, stair treadmill ergometer, general)
+  it('estimates the stair climber from the stair-treadmill compendium row', () => {
+    expect(estimateWorkoutCalories({ ...base, workoutType: 'stairmaster', durationMin: 20, weightKg: 75 })).toEqual({
+      calories: 244,
+      source: 'met-estimate',
+    });
+  });
+
+  it('burns more per minute on a rope than on stairs at the same weight', () => {
+    const rope = estimateWorkoutCalories({ ...base, workoutType: 'jump_rope', durationMin: 20, weightKg: 75 });
+    const stairs = estimateWorkoutCalories({ ...base, workoutType: 'stairmaster', durationMin: 20, weightKg: 75 });
+    expect(rope.calories).toBeGreaterThan(stairs.calories);
+  });
+
+  it('still prefers a manual value and an HR estimate over the MET rows', () => {
+    expect(
+      estimateWorkoutCalories({ ...base, workoutType: 'jump_rope', durationMin: 10, weightKg: 75, manualCalories: 90 }),
+    ).toEqual({ calories: 90, source: 'manual' });
+    expect(
+      estimateWorkoutCalories({
+        ...base,
+        workoutType: 'stairmaster',
+        durationMin: 30,
+        weightKg: 75,
+        avgHr: 150,
+        age: 36,
+        sex: 'male',
+      }),
+    ).toEqual({ calories: 442, source: 'hr-estimate' });
+  });
+});
+
+describe('MET_BY_TYPE', () => {
+  /**
+   * Every value is the "general" row of the 2024 Adult Compendium for that
+   * activity (code in parentheses). Pinned here so a mistyped MET value — the
+   * failure mode that silently inflates or deflates every burn estimate —
+   * cannot land unnoticed.
+   */
+  const compendium: Array<[string, number, string]> = [
+    ['running', 9.3, '12050 running, 6-6.3 mph'],
+    ['cycling', 7.0, '01014 bicycling, general'],
+    ['swimming', 6.0, '18310 swimming, leisurely, general'],
+    ['walking', 3.8, '17190 walking, 2.8-3.4 mph, level, moderate'],
+    ['strength', 6.0, '02050 resistance training, vigorous'],
+    ['yoga', 2.3, '02175 yoga, general'],
+    ['rowing', 7.3, '02070 rowing ergometer, general, vigorous'],
+    ['hiking', 6.0, '17080 hiking, cross country'],
+    ['dancing', 5.5, '03030 ballroom dancing, fast'],
+    ['jump_rope', 11.8, '15551 rope jumping, moderate pace'],
+    ['stairmaster', 9.3, '02065 stair treadmill ergometer, general'],
+    ['other', 5.0, 'deliberate fallback, moderate band midpoint'],
+  ];
+
+  it('matches the compendium values, with no extra or missing types', () => {
+    for (const [type, met, source] of compendium) {
+      expect(MET_BY_TYPE[type], `${type} (${source})`).toBe(met);
+    }
+    expect(Object.keys(MET_BY_TYPE).sort()).toEqual(compendium.map(([type]) => type).sort());
+  });
+
+  it('keeps every MET value in a physiologically plausible band', () => {
+    for (const [type, met] of Object.entries(MET_BY_TYPE)) {
+      expect(met, type).toBeGreaterThan(1);
+      expect(met, type).toBeLessThan(20);
+    }
+    // vigorous activities must outrank sedentary-ish ones
+    expect(MET_BY_TYPE.jump_rope!).toBeGreaterThan(MET_BY_TYPE.walking!);
+    expect(MET_BY_TYPE.stairmaster!).toBeGreaterThan(MET_BY_TYPE.walking!);
+  });
+
+  it('labels every built-in type and humanizes synced free-form types', () => {
+    for (const type of Object.keys(MET_BY_TYPE)) {
+      expect(WORKOUT_TYPE_LABELS[type], type).toBeTruthy();
+    }
+    expect(workoutTypeLabel('jump_rope')).toBe('Jump rope');
+    expect(workoutTypeLabel('stairmaster')).toBe('Stairmaster');
+    expect(workoutTypeLabel('kayak_polo')).toBe('Kayak polo');
   });
 });

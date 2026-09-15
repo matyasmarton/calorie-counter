@@ -30,7 +30,7 @@ import type {
   Workout,
   WorkoutCaloriesSource,
 } from '@/domain/types';
-import { MET_BY_TYPE, estimateWorkoutCalories, resolveAge } from '@/domain/workouts';
+import { MET_BY_TYPE, estimateWorkoutCalories, resolveAge, workoutTypeLabel } from '@/domain/workouts';
 import { colors, font, spacing } from '@/theme';
 import { useFocusEffect } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -59,10 +59,6 @@ function parseOptional(value: string): number | null {
   if (value.trim() === '') return null;
   const n = Number(value);
   return Number.isFinite(n) ? n : null;
-}
-
-function typeLabel(type: string): string {
-  return type.charAt(0).toUpperCase() + type.slice(1);
 }
 
 export default function ActivityScreen() {
@@ -450,7 +446,7 @@ export default function ActivityScreen() {
           {WORKOUT_TYPES.map((type) => (
             <Chip
               key={type}
-              label={typeLabel(type)}
+              label={workoutTypeLabel(type)}
               selected={workoutType === type}
               onPress={() => setWorkoutType(type)}
             />
@@ -503,7 +499,7 @@ export default function ActivityScreen() {
             <View key={workout.id} style={styles.row}>
               <View style={styles.rowInfo}>
                 <Text style={styles.rowDate}>
-                  {workout.logDate} · {typeLabel(workout.workoutType)}
+                  {workout.logDate} · {workoutTypeLabel(workout.workoutType)}
                 </Text>
                 <Text style={styles.rowMeta}>
                   {workout.durationMin} min · {workout.calories} kcal ({SOURCE_LABELS[workout.caloriesSource]})

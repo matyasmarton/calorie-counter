@@ -118,10 +118,10 @@ describe('workouts', () => {
     await repo.addHealthMeasurement({ measuredAt: '2026-08-01', weightKg: 75, heightCm: null });
     const workout = await repo.addWorkout(workoutInput); // cycling 7.5 MET
 
-    // 7.5 × 3.5 × 75 / 200 = 9.84 kcal/min × 40 min = 393.75 → 394
-    expect(workout).toMatchObject({ calories: 394, caloriesSource: 'met-estimate', durationMin: 40 });
+    // 7.0 MET (01014, cycling general) × 3.5 × 75 kg / 200 = 9.19 kcal/min × 40 min = 367.5 → 368
+    expect(workout).toMatchObject({ calories: 368, caloriesSource: 'met-estimate', durationMin: 40 });
     await repo.addHealthMeasurement({ measuredAt: '2026-08-20', weightKg: 95, heightCm: null });
-    expect((await repo.getWorkouts())[0]!.calories).toBe(394); // history unchanged
+    expect((await repo.getWorkouts())[0]!.calories).toBe(368); // history unchanged
   });
 
   it('uses the stored profile and latest weight for the HR estimate', async () => {
@@ -168,7 +168,7 @@ describe('workouts', () => {
       notes: '  intervals  ',
     });
     expect(updated.id).toBe(workout.id);
-    expect(updated).toMatchObject({ workoutType: 'running', durationMin: 30, calories: 386, caloriesSource: 'met-estimate' });
+    expect(updated).toMatchObject({ workoutType: 'running', durationMin: 30, calories: 366, caloriesSource: 'met-estimate' });
     expect(updated.notes).toBe('intervals');
 
     const overridden = await repo.updateWorkout(workout.id, {
