@@ -3,7 +3,8 @@
  * fake-indexeddb) with the actual seeded catalog.
  */
 import { IndexedDbStorage } from '@/db/indexeddb';
-import { Repository, ValidationError } from '@/db/repository';
+import { Repository } from '@/db/repository';
+import { ValidationError } from '@/domain/errors';
 import { TABLES } from '@/db/schema';
 import type { CatalogBundle } from '@/db/seedCatalog';
 import type { DailyEntry, UserFood } from '@/domain/types';
@@ -311,7 +312,7 @@ describe('sync queue and remote application', () => {
     const repo = await makeRepo();
     const b = await broccoli(repo);
     const e = await repo.addEntry({ logDate: '2026-08-17', foodId: b.id, servingId: 'sv-cup', amount: 1 });
-    let queue = await repo.getUnsyncedChanges();
+    const queue = await repo.getUnsyncedChanges();
     expect(queue.length).toBe(1);
     expect(queue[0]).toMatchObject({ id: e.id, table: 'daily_entries', op: 'upsert' });
     await repo.markSynced([e.id]);
@@ -410,7 +411,7 @@ describe('backup export / import', () => {
     );
     await repo.addEntry({ logDate: '2026-08-17', foodId: food.id, servingId: 'g', amount: 100 });
     const backup = await repo.exportBackup();
-    expect(backup.version).toBe(2);
+    expect(backup.version).toBe(3);
     expect(backup.userFoods[0]).toMatchObject({ proteinPer100g: 6.5, carbsPer100g: 27, fatPer100g: 2.5 });
 
     // v1 backup (no macro fields anywhere) imports as null macros

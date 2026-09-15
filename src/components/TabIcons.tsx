@@ -51,6 +51,14 @@ export function HealthIcon() {
   );
 }
 
+export function ActivityIcon() {
+  return (
+    <Icon>
+      <Path d="M3 12h3.5l2-5 3 10 2.5-7 1.5 2H21" />
+    </Icon>
+  );
+}
+
 export function SettingsIcon() {
   return (
     <Icon>

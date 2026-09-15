@@ -1,5 +1,6 @@
 import { IndexedDbStorage } from '@/db/indexeddb';
-import { Repository, ValidationError } from '@/db/repository';
+import { Repository } from '@/db/repository';
+import { ValidationError } from '@/domain/errors';
 import { TABLES } from '@/db/schema';
 import type { CatalogBundle } from '@/db/seedCatalog';
 import { parseMealDraft, MealDraftValidationError } from '@/local-ai/mealDraft';

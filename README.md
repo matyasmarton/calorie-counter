@@ -8,6 +8,7 @@ Offline-capable personal calorie counter with account sync. Built with Expo (Rea
 - USDA-provenanced food catalog (every row carries its `sourceRef`), plus user-defined custom foods
 - Offline-first storage (IndexedDB on web, SQLite on native) with a Supabase sync engine: local changes queue, push/pull on sync, newest-update-wins conflicts, tombstones
 - Health tab: weight/height measurements, BMI, and a daily-intake trend chart
+- Activity tab: daily steps / active calories / active minutes, manual workout logging with heart-rate (Keytel 2005) or MET calorie estimates (MET values from the 2024 Adult Compendium of Physical Activities, cited per type in `src/domain/workouts.ts`), a minimal profile (sex, birth year) powering those estimates, and net-energy (intake − burn) totals for the day, ISO week and calendar month plus a 30-day net trend. All entry is manual — no band API, no native modules.
 - JSON backup export/import (merge by UUID or explicit restore)
 - Consent-gated localized recipe memory — save dishes like "lecsó" or "Mom's hamburger" for future searches
 - Clickable macOS launcher: `npm run desktop:install` installs a "Calorie Counter" icon in `~/Applications` that starts or reuses the Expo web server (port 8081) and opens the app in the default browser
@@ -48,8 +49,8 @@ Standalone server control: `sh scripts/start-local-llm.sh` starts (or reuses) th
 
 ## Project layout
 
-- `app/` — expo-router screens: log, foods, history, health, settings
-- `src/domain/` — shared types and deterministic nutrition math (calories, macros, dates)
+- `app/` — expo-router screens: log, foods, history, activity, health, settings
+- `src/domain/` — shared types and deterministic nutrition math (calories, macros, dates, workout burn estimates, energy balance)
 - `src/db/` — storage adapters (IndexedDB / SQLite), repository, catalog seeding
 - `src/sync/` — Supabase sync engine and migrations
 - `src/local-ai/` — model contracts, bridge adapter, meal-parsing pipeline, draft validation, recipe memory
@@ -58,5 +59,6 @@ Standalone server control: `sh scripts/start-local-llm.sh` starts (or reuses) th
 
 ## Testing
 
-- `npm test` (vitest): domain math, repository, sync, catalog, local-ai schema validation, the bridge adapter (against stub HTTP servers), draft→catalog mapping, and deterministic per-100 g macro aggregation
+- `npm test` (vitest): domain math, repository, sync, catalog, local-ai schema validation, the bridge adapter (against stub HTTP servers), draft→catalog mapping, deterministic per-100 g macro aggregation, and the activity/workout/energy paths (Keytel and MET estimates, one-row-per-day activity upsert, profile validation, calorie snapshots, net-energy aggregation)
 - `sh scripts/desktop-launcher-smoke.sh`: deterministic launcher/bridge behavior checks on isolated test ports — server reuse, occupied-port errors, CORS proxy round-trips, and missing-binary failures
+- `npm run verify:transfer`: end-to-end device-transfer check against two genuinely separate IndexedDB stores — persistence across an app restart, isolation of the second device, the JSON backup path, the sync path (against an in-memory stand-in for Supabase) and deletion propagation. Prints a PASS/FAIL report and exits non-zero on failure.

@@ -88,6 +88,65 @@ export interface HealthMeasurement {
   deletedAt: string | null;
 }
 
+/** Biological sex used by HR-based energy equations; null = not disclosed. */
+export type Sex = 'male' | 'female';
+
+/**
+ * Daily activity reported by the user (or a future band import): steps,
+ * active calories and active minutes for one local calendar day.
+ * One live row per `logDate` — re-submitting a day updates it in place.
+ */
+export interface ActivityDay {
+  id: string;
+  /** ISO calendar date (YYYY-MM-DD), local timezone. */
+  logDate: string;
+  steps: number;
+  /** Calories burned through activity, as reported by the source. */
+  activeKcal: number;
+  activeMinutes: number;
+  source: 'manual';
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+}
+
+/** How a workout's calorie value was obtained (snapshotted at write time). */
+export type WorkoutCaloriesSource = 'manual' | 'hr-estimate' | 'met-estimate';
+
+/** One logged workout session. */
+export interface Workout {
+  id: string;
+  /** ISO calendar date (YYYY-MM-DD), local timezone. */
+  logDate: string;
+  /** Key into `MET_BY_TYPE` (running, cycling, …) or a free-form label. */
+  workoutType: string;
+  durationMin: number;
+  /** Average and peak heart rate in bpm; display/estimate inputs, both optional. */
+  avgHr: number | null;
+  peakHr: number | null;
+  /** Whole calories burned, snapshotted at write time. */
+  calories: number;
+  caloriesSource: WorkoutCaloriesSource;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+}
+
+/**
+ * The single user profile row (`id` is always "profile"): the minimum needed
+ * for HR-based calorie estimates. Both fields are optional — without them the
+ * app falls back to MET estimates or manual calories.
+ */
+export interface UserProfile {
+  id: 'profile';
+  sex: Sex | null;
+  birthYear: number | null;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: null;
+}
+
 /** Per-day rollup: intake plus the latest measurement at or before the date. */
 export interface DailySummary {
   logDate: string;
@@ -118,7 +177,36 @@ export interface MacroSummary {
   entryCount: number;
 }
 
-export type SyncTable = 'foods' | 'daily_entries' | 'health_measurements' | 'saved_recipes';
+/** Totals over an explicit range: intake vs. burn (activity + workouts). */
+export interface EnergySummary {
+  range: SummaryRange;
+  /** Inclusive start date key (YYYY-MM-DD, local). */
+  from: string;
+  /** Inclusive end date key (YYYY-MM-DD, local). */
+  to: string;
+  intakeCalories: number;
+  burnCalories: number;
+  /** intakeCalories − burnCalories: positive = surplus, negative = deficit. */
+  netCalories: number;
+  workoutCount: number;
+}
+
+/** One day of energy balance; dates without any data are absent (chart gaps). */
+export interface DailyEnergy {
+  logDate: string;
+  intakeCalories: number;
+  burnCalories: number;
+  netCalories: number;
+}
+
+export type SyncTable =
+  | 'foods'
+  | 'daily_entries'
+  | 'health_measurements'
+  | 'saved_recipes'
+  | 'activity_days'
+  | 'workouts'
+  | 'user_profile';
 
 /** Queue row describing one local change awaiting push. */
 export interface SyncRecord {
