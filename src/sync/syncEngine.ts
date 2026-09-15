@@ -36,12 +36,13 @@ export interface SyncResult {
   applied: number;
 }
 
-const SYNC_TABLES: SyncTable[] = ['foods', 'daily_entries', 'health_measurements'];
+const SYNC_TABLES: SyncTable[] = ['foods', 'daily_entries', 'health_measurements', 'saved_recipes'];
 
 const REMOTE_TABLE: Record<SyncTable, string> = {
   foods: 'user_foods',
   daily_entries: 'daily_entries',
   health_measurements: 'health_measurements',
+  saved_recipes: 'saved_recipes',
 };
 
 /* ------------------------- row mapping (camel <-> snake) ------------------------- */
@@ -52,6 +53,9 @@ const foodRemote = (row: Row, userId: string) => ({
   name: row.name,
   category: row.category,
   calories_per_100g: row.caloriesPer100g,
+  protein_per_100g: row.proteinPer100g ?? null,
+  carbs_per_100g: row.carbsPer100g ?? null,
+  fat_per_100g: row.fatPer100g ?? null,
   servings: row.servings,
   source_ref: row.sourceRef,
   created_at: row.createdAt,
@@ -64,6 +68,9 @@ const foodLocal = (r: Record<string, unknown>): Row => ({
   name: r.name,
   category: r.category,
   caloriesPer100g: r.calories_per_100g,
+  proteinPer100g: r.protein_per_100g ?? null,
+  carbsPer100g: r.carbs_per_100g ?? null,
+  fatPer100g: r.fat_per_100g ?? null,
   servings: r.servings,
   source: 'user',
   ownerId: r.user_id,
@@ -80,6 +87,9 @@ const entryRemote = (row: Row, userId: string) => ({
   food_id: row.foodId,
   food_name: row.foodName,
   calories_per_100g: row.caloriesPer100g,
+  protein_grams: row.proteinGrams ?? null,
+  carbs_grams: row.carbsGrams ?? null,
+  fat_grams: row.fatGrams ?? null,
   serving_id: row.servingId,
   serving_label: row.servingLabel,
   serving_grams: row.servingGrams,
@@ -97,6 +107,9 @@ const entryLocal = (r: Record<string, unknown>): Row => ({
   foodId: r.food_id,
   foodName: r.food_name,
   caloriesPer100g: r.calories_per_100g,
+  proteinGrams: r.protein_grams ?? null,
+  carbsGrams: r.carbs_grams ?? null,
+  fatGrams: r.fat_grams ?? null,
   servingId: r.serving_id,
   servingLabel: r.serving_label,
   servingGrams: r.serving_grams,
@@ -129,6 +142,40 @@ const measurementLocal = (r: Record<string, unknown>): Row => ({
   deletedAt: r.deleted_at,
 });
 
+const recipeRemote = (row: Row, userId: string) => ({
+  id: row.id,
+  user_id: userId,
+  name: row.name,
+  ingredients: row.ingredients,
+  food_ids: row.foodIds,
+  serving_grams: row.servingGrams,
+  calories: row.calories,
+  protein_grams: row.proteinGrams ?? null,
+  carbs_grams: row.carbsGrams ?? null,
+  fat_grams: row.fatGrams ?? null,
+  aliases: row.aliases,
+  created_at: row.createdAt,
+  updated_at: row.updatedAt,
+  deleted_at: row.deletedAt,
+});
+
+const recipeLocal = (r: Record<string, unknown>): Row => ({
+  id: r.id,
+  name: r.name,
+  ingredients: r.ingredients,
+  foodIds: r.food_ids,
+  servingGrams: r.serving_grams,
+  calories: r.calories ?? 0,
+  proteinGrams: r.protein_grams ?? null,
+  carbsGrams: r.carbs_grams ?? null,
+  fatGrams: r.fat_grams ?? null,
+  aliases: r.aliases ?? [],
+  ownerId: r.user_id,
+  createdAt: r.created_at,
+  updatedAt: r.updated_at,
+  deletedAt: r.deleted_at,
+});
+
 function toRemote(table: SyncTable, row: Row, userId: string): Record<string, unknown> {
   switch (table) {
     case 'foods':
@@ -137,6 +184,8 @@ function toRemote(table: SyncTable, row: Row, userId: string): Record<string, un
       return entryRemote(row, userId);
     case 'health_measurements':
       return measurementRemote(row, userId);
+    case 'saved_recipes':
+      return recipeRemote(row, userId);
   }
 }
 
@@ -148,6 +197,8 @@ function toLocal(table: SyncTable, r: Record<string, unknown>): Row {
       return entryLocal(r);
     case 'health_measurements':
       return measurementLocal(r);
+    case 'saved_recipes':
+      return recipeLocal(r);
   }
 }
 

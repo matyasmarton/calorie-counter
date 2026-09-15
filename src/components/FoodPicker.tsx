@@ -82,6 +82,9 @@ export function FoodPicker({
                 <Text style={styles.rowName}>{item.name}</Text>
                 <Text style={styles.rowSub}>
                   {item.caloriesPer100g} kcal/100 g
+                  {item.proteinPer100g != null && item.carbsPer100g != null && item.fatPer100g != null
+                    ? ` · P${item.proteinPer100g} C${item.carbsPer100g} F${item.fatPer100g}`
+                    : ''}
                   {item.source === 'user' ? ' · custom' : ''}
                 </Text>
               </View>

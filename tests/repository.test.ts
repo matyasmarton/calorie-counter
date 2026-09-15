@@ -6,7 +6,7 @@ import { IndexedDbStorage } from '@/db/indexeddb';
 import { Repository, ValidationError } from '@/db/repository';
 import { TABLES } from '@/db/schema';
 import type { CatalogBundle } from '@/db/seedCatalog';
-import type { DailyEntry } from '@/domain/types';
+import type { DailyEntry, UserFood } from '@/domain/types';
 import { beforeEach, describe, expect, it } from 'vitest';
 import bundle from '../data/foods.json';
 
@@ -46,7 +46,7 @@ describe('catalog seeding', () => {
 
   it('catalog refresh never touches user foods', async () => {
     const repo = await makeRepo();
-    await repo.createUserFood({ name: 'My Granola', caloriesPer100g: 400, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'user-1');
+    await repo.createUserFood({ name: 'My Granola', caloriesPer100g: 400, proteinPer100g: 10, carbsPer100g: 60, fatPer100g: 15, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'user-1');
     await repo.ensureCatalog(bundle as unknown as CatalogBundle);
     const user = await repo.getUserFoods();
     expect(user.map((f) => f.name)).toEqual(['My Granola']);
@@ -97,10 +97,10 @@ describe('daily entries', () => {
 
   it('keeps entry snapshots when the food changes', async () => {
     const repo = await makeRepo();
-    const food = await repo.createUserFood({ name: 'Smoothie', caloriesPer100g: 100, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1');
+    const food = await repo.createUserFood({ name: 'Smoothie', caloriesPer100g: 100, proteinPer100g: 5, carbsPer100g: 20, fatPer100g: 1, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1');
     const entry = await repo.addEntry({ logDate: '2026-08-17', foodId: food.id, servingId: 'g', amount: 100 });
     expect(entry.calories).toBe(100);
-    await repo.updateUserFood(food.id, { name: 'Smoothie', caloriesPer100g: 300, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] });
+    await repo.updateUserFood(food.id, { name: 'Smoothie', caloriesPer100g: 300, proteinPer100g: 5, carbsPer100g: 20, fatPer100g: 1, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] });
     const after = await repo.getDailyEntries('2026-08-17');
     expect(after[0]!.calories).toBe(100); // history unchanged
     expect(after[0]!.caloriesPer100g).toBe(100);
@@ -110,7 +110,7 @@ describe('daily entries', () => {
 describe('foods', () => {
   it('searches catalog and user foods together', async () => {
     const repo = await makeRepo();
-    await repo.createUserFood({ name: 'Protein Bar X', caloriesPer100g: 380, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1');
+    await repo.createUserFood({ name: 'Protein Bar X', caloriesPer100g: 380, proteinPer100g: 30, carbsPer100g: 40, fatPer100g: 10, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1');
     const hits = await repo.searchFoods('protein');
     expect(hits.some((f) => f.name === 'Protein Bar X')).toBe(true);
     const all = await repo.searchFoods('', 1000);
@@ -121,11 +121,11 @@ describe('foods', () => {
   it('user foods are editable/deletable; catalog foods are not', async () => {
     const repo = await makeRepo();
     const b = await broccoli(repo);
-    await expect(repo.updateUserFood(b.id, { name: 'x', caloriesPer100g: 1, servings: [] })).rejects.toBeInstanceOf(ValidationError);
+    await expect(repo.updateUserFood(b.id, { name: 'x', caloriesPer100g: 1, proteinPer100g: 1, carbsPer100g: 1, fatPer100g: 1, servings: [] })).rejects.toBeInstanceOf(ValidationError);
     await expect(repo.deleteUserFood(b.id)).rejects.toBeInstanceOf(ValidationError);
 
-    const food = await repo.createUserFood({ name: 'Salsa Verde', caloriesPer100g: 30, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1');
-    await repo.updateUserFood(food.id, { name: 'Salsa Verde 2', caloriesPer100g: 35, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] });
+    const food = await repo.createUserFood({ name: 'Salsa Verde', caloriesPer100g: 30, proteinPer100g: 1, carbsPer100g: 5, fatPer100g: 0, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1');
+    await repo.updateUserFood(food.id, { name: 'Salsa Verde 2', caloriesPer100g: 35, proteinPer100g: 1, carbsPer100g: 5, fatPer100g: 0, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] });
     expect((await repo.getUserFoods())[0]!.name).toBe('Salsa Verde 2');
     await repo.deleteUserFood(food.id);
     expect(await repo.getUserFoods()).toEqual([]);
@@ -134,10 +134,12 @@ describe('foods', () => {
 
   it('validates custom food input', async () => {
     const repo = await makeRepo();
-    await expect(repo.createUserFood({ name: '', caloriesPer100g: 10, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
-    await expect(repo.createUserFood({ name: 'X', caloriesPer100g: -5, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
-    await expect(repo.createUserFood({ name: 'X', caloriesPer100g: 10, servings: [] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
-    await expect(repo.createUserFood({ name: 'X', caloriesPer100g: 10, servings: [{ id: 'g', label: 'g', grams: 0, approx: false }] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
+    await expect(repo.createUserFood({ name: '', caloriesPer100g: 10, proteinPer100g: 1, carbsPer100g: 1, fatPer100g: 1, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
+    await expect(repo.createUserFood({ name: 'X', caloriesPer100g: -5, proteinPer100g: 1, carbsPer100g: 1, fatPer100g: 1, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
+    await expect(repo.createUserFood({ name: 'X', caloriesPer100g: 10, proteinPer100g: 1, carbsPer100g: 1, fatPer100g: 1, servings: [] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
+    await expect(repo.createUserFood({ name: 'X', caloriesPer100g: 10, proteinPer100g: 1, carbsPer100g: 1, fatPer100g: 1, servings: [{ id: 'g', label: 'g', grams: 0, approx: false }] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
+    await expect(repo.createUserFood({ name: 'X', caloriesPer100g: 10, proteinPer100g: -2, carbsPer100g: 1, fatPer100g: 1, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
+    await expect(repo.createUserFood({ name: 'X', caloriesPer100g: 10, proteinPer100g: 1, carbsPer100g: NaN, fatPer100g: 1, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1')).rejects.toBeInstanceOf(ValidationError);
   });
 });
 
@@ -207,6 +209,101 @@ describe('daily summaries', () => {
     await repo.deleteHealthMeasurement(m.id);
     expect(await repo.getDailySummaries('2026-08-10', '2026-08-10')).toEqual([]);
   });
+
+  it('aggregates macro grams into daily summaries and macro summaries', async () => {
+    const repo = await makeRepo();
+    // Yogurt, Greek, plain, nonfat — 1 cup = 245 g (FDC)
+    const foods = await repo.searchFoods('Yogurt, Greek, plain', 1);
+    expect(foods.length).toBe(1);
+    const y = foods[0]!;
+    const entry = await repo.addEntry({ logDate: '2026-08-17', foodId: y.id, servingId: 'sv-cup', amount: 1 });
+    expect(entry.proteinGrams).not.toBeNull();
+    expect(entry.carbsGrams).not.toBeNull();
+    expect(entry.fatGrams).not.toBeNull();
+
+    const day = await repo.getMacroSummary('day', '2026-08-17');
+    expect(day).toMatchObject({
+      range: 'day',
+      from: '2026-08-17',
+      to: '2026-08-17',
+      calories: entry.calories,
+      proteinGrams: entry.proteinGrams,
+      carbsGrams: entry.carbsGrams,
+      fatGrams: entry.fatGrams,
+      entryCount: 1,
+    });
+
+    const week = await repo.getMacroSummary('week', '2026-08-17');
+    expect(week.from).toBe('2026-08-17'); // 2026-08-17 is a Monday
+    expect(week.to).toBe('2026-08-23');
+    expect(week.calories).toBe(day.calories);
+
+    const month = await repo.getMacroSummary('month', '2026-08-17');
+    expect(month.from).toBe('2026-08-01');
+    expect(month.to).toBe('2026-08-31');
+    expect(month.entryCount).toBe(1);
+
+    // empty range → zero totals
+    const empty = await repo.getMacroSummary('day', '2026-09-01');
+    expect(empty).toMatchObject({ calories: 0, proteinGrams: 0, carbsGrams: 0, fatGrams: 0, entryCount: 0 });
+
+    // daily summary carries the same macro totals
+    const summaries = await repo.getDailySummaries('2026-08-17', '2026-08-17');
+    expect(summaries[0]).toMatchObject({
+      calories: day.calories,
+      proteinGrams: day.proteinGrams,
+      carbsGrams: day.carbsGrams,
+      fatGrams: day.fatGrams,
+    });
+  });
+
+  it('snapshots macros at write time and keeps them on update', async () => {
+    const repo = await makeRepo();
+    const food = await repo.createUserFood(
+      { name: 'Custom Shake', caloriesPer100g: 90, proteinPer100g: 8, carbsPer100g: 12, fatPer100g: 2, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] },
+      'u1',
+    );
+    const entry = await repo.addEntry({ logDate: '2026-08-17', foodId: food.id, servingId: 'g', amount: 200 });
+    expect(entry.proteinGrams).toBe(16); // 8g/100g × 200 g
+    expect(entry.carbsGrams).toBe(24);
+    expect(entry.fatGrams).toBe(4);
+
+    // change the food — entry snapshot stays
+    await repo.updateUserFood(food.id, { name: 'Custom Shake', caloriesPer100g: 90, proteinPer100g: 99, carbsPer100g: 99, fatPer100g: 99, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] });
+    const after = await repo.getDailyEntries('2026-08-17');
+    expect(after[0]!.proteinGrams).toBe(16);
+    expect(after[0]!.carbsGrams).toBe(24);
+    expect(after[0]!.fatGrams).toBe(4);
+  });
+
+  it('legacy foods and entries without macros keep null snapshots', async () => {
+    const repo = await makeRepo();
+    // simulate a legacy user food (no macro fields) by writing a row directly
+    const legacyFood: UserFood = {
+      id: 'legacy-food-1',
+      name: 'Legacy Food',
+      category: 'Custom',
+      caloriesPer100g: 100,
+      proteinPer100g: null,
+      carbsPer100g: null,
+      fatPer100g: null,
+      servings: [{ id: 'g', label: 'g', grams: 1, approx: false }],
+      source: 'user',
+      ownerId: 'u1',
+      sourceRef: null,
+      createdAt: '2020-01-01T00:00:00.000Z',
+      updatedAt: '2020-01-01T00:00:00.000Z',
+      deletedAt: null,
+    };
+    await (repo as unknown as { db: { put: (t: string, r: unknown) => Promise<void> } }).db.put('foods', legacyFood);
+    const entry = await repo.addEntry({ logDate: '2026-08-17', foodId: legacyFood.id, servingId: 'g', amount: 50 });
+    expect(entry.proteinGrams).toBeNull();
+    expect(entry.carbsGrams).toBeNull();
+    expect(entry.fatGrams).toBeNull();
+    expect(entry.calories).toBe(50); // calories still computed
+    const day = await repo.getMacroSummary('day', '2026-08-17');
+    expect(day).toMatchObject({ calories: 50, proteinGrams: 0, carbsGrams: 0, fatGrams: 0, entryCount: 1 });
+  });
 });
 
 describe('sync queue and remote application', () => {
@@ -251,7 +348,7 @@ describe('backup export / import', () => {
   it('round-trips user data through a backup payload', async () => {
     const repo = await makeRepo();
     const b = await broccoli(repo);
-    const food = await repo.createUserFood({ name: 'Homemade Oatmeal', caloriesPer100g: 150, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1');
+    const food = await repo.createUserFood({ name: 'Homemade Oatmeal', caloriesPer100g: 150, proteinPer100g: 5, carbsPer100g: 25, fatPer100g: 3, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] }, 'u1');
     const e = await repo.addEntry({ logDate: '2026-08-17', foodId: b.id, servingId: 'sv-cup', amount: 2 });
     const m = await repo.addHealthMeasurement({ measuredAt: '2026-08-17', weightKg: 70, heightCm: null });
 
@@ -303,5 +400,50 @@ describe('backup export / import', () => {
     await expect(repo.importBackup({ app: 'other' }, { restore: false })).rejects.toBeInstanceOf(ValidationError);
     await expect(repo.importBackup(null, { restore: false })).rejects.toBeInstanceOf(ValidationError);
     await expect(repo.importBackup({ app: 'calorie-counter', userFoods: [{ bad: true }], entries: [], measurements: [] }, { restore: false })).rejects.toBeInstanceOf(ValidationError);
+  });
+
+  it('round-trips macros through backup and accepts v1 backups as null macros', async () => {
+    const repo = await makeRepo();
+    const food = await repo.createUserFood(
+      { name: 'Macro Oatmeal', caloriesPer100g: 150, proteinPer100g: 6.5, carbsPer100g: 27, fatPer100g: 2.5, servings: [{ id: 'g', label: 'g', grams: 1, approx: false }] },
+      'u1',
+    );
+    await repo.addEntry({ logDate: '2026-08-17', foodId: food.id, servingId: 'g', amount: 100 });
+    const backup = await repo.exportBackup();
+    expect(backup.version).toBe(2);
+    expect(backup.userFoods[0]).toMatchObject({ proteinPer100g: 6.5, carbsPer100g: 27, fatPer100g: 2.5 });
+
+    // v1 backup (no macro fields anywhere) imports as null macros
+    const v1 = JSON.parse(JSON.stringify(backup)) as Record<string, unknown>;
+    v1.version = 1;
+    (v1.userFoods as Record<string, unknown>[]).forEach((f) => {
+      delete f.proteinPer100g;
+      delete f.carbsPer100g;
+      delete f.fatPer100g;
+    });
+    (v1.entries as Record<string, unknown>[]).forEach((e) => {
+      delete e.proteinGrams;
+      delete e.carbsGrams;
+      delete e.fatGrams;
+    });
+    const repo2 = await makeRepo();
+    await repo2.importBackup(v1, { restore: false });
+    const importedFood = (await repo2.getUserFoods())[0]!;
+    expect(importedFood.proteinPer100g).toBeNull();
+    expect(importedFood.carbsPer100g).toBeNull();
+    expect(importedFood.fatPer100g).toBeNull();
+    const importedEntry = (await repo2.getDailyEntries('2026-08-17'))[0]!;
+    expect(importedEntry.proteinGrams).toBeNull();
+    expect(importedEntry.carbsGrams).toBeNull();
+    expect(importedEntry.fatGrams).toBeNull();
+    expect(importedEntry.calories).toBe(150);
+
+    // malformed macro values are rejected, not silently accepted
+    const bad = JSON.parse(JSON.stringify(backup));
+    bad.userFoods[0].proteinPer100g = -1;
+    await expect(repo.importBackup(bad, { restore: false })).rejects.toBeInstanceOf(ValidationError);
+    const bad2 = JSON.parse(JSON.stringify(backup));
+    bad2.entries[0].carbsGrams = Infinity;
+    await expect(repo.importBackup(bad2, { restore: false })).rejects.toBeInstanceOf(ValidationError);
   });
 });

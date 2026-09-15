@@ -8,7 +8,7 @@
     "sourceUrl": "https://fdc.nal.usda.gov/download-datasets.html",
     "license": "Public domain — U.S. Government work. No copyright; USDA requests citation.",
     "version": "usda-fdc-2025-04-24 + 2024-10-31",
-    "generatedAt": "2026-08-17T08:01:59.215Z",
+    "generatedAt": "2026-08-17T10:16:01.140Z",
     "foodCount": 170,
     "notes": "EU-origin national food-composition databases (EuroFIR FoodEXplorer and national FDCs) were not bundled because their redistribution licenses do not permit checked-in exports. The catalog therefore ships USDA FoodData Central rows (public domain) with per-row provenance; EU-oriented foods are included where USDA coverage exists and are labeled with their USDA source. No nutrient rows from different sources are merged under one ID."
   },
@@ -18,6 +18,9 @@
       "name": "Almond butter, creamy",
       "category": "Spreads & Sauces",
       "caloriesPer100g": 645,
+      "proteinPer100g": 20.8,
+      "carbsPer100g": 21.2,
+      "fatPer100g": 53,
       "servings": [
         {
           "id": "sv-gram",
@@ -60,8 +63,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2262074 · Almond butter, creamy · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -69,6 +72,9 @@
       "name": "Almond milk, unsweetened",
       "category": "Beverages",
       "caloriesPer100g": 19,
+      "proteinPer100g": 0.7,
+      "carbsPer100g": 0.7,
+      "fatPer100g": 1.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -105,8 +111,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2257045 · Almond milk, unsweetened, plain, refrigerated · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -114,6 +120,9 @@
       "name": "Almonds, whole, raw",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 626,
+      "proteinPer100g": 21.5,
+      "carbsPer100g": 20,
+      "fatPer100g": 51.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -156,8 +165,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346393 · Nuts, almonds, whole, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -165,6 +174,9 @@
       "name": "Apple juice, from concentrate",
       "category": "Beverages",
       "caloriesPer100g": 48,
+      "proteinPer100g": 0.1,
+      "carbsPer100g": 11.4,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -207,8 +219,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2003590 · Apple juice, with added vitamin C, from concentrate, shelf stable · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -216,6 +228,9 @@
       "name": "Apple, red delicious, with skin, raw",
       "category": "Fruits",
       "caloriesPer100g": 62,
+      "proteinPer100g": 0.2,
+      "carbsPer100g": 14.8,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -258,8 +273,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 1105430 · Apples, red delicious, with skin, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -267,6 +282,9 @@
       "name": "Applesauce, unsweetened",
       "category": "Fruits",
       "caloriesPer100g": 52,
+      "proteinPer100g": 0.3,
+      "carbsPer100g": 12.3,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -303,8 +321,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2263892 · Applesauce, unsweetened, with added vitamin C · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -312,6 +330,9 @@
       "name": "Arugula, baby, raw",
       "category": "Vegetables",
       "caloriesPer100g": 31,
+      "proteinPer100g": 1.6,
+      "carbsPer100g": 5.4,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -348,8 +369,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710822 · Arugula, baby, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -357,6 +378,9 @@
       "name": "Asparagus, green, raw",
       "category": "Vegetables",
       "caloriesPer100g": 28,
+      "proteinPer100g": 1.4,
+      "carbsPer100g": 5.1,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -393,8 +417,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710823 · Asparagus, green, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -402,6 +426,9 @@
       "name": "Avocado, Hass, raw",
       "category": "Fruits",
       "caloriesPer100g": 223,
+      "proteinPer100g": 1.8,
+      "carbsPer100g": 8.3,
+      "fatPer100g": 20.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -444,8 +471,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710824 · Avocado, Hass, peeled, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -453,6 +480,9 @@
       "name": "Bacon, cooked",
       "category": "Meat & Poultry",
       "caloriesPer100g": 484,
+      "proteinPer100g": 37.4,
+      "carbsPer100g": 1.9,
+      "fatPer100g": 35.8,
       "servings": [
         {
           "id": "sv-gram",
@@ -519,8 +549,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2705885 · Bacon, NS as to type of meat, cooked · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -528,6 +558,9 @@
       "name": "Banana, ripe, raw",
       "category": "Fruits",
       "caloriesPer100g": 97,
+      "proteinPer100g": 0.7,
+      "carbsPer100g": 23,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -576,8 +609,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 790991 · Bananas, ripe and slightly ripe, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -585,6 +618,9 @@
       "name": "Beans, snap, green, raw",
       "category": "Vegetables",
       "caloriesPer100g": 40,
+      "proteinPer100g": 2,
+      "carbsPer100g": 7.4,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -621,8 +657,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346400 · Beans, snap, green, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -630,6 +666,9 @@
       "name": "Beef, ground, 80% lean / 20% fat, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 243,
+      "proteinPer100g": 17.5,
+      "carbsPer100g": 0,
+      "fatPer100g": 19.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -666,8 +705,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2514744 · Beef, ground, 80% lean meat / 20% fat, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -675,6 +714,9 @@
       "name": "Beef, ground, 90% lean / 10% fat, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 185,
+      "proteinPer100g": 18.2,
+      "carbsPer100g": 0,
+      "fatPer100g": 12.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -711,8 +753,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2514743 · Beef, ground, 90% lean meat / 10% fat, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -720,6 +762,9 @@
       "name": "Beef, ribeye steak, boneless, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 254,
+      "proteinPer100g": 18.7,
+      "carbsPer100g": 0,
+      "fatPer100g": 20,
       "servings": [
         {
           "id": "sv-gram",
@@ -756,8 +801,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2646172 · Beef, ribeye, steak, boneless, choice, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -765,6 +810,9 @@
       "name": "Beef, tenderloin steak, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 143,
+      "proteinPer100g": 21.1,
+      "carbsPer100g": 0.2,
+      "fatPer100g": 6.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -801,8 +849,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2727573 · Beef, tenderloin steak, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -810,6 +858,9 @@
       "name": "Beef, top sirloin steak, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 140,
+      "proteinPer100g": 22,
+      "carbsPer100g": 0.2,
+      "fatPer100g": 5.7,
       "servings": [
         {
           "id": "sv-gram",
@@ -846,8 +897,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2727574 · Beef, top sirloin steak, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -855,6 +906,9 @@
       "name": "Beer",
       "category": "Beverages",
       "caloriesPer100g": 43,
+      "proteinPer100g": 0.5,
+      "carbsPer100g": 3.6,
+      "fatPer100g": 0,
       "servings": [
         {
           "id": "sv-gram",
@@ -915,8 +969,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710616 · Beer · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -924,6 +978,9 @@
       "name": "Beets, raw",
       "category": "Vegetables",
       "caloriesPer100g": 45,
+      "proteinPer100g": 1.7,
+      "carbsPer100g": 8.8,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -960,8 +1017,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2685576 · Beets, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -969,6 +1026,9 @@
       "name": "Black beans, canned, drained",
       "category": "Legumes & Beans",
       "caloriesPer100g": 118,
+      "proteinPer100g": 6.9,
+      "carbsPer100g": 19.8,
+      "fatPer100g": 1.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -1005,8 +1065,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2644285 · Beans, black, canned, sodium added, drained and rinsed · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1014,6 +1074,9 @@
       "name": "Blueberries, raw",
       "category": "Fruits",
       "caloriesPer100g": 64,
+      "proteinPer100g": 0.7,
+      "carbsPer100g": 14.6,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -1056,8 +1119,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2263889 · Blueberries, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1065,6 +1128,9 @@
       "name": "Bread, white, commercially prepared",
       "category": "Breads & Tortillas",
       "caloriesPer100g": 270,
+      "proteinPer100g": 9.4,
+      "carbsPer100g": 49.2,
+      "fatPer100g": 3.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -1107,8 +1173,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 325871 · Bread, white, commercially prepared · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1116,6 +1182,9 @@
       "name": "Bread, whole-wheat, commercially prepared",
       "category": "Breads & Tortillas",
       "caloriesPer100g": 254,
+      "proteinPer100g": 12.3,
+      "carbsPer100g": 43.1,
+      "fatPer100g": 3.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -1158,8 +1227,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 335240 · Bread, whole-wheat, commercially prepared · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1167,6 +1236,9 @@
       "name": "Broccoli, raw",
       "category": "Vegetables",
       "caloriesPer100g": 32,
+      "proteinPer100g": 2.6,
+      "carbsPer100g": 6.3,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -1203,8 +1275,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 321900 · Broccoli, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1212,6 +1284,9 @@
       "name": "Brussels sprouts, raw",
       "category": "Vegetables",
       "caloriesPer100g": 59,
+      "proteinPer100g": 4,
+      "carbsPer100g": 9.6,
+      "fatPer100g": 0.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -1248,8 +1323,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2685575 · Brussels sprouts, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1257,6 +1332,9 @@
       "name": "Buckwheat, whole grain",
       "category": "Grains & Cereals",
       "caloriesPer100g": 356,
+      "proteinPer100g": 11.1,
+      "carbsPer100g": 71.1,
+      "fatPer100g": 3,
       "servings": [
         {
           "id": "sv-gram",
@@ -1293,8 +1371,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2512378 · Buckwheat, whole grain · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1302,6 +1380,9 @@
       "name": "Bulgur, dry",
       "category": "Grains & Cereals",
       "caloriesPer100g": 372,
+      "proteinPer100g": 11.8,
+      "carbsPer100g": 75.9,
+      "fatPer100g": 2.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -1338,8 +1419,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710820 · Bulgur, dry, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1347,6 +1428,9 @@
       "name": "Butter, stick, salted",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 743,
+      "proteinPer100g": 0.9,
+      "carbsPer100g": 0.1,
+      "fatPer100g": 82.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -1401,8 +1485,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710155 · Butter, stick · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1410,6 +1494,9 @@
       "name": "Buttermilk, low fat",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 43,
+      "proteinPer100g": 3.5,
+      "carbsPer100g": 4.8,
+      "fatPer100g": 1.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -1446,8 +1533,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2259792 · Buttermilk, low fat · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1455,6 +1542,9 @@
       "name": "Cabbage, green, raw",
       "category": "Vegetables",
       "caloriesPer100g": 31,
+      "proteinPer100g": 1,
+      "carbsPer100g": 6.4,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -1491,8 +1581,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346407 · Cabbage, green, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1500,6 +1590,9 @@
       "name": "Cappuccino",
       "category": "Beverages",
       "caloriesPer100g": 27,
+      "proteinPer100g": 1.7,
+      "carbsPer100g": 2.8,
+      "fatPer100g": 1,
       "servings": [
         {
           "id": "sv-gram",
@@ -1560,8 +1653,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710472 · Coffee, Cappuccino · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1569,6 +1662,9 @@
       "name": "Carrot, mature, raw",
       "category": "Vegetables",
       "caloriesPer100g": 48,
+      "proteinPer100g": 0.9,
+      "carbsPer100g": 10.3,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -1611,8 +1707,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2258586 · Carrots, mature, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1620,6 +1716,9 @@
       "name": "Cashews, raw",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 565,
+      "proteinPer100g": 17.4,
+      "carbsPer100g": 36.3,
+      "fatPer100g": 38.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -1662,8 +1761,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2515374 · Nuts, cashew nuts, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1671,6 +1770,9 @@
       "name": "Cauliflower, raw",
       "category": "Vegetables",
       "caloriesPer100g": 28,
+      "proteinPer100g": 1.6,
+      "carbsPer100g": 4.7,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -1707,8 +1809,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2685573 · Cauliflower, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1716,6 +1818,9 @@
       "name": "Celery, raw",
       "category": "Vegetables",
       "caloriesPer100g": 17,
+      "proteinPer100g": 0.5,
+      "carbsPer100g": 3.3,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -1758,8 +1863,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346405 · Celery, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1767,6 +1872,9 @@
       "name": "Cheese, cheddar",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 408,
+      "proteinPer100g": 23.3,
+      "carbsPer100g": 2.4,
+      "fatPer100g": 34,
       "servings": [
         {
           "id": "sv-gram",
@@ -1815,8 +1923,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 328637 · Cheese, cheddar · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1824,6 +1932,9 @@
       "name": "Cheese, feta, crumbled",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 273,
+      "proteinPer100g": 19.7,
+      "carbsPer100g": 5.6,
+      "fatPer100g": 19.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -1860,8 +1971,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2259796 · Cheese, feta, whole milk, crumbled · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1869,6 +1980,9 @@
       "name": "Cheese, mozzarella, part-skim",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 298,
+      "proteinPer100g": 23.7,
+      "carbsPer100g": 4.4,
+      "fatPer100g": 20.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -1905,8 +2019,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 329370 · Cheese, mozzarella, low moisture, part-skim · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1914,6 +2028,9 @@
       "name": "Cheese, parmesan, grated",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 421,
+      "proteinPer100g": 29.6,
+      "carbsPer100g": 12.4,
+      "fatPer100g": 28,
       "servings": [
         {
           "id": "sv-gram",
@@ -1962,8 +2079,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 325036 · Cheese, parmesan, grated · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -1971,6 +2088,9 @@
       "name": "Cheese, swiss",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 393,
+      "proteinPer100g": 27,
+      "carbsPer100g": 1.4,
+      "fatPer100g": 31,
       "servings": [
         {
           "id": "sv-gram",
@@ -2013,8 +2133,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 326135 · Cheese, swiss · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2022,6 +2142,9 @@
       "name": "Cherries, sweet, raw",
       "category": "Fruits",
       "caloriesPer100g": 71,
+      "proteinPer100g": 1,
+      "carbsPer100g": 16.2,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -2058,8 +2181,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346399 · Cherries, sweet, dark red, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2067,6 +2190,9 @@
       "name": "Chia seeds, dry",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 517,
+      "proteinPer100g": 17,
+      "carbsPer100g": 38.3,
+      "fatPer100g": 32.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -2109,8 +2235,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710819 · Chia seeds, dry, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2118,6 +2244,9 @@
       "name": "Chicken, breast, baked, skin not eaten",
       "category": "Meat & Poultry",
       "caloriesPer100g": 161,
+      "proteinPer100g": 30.2,
+      "carbsPer100g": 0,
+      "fatPer100g": 3.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -2190,8 +2319,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2705956 · Chicken breast, baked, broiled, or roasted, skin not eaten, from raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2199,6 +2328,9 @@
       "name": "Chicken, breast, meat only, cooked, braised",
       "category": "Meat & Poultry",
       "caloriesPer100g": 166,
+      "proteinPer100g": 32.1,
+      "carbsPer100g": 0,
+      "fatPer100g": 3.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -2241,8 +2373,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 331960 · Chicken, broiler or fryers, breast, skinless, boneless, meat only, cooked, braised · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2250,6 +2382,9 @@
       "name": "Chicken, breast, skinless, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 106,
+      "proteinPer100g": 22.5,
+      "carbsPer100g": 0,
+      "fatPer100g": 1.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -2292,8 +2427,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2646170 · Chicken, breast, boneless, skinless, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2301,6 +2436,9 @@
       "name": "Chicken, drumstick, meat only, cooked, braised",
       "category": "Meat & Poultry",
       "caloriesPer100g": 156,
+      "proteinPer100g": 23.9,
+      "carbsPer100g": 0,
+      "fatPer100g": 6,
       "servings": [
         {
           "id": "sv-gram",
@@ -2349,8 +2487,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 331897 · Chicken, broilers or fryers, drumstick, meat only, cooked, braised · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2358,6 +2496,9 @@
       "name": "Chicken, thigh, skinless, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 144,
+      "proteinPer100g": 18.6,
+      "carbsPer100g": 0,
+      "fatPer100g": 7.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -2400,8 +2541,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2646171 · Chicken, thigh, boneless, skinless, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2409,6 +2550,9 @@
       "name": "Chickpeas, canned, drained",
       "category": "Legumes & Beans",
       "caloriesPer100g": 137,
+      "proteinPer100g": 7,
+      "carbsPer100g": 20.3,
+      "fatPer100g": 3.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -2445,8 +2589,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2644288 · Chickpeas (garbanzo beans, bengal gram), canned, sodium added, drained and rinsed · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2454,6 +2598,9 @@
       "name": "Cod, Atlantic, wild caught, raw",
       "category": "Fish & Seafood",
       "caloriesPer100g": 66,
+      "proteinPer100g": 16.1,
+      "carbsPer100g": 0,
+      "fatPer100g": 0.7,
       "servings": [
         {
           "id": "sv-gram",
@@ -2490,8 +2637,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2684444 · Fish, cod, Atlantic, wild caught, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2499,6 +2646,9 @@
       "name": "Cod, baked or broiled",
       "category": "Fish & Seafood",
       "caloriesPer100g": 126,
+      "proteinPer100g": 19,
+      "carbsPer100g": 0,
+      "fatPer100g": 5,
       "servings": [
         {
           "id": "sv-gram",
@@ -2559,8 +2709,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2706241 · Fish, cod, baked or broiled · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2568,6 +2718,9 @@
       "name": "Coffee, brewed",
       "category": "Beverages",
       "caloriesPer100g": 1,
+      "proteinPer100g": 0.1,
+      "carbsPer100g": 0,
+      "fatPer100g": 0,
       "servings": [
         {
           "id": "sv-gram",
@@ -2628,8 +2781,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710375 · Coffee, brewed · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2637,6 +2790,9 @@
       "name": "Corn, sweet, fresh, raw",
       "category": "Vegetables",
       "caloriesPer100g": 85,
+      "proteinPer100g": 2.8,
+      "carbsPer100g": 14.7,
+      "fatPer100g": 1.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -2673,8 +2829,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710826 · Corn, sweet, yellow and white kernels,  fresh, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2682,6 +2838,9 @@
       "name": "Cottage cheese, full fat",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 103,
+      "proteinPer100g": 11.6,
+      "carbsPer100g": 4.6,
+      "fatPer100g": 4.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -2718,8 +2877,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346384 · Cottage cheese, full fat, large or small curd · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2727,6 +2886,9 @@
       "name": "Couscous, cooked",
       "category": "Grains & Cereals",
       "caloriesPer100g": 111,
+      "proteinPer100g": 3.8,
+      "carbsPer100g": 23.1,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -2769,8 +2931,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2708441 · Couscous, plain, cooked · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2778,6 +2940,9 @@
       "name": "Cream cheese, full fat",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 343,
+      "proteinPer100g": 5.8,
+      "carbsPer100g": 4.6,
+      "fatPer100g": 33.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -2820,8 +2985,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346385 · Cream cheese, full fat, block · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2829,6 +2994,9 @@
       "name": "Cream, heavy",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 343,
+      "proteinPer100g": 2,
+      "carbsPer100g": 3.8,
+      "fatPer100g": 35.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -2865,8 +3033,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346386 · Cream, heavy · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2874,6 +3042,9 @@
       "name": "Cucumber, with peel, raw",
       "category": "Vegetables",
       "caloriesPer100g": 16,
+      "proteinPer100g": 0.6,
+      "carbsPer100g": 3,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -2910,8 +3081,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346406 · Cucumber, with peel, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2919,6 +3090,9 @@
       "name": "Egg white, Grade A large",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 55,
+      "proteinPer100g": 10.7,
+      "carbsPer100g": 2.4,
+      "fatPer100g": 0,
       "servings": [
         {
           "id": "sv-gram",
@@ -2967,8 +3141,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 747997 · Eggs, Grade A, Large, egg white · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -2976,6 +3150,9 @@
       "name": "Egg, omelet or scrambled, NS as to fat",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 185,
+      "proteinPer100g": 11.6,
+      "carbsPer100g": 0.9,
+      "fatPer100g": 15,
       "servings": [
         {
           "id": "sv-gram",
@@ -3024,8 +3201,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2707198 · Egg omelet or scrambled egg, NS as to fat · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3033,6 +3210,9 @@
       "name": "Egg, whole, cooked, NS as to method",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 176,
+      "proteinPer100g": 11.8,
+      "carbsPer100g": 0.9,
+      "fatPer100g": 13.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -3081,8 +3261,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2707153 · Egg, whole, cooked, NS as to cooking method · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3090,6 +3270,9 @@
       "name": "Egg, whole, Grade A large",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 148,
+      "proteinPer100g": 12.4,
+      "carbsPer100g": 1,
+      "fatPer100g": 10,
       "servings": [
         {
           "id": "sv-gram",
@@ -3132,8 +3315,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 748967 · Eggs, Grade A, Large, egg whole · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3141,6 +3324,9 @@
       "name": "Eggplant, raw",
       "category": "Vegetables",
       "caloriesPer100g": 26,
+      "proteinPer100g": 0.9,
+      "carbsPer100g": 5.4,
+      "fatPer100g": 0.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -3177,8 +3363,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2685577 · Eggplant, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3186,6 +3372,9 @@
       "name": "Farro, pearled, dry",
       "category": "Grains & Cereals",
       "caloriesPer100g": 367,
+      "proteinPer100g": 12.6,
+      "carbsPer100g": 72.1,
+      "fatPer100g": 3.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -3222,8 +3411,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710828 · Farro, pearled, dry, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3231,6 +3420,9 @@
       "name": "Figs, dried, uncooked",
       "category": "Fruits",
       "caloriesPer100g": 249,
+      "proteinPer100g": 3.3,
+      "carbsPer100g": 63.9,
+      "fatPer100g": 0.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -3279,8 +3471,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 326905 · Figs, dried, uncooked · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3288,6 +3480,9 @@
       "name": "Flaxseed, ground",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 545,
+      "proteinPer100g": 18,
+      "carbsPer100g": 34.4,
+      "fatPer100g": 37.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -3330,8 +3525,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2262075 · Flaxseed, ground · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3339,6 +3534,9 @@
       "name": "Flour, wheat, all-purpose",
       "category": "Grains & Cereals",
       "caloriesPer100g": 366,
+      "proteinPer100g": 10.9,
+      "carbsPer100g": 77.3,
+      "fatPer100g": 1.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -3375,8 +3573,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 789890 · Flour, wheat, all-purpose, enriched, bleached · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3384,6 +3582,9 @@
       "name": "Frankfurter, beef",
       "category": "Meat & Poultry",
       "caloriesPer100g": 314,
+      "proteinPer100g": 11.7,
+      "carbsPer100g": 2.9,
+      "fatPer100g": 28,
       "servings": [
         {
           "id": "sv-gram",
@@ -3426,8 +3627,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 323121 · Frankfurter, beef, unheated · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3435,6 +3636,9 @@
       "name": "French fries, from fresh, fried",
       "category": "Sweets & Snacks",
       "caloriesPer100g": 198,
+      "proteinPer100g": 1.9,
+      "carbsPer100g": 18.5,
+      "fatPer100g": 13.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -3501,8 +3705,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2709458 · Potato, french fries, from fresh, fried · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3510,6 +3714,9 @@
       "name": "Garlic, raw",
       "category": "Vegetables",
       "caloriesPer100g": 143,
+      "proteinPer100g": 6.6,
+      "carbsPer100g": 28.2,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -3552,8 +3759,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 1104647 · Garlic, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3561,6 +3768,9 @@
       "name": "Grapes, green, seedless, raw",
       "category": "Fruits",
       "caloriesPer100g": 80,
+      "proteinPer100g": 0.9,
+      "carbsPer100g": 18.6,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -3603,8 +3813,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2263891 · Grapes, green, seedless, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3612,6 +3822,9 @@
       "name": "Grapes, red, seedless, raw",
       "category": "Fruits",
       "caloriesPer100g": 86,
+      "proteinPer100g": 0.9,
+      "carbsPer100g": 20.2,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -3654,8 +3867,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2263890 · Grapes, red, seedless, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3663,6 +3876,9 @@
       "name": "Ham, sliced, pre-packaged, deli",
       "category": "Meat & Poultry",
       "caloriesPer100g": 106,
+      "proteinPer100g": 16.7,
+      "carbsPer100g": 0.3,
+      "fatPer100g": 3.7,
       "servings": [
         {
           "id": "sv-gram",
@@ -3711,8 +3927,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 332397 · Ham, sliced, pre-packaged, deli meat (96%fat free, water added) · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3720,6 +3936,9 @@
       "name": "Hot dog, NFS",
       "category": "Meat & Poultry",
       "caloriesPer100g": 310,
+      "proteinPer100g": 11.7,
+      "carbsPer100g": 2.9,
+      "fatPer100g": 28,
       "servings": [
         {
           "id": "sv-gram",
@@ -3786,8 +4005,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2706166 · Hot dog, NFS · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3795,6 +4014,9 @@
       "name": "Hummus, commercial",
       "category": "Legumes & Beans",
       "caloriesPer100g": 229,
+      "proteinPer100g": 7.4,
+      "carbsPer100g": 14.9,
+      "fatPer100g": 17.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -3843,8 +4065,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 321358 · Hummus, commercial · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3852,6 +4074,9 @@
       "name": "Ice cream, vanilla",
       "category": "Sweets & Snacks",
       "caloriesPer100g": 207,
+      "proteinPer100g": 3.5,
+      "carbsPer100g": 23.6,
+      "fatPer100g": 11,
       "servings": [
         {
           "id": "sv-gram",
@@ -3912,8 +4137,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2705630 · Ice cream, vanilla · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3921,6 +4146,9 @@
       "name": "Kale, raw",
       "category": "Vegetables",
       "caloriesPer100g": 35,
+      "proteinPer100g": 2.9,
+      "carbsPer100g": 4.4,
+      "fatPer100g": 1.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -3957,8 +4185,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 323505 · Kale, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -3966,6 +4194,9 @@
       "name": "Ketchup",
       "category": "Spreads & Sauces",
       "caloriesPer100g": 117,
+      "proteinPer100g": 1.1,
+      "carbsPer100g": 26.8,
+      "fatPer100g": 0.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -4008,8 +4239,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 747693 · Ketchup, restaurant · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4017,6 +4248,9 @@
       "name": "Kidney beans, dark red, canned, drained",
       "category": "Legumes & Beans",
       "caloriesPer100g": 127,
+      "proteinPer100g": 7.8,
+      "carbsPer100g": 21,
+      "fatPer100g": 1.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -4053,8 +4287,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2644289 · Beans, kidney, dark red, canned, sodium added, sugar added, drained and rinsed · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4062,6 +4296,9 @@
       "name": "Kiwifruit, green, raw",
       "category": "Fruits",
       "caloriesPer100g": 58,
+      "proteinPer100g": 1.1,
+      "carbsPer100g": 14,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -4104,8 +4341,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 327046 · Kiwifruit, green, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4113,6 +4350,9 @@
       "name": "Lamb, ground, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 237,
+      "proteinPer100g": 17.5,
+      "carbsPer100g": 0,
+      "fatPer100g": 18.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -4149,8 +4389,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2727570 · Lamb, ground, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4158,6 +4398,9 @@
       "name": "Latte",
       "category": "Beverages",
       "caloriesPer100g": 43,
+      "proteinPer100g": 2.8,
+      "carbsPer100g": 4.4,
+      "fatPer100g": 1.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -4218,8 +4461,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710386 · Coffee, Latte · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4227,6 +4470,9 @@
       "name": "Lentils, cooked, from dried",
       "category": "Legumes & Beans",
       "caloriesPer100g": 115,
+      "proteinPer100g": 9,
+      "carbsPer100g": 20,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -4269,8 +4515,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2707425 · Lentils, from dried, no added fat · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4278,6 +4524,9 @@
       "name": "Lentils, dry",
       "category": "Legumes & Beans",
       "caloriesPer100g": 360,
+      "proteinPer100g": 23.6,
+      "carbsPer100g": 62.2,
+      "fatPer100g": 1.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -4314,8 +4563,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2644283 · Lentils, dry · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4323,6 +4572,9 @@
       "name": "Lettuce, iceberg, raw",
       "category": "Vegetables",
       "caloriesPer100g": 17,
+      "proteinPer100g": 0.7,
+      "carbsPer100g": 3.4,
+      "fatPer100g": 0.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -4359,8 +4611,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346388 · Lettuce, iceberg, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4368,6 +4620,9 @@
       "name": "Lettuce, romaine, raw",
       "category": "Vegetables",
       "caloriesPer100g": 17,
+      "proteinPer100g": 1.2,
+      "carbsPer100g": 3.2,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -4404,8 +4659,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 327923 · Lettuce, cos or romaine, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4413,6 +4668,9 @@
       "name": "Mango, Tommy Atkins, raw",
       "category": "Fruits",
       "caloriesPer100g": 68,
+      "proteinPer100g": 0.6,
+      "carbsPer100g": 15.3,
+      "fatPer100g": 0.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -4455,8 +4713,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710833 · Mango, Tommy Atkins, peeled, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4464,6 +4722,9 @@
       "name": "Mayonnaise, regular",
       "category": "Spreads & Sauces",
       "caloriesPer100g": 680,
+      "proteinPer100g": 1,
+      "carbsPer100g": 0.6,
+      "fatPer100g": 74.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -4524,8 +4785,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710204 · Mayonnaise, regular · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4533,6 +4794,9 @@
       "name": "Melons, cantaloupe, raw",
       "category": "Fruits",
       "caloriesPer100g": 34,
+      "proteinPer100g": 0.8,
+      "carbsPer100g": 8.2,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -4587,8 +4851,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 327198 · Melons, cantaloupe, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4596,6 +4860,9 @@
       "name": "Milk, lowfat, 1% milkfat",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 43,
+      "proteinPer100g": 3.4,
+      "carbsPer100g": 5.2,
+      "fatPer100g": 1,
       "servings": [
         {
           "id": "sv-gram",
@@ -4638,8 +4905,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 322228 · Milk, lowfat, fluid, 1% milkfat, with added vitamin A and vitamin D · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4647,6 +4914,9 @@
       "name": "Milk, nonfat (skim)",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 34,
+      "proteinPer100g": 3.4,
+      "carbsPer100g": 4.9,
+      "fatPer100g": 0.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -4689,8 +4959,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 322559 · Milk, nonfat, fluid, with added vitamin A and vitamin D (fat free or skim) · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4698,6 +4968,9 @@
       "name": "Milk, reduced fat, 2% milkfat",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 50,
+      "proteinPer100g": 3.4,
+      "carbsPer100g": 4.9,
+      "fatPer100g": 1.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -4740,8 +5013,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 321359 · Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4749,6 +5022,9 @@
       "name": "Milk, whole, 3.25% milkfat",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 60,
+      "proteinPer100g": 3.3,
+      "carbsPer100g": 4.7,
+      "fatPer100g": 3.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -4797,8 +5073,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 322892 · Milk, whole, 3.25% milkfat, with added vitamin D · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4806,6 +5082,9 @@
       "name": "Millet, whole grain",
       "category": "Grains & Cereals",
       "caloriesPer100g": 376,
+      "proteinPer100g": 10,
+      "carbsPer100g": 74.4,
+      "fatPer100g": 4.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -4842,8 +5121,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2512379 · Millet, whole grain · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4851,6 +5130,9 @@
       "name": "Mushrooms, white button, raw",
       "category": "Vegetables",
       "caloriesPer100g": 31,
+      "proteinPer100g": 2.9,
+      "carbsPer100g": 4.1,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -4887,8 +5169,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 1750347 · Mushrooms, white button · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4896,6 +5178,9 @@
       "name": "Mustard, prepared, yellow",
       "category": "Spreads & Sauces",
       "caloriesPer100g": 61,
+      "proteinPer100g": 4.3,
+      "carbsPer100g": 5.3,
+      "fatPer100g": 3.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -4944,8 +5229,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 326698 · Mustard, prepared, yellow · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -4953,6 +5238,9 @@
       "name": "Nectarine, raw",
       "category": "Fruits",
       "caloriesPer100g": 39,
+      "proteinPer100g": 1.1,
+      "carbsPer100g": 9.2,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -5001,8 +5289,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 327357 · Nectarines, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5010,6 +5298,9 @@
       "name": "Noodles, cooked",
       "category": "Grains & Cereals",
       "caloriesPer100g": 137,
+      "proteinPer100g": 4.5,
+      "carbsPer100g": 25,
+      "fatPer100g": 2.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -5052,8 +5343,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2708352 · Noodles, cooked · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5061,6 +5352,9 @@
       "name": "Oat milk, unsweetened",
       "category": "Beverages",
       "caloriesPer100g": 48,
+      "proteinPer100g": 0.8,
+      "carbsPer100g": 5.1,
+      "fatPer100g": 2.7,
       "servings": [
         {
           "id": "sv-gram",
@@ -5097,8 +5391,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2257046 · Oat milk, unsweetened, plain, refrigerated · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5106,6 +5400,9 @@
       "name": "Oatmeal, cooked, made with water",
       "category": "Grains & Cereals",
       "caloriesPer100g": 64,
+      "proteinPer100g": 2.2,
+      "carbsPer100g": 11.4,
+      "fatPer100g": 1.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -5154,8 +5451,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2708381 · Oatmeal, regular or quick, made with water, no added fat · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5163,6 +5460,9 @@
       "name": "Oats, rolled, old fashioned",
       "category": "Grains & Cereals",
       "caloriesPer100g": 382,
+      "proteinPer100g": 13.5,
+      "carbsPer100g": 68.7,
+      "fatPer100g": 5.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -5199,8 +5499,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346396 · Oats, whole grain, rolled, old fashioned · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5208,6 +5508,9 @@
       "name": "Oats, steel cut",
       "category": "Grains & Cereals",
       "caloriesPer100g": 381,
+      "proteinPer100g": 12.5,
+      "carbsPer100g": 69.8,
+      "fatPer100g": 5.8,
       "servings": [
         {
           "id": "sv-gram",
@@ -5244,8 +5547,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346397 · Oats, whole grain, steel cut · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5253,6 +5556,9 @@
       "name": "Oil, canola",
       "category": "Oils & Fats",
       "caloriesPer100g": 900,
+      "proteinPer100g": 0,
+      "carbsPer100g": 0,
+      "fatPer100g": 100,
       "servings": [
         {
           "id": "sv-gram",
@@ -5295,8 +5601,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710188 · Canola oil · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5304,6 +5610,9 @@
       "name": "Oil, coconut",
       "category": "Oils & Fats",
       "caloriesPer100g": 833,
+      "proteinPer100g": 0,
+      "carbsPer100g": 0.8,
+      "fatPer100g": 99.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -5352,8 +5661,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 330458 · Oil, coconut · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5361,6 +5670,9 @@
       "name": "Oil, olive, extra virgin",
       "category": "Oils & Fats",
       "caloriesPer100g": 900,
+      "proteinPer100g": 0,
+      "carbsPer100g": 0,
+      "fatPer100g": 100,
       "servings": [
         {
           "id": "sv-gram",
@@ -5403,8 +5715,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710186 · Olive oil · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5412,6 +5724,9 @@
       "name": "Olives, green, stuffed with pimiento",
       "category": "Vegetables",
       "caloriesPer100g": 130,
+      "proteinPer100g": 1.2,
+      "carbsPer100g": 5,
+      "fatPer100g": 12.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -5460,8 +5775,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 332791 · Olives, green, Manzanilla, stuffed with pimiento · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5469,6 +5784,9 @@
       "name": "Onion rings, breaded, heated in oven",
       "category": "Vegetables",
       "caloriesPer100g": 288,
+      "proteinPer100g": 4.5,
+      "carbsPer100g": 36.3,
+      "fatPer100g": 14.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -5511,8 +5829,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 324317 · Onion rings, breaded, par fried, frozen, prepared, heated in oven · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5520,6 +5838,9 @@
       "name": "Onion, yellow, raw",
       "category": "Vegetables",
       "caloriesPer100g": 38,
+      "proteinPer100g": 0.8,
+      "carbsPer100g": 8.6,
+      "fatPer100g": 0.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -5568,8 +5889,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 790646 · Onions, yellow, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5577,6 +5898,9 @@
       "name": "Orange juice, from concentrate",
       "category": "Beverages",
       "caloriesPer100g": 47,
+      "proteinPer100g": 0.7,
+      "carbsPer100g": 10.3,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -5619,8 +5943,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2003591 · Orange juice, no pulp, not fortified, from concentrate, refrigerated · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5628,6 +5952,9 @@
       "name": "Orange, navel, raw",
       "category": "Fruits",
       "caloriesPer100g": 47,
+      "proteinPer100g": 0.9,
+      "carbsPer100g": 11.8,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -5670,8 +5997,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 746771 · Oranges, raw, navels · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5679,6 +6006,9 @@
       "name": "Pasta, cooked",
       "category": "Grains & Cereals",
       "caloriesPer100g": 157,
+      "proteinPer100g": 5.8,
+      "carbsPer100g": 30.7,
+      "fatPer100g": 0.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -5721,8 +6051,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2708357 · Pasta, cooked · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5730,6 +6060,9 @@
       "name": "Peach, yellow, raw",
       "category": "Fruits",
       "caloriesPer100g": 42,
+      "proteinPer100g": 0.9,
+      "carbsPer100g": 10.1,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -5778,8 +6111,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 325430 · Peaches, yellow, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5787,6 +6120,9 @@
       "name": "Peanut butter, creamy",
       "category": "Spreads & Sauces",
       "caloriesPer100g": 632,
+      "proteinPer100g": 24,
+      "carbsPer100g": 22.7,
+      "fatPer100g": 49.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -5829,8 +6165,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2262072 · Peanut butter, creamy · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5838,6 +6174,9 @@
       "name": "Peanuts, raw",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 588,
+      "proteinPer100g": 23.2,
+      "carbsPer100g": 26.5,
+      "fatPer100g": 43.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -5880,8 +6219,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2515376 · Peanuts, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5889,6 +6228,9 @@
       "name": "Pear, bartlett, raw",
       "category": "Fruits",
       "caloriesPer100g": 57,
+      "proteinPer100g": 0.4,
+      "carbsPer100g": 15.1,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -5931,8 +6273,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 746773 · Pears, raw, bartlett · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5940,6 +6282,9 @@
       "name": "Peas, green, canned, drained",
       "category": "Legumes & Beans",
       "caloriesPer100g": 80,
+      "proteinPer100g": 4.7,
+      "carbsPer100g": 12.7,
+      "fatPer100g": 1.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -5976,8 +6321,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2644291 · Peas, green, sweet, canned, sodium added, sugar added, drained and rinsed · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -5985,6 +6330,9 @@
       "name": "Pecans, halves, raw",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 750,
+      "proteinPer100g": 10,
+      "carbsPer100g": 12.7,
+      "fatPer100g": 73.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -6027,8 +6375,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346395 · Nuts, pecans, halves, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6036,6 +6384,9 @@
       "name": "Pepper, bell, green, raw",
       "category": "Vegetables",
       "caloriesPer100g": 23,
+      "proteinPer100g": 0.7,
+      "carbsPer100g": 4.8,
+      "fatPer100g": 0.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -6078,8 +6429,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2258588 · Peppers, bell, green, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6087,6 +6438,9 @@
       "name": "Pepper, bell, red, raw",
       "category": "Vegetables",
       "caloriesPer100g": 31,
+      "proteinPer100g": 0.9,
+      "carbsPer100g": 6.7,
+      "fatPer100g": 0.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -6129,8 +6483,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2258590 · Peppers, bell, red, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6138,6 +6492,9 @@
       "name": "Pickles, cucumber, dill",
       "category": "Vegetables",
       "caloriesPer100g": 12,
+      "proteinPer100g": 0.5,
+      "carbsPer100g": 2,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -6186,8 +6543,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 324653 · Pickles, cucumber, dill or kosher dill · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6195,6 +6552,9 @@
       "name": "Pineapple, raw",
       "category": "Fruits",
       "caloriesPer100g": 60,
+      "proteinPer100g": 0.5,
+      "carbsPer100g": 14.1,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -6231,8 +6591,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346398 · Pineapple, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6240,6 +6600,9 @@
       "name": "Pinto beans, canned, drained",
       "category": "Legumes & Beans",
       "caloriesPer100g": 117,
+      "proteinPer100g": 6.7,
+      "carbsPer100g": 19.6,
+      "fatPer100g": 1.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -6276,8 +6639,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2644292 · Beans, pinto, canned, sodium added, drained and rinsed · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6285,6 +6648,9 @@
       "name": "Pistachios, raw",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 598,
+      "proteinPer100g": 20.5,
+      "carbsPer100g": 27.7,
+      "fatPer100g": 45,
       "servings": [
         {
           "id": "sv-gram",
@@ -6327,8 +6693,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2515379 · Nuts, pistachio nuts, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6336,6 +6702,9 @@
       "name": "Pizza, cheese, from restaurant",
       "category": "Sweets & Snacks",
       "caloriesPer100g": 266,
+      "proteinPer100g": 11.4,
+      "carbsPer100g": 33.3,
+      "fatPer100g": 9.7,
       "servings": [
         {
           "id": "sv-gram",
@@ -6408,8 +6777,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2708614 · Pizza, cheese, from restaurant or fast food, NS as to type of crust · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6417,6 +6786,9 @@
       "name": "Pork, chop, center cut, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 138,
+      "proteinPer100g": 22.8,
+      "carbsPer100g": 0,
+      "fatPer100g": 5.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -6459,8 +6831,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2727575 · Pork, chop, center cut, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6468,6 +6840,9 @@
       "name": "Pork, loin, boneless, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 168,
+      "proteinPer100g": 21.1,
+      "carbsPer100g": 0,
+      "fatPer100g": 9.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -6504,8 +6879,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2646168 · Pork, loin, boneless, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6513,6 +6888,9 @@
       "name": "Pork, loin, tenderloin, boneless, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 119,
+      "proteinPer100g": 21.6,
+      "carbsPer100g": 0,
+      "fatPer100g": 3.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -6549,8 +6927,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2646169 · Pork, loin, tenderloin, boneless, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6558,6 +6936,9 @@
       "name": "Potato, russet, raw",
       "category": "Vegetables",
       "caloriesPer100g": 83,
+      "proteinPer100g": 2.3,
+      "carbsPer100g": 17.8,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -6600,8 +6981,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346401 · Potatoes, russet, without skin, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6609,6 +6990,9 @@
       "name": "Prune, dried",
       "category": "Fruits",
       "caloriesPer100g": 240,
+      "proteinPer100g": 2.2,
+      "carbsPer100g": 63.9,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -6657,8 +7041,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2709211 · Prune, dried · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6666,6 +7050,9 @@
       "name": "Pumpkin seeds, pepitas, raw",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 555,
+      "proteinPer100g": 29.9,
+      "carbsPer100g": 18.7,
+      "fatPer100g": 40,
       "servings": [
         {
           "id": "sv-gram",
@@ -6708,8 +7095,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2515380 · Seeds, pumpkin seeds (pepitas), raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6717,6 +7104,9 @@
       "name": "Quinoa, cooked",
       "category": "Grains & Cereals",
       "caloriesPer100g": 120,
+      "proteinPer100g": 4.4,
+      "carbsPer100g": 21.2,
+      "fatPer100g": 1.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -6753,8 +7143,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2708400 · Quinoa, no added fat · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6762,6 +7152,9 @@
       "name": "Ranch dressing, regular",
       "category": "Spreads & Sauces",
       "caloriesPer100g": 430,
+      "proteinPer100g": 1.3,
+      "carbsPer100g": 5.9,
+      "fatPer100g": 44.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -6822,8 +7215,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710212 · Ranch dressing · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6831,6 +7224,9 @@
       "name": "Raspberries, raw",
       "category": "Fruits",
       "caloriesPer100g": 57,
+      "proteinPer100g": 1,
+      "carbsPer100g": 12.9,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -6873,8 +7269,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2263888 · Raspberries, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6882,6 +7278,9 @@
       "name": "Refried beans",
       "category": "Legumes & Beans",
       "caloriesPer100g": 90,
+      "proteinPer100g": 5,
+      "carbsPer100g": 13.6,
+      "fatPer100g": 2,
       "servings": [
         {
           "id": "sv-gram",
@@ -6918,8 +7317,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2707396 · Refried beans · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6927,6 +7326,9 @@
       "name": "Rice, brown, cooked",
       "category": "Grains & Cereals",
       "caloriesPer100g": 123,
+      "proteinPer100g": 2.4,
+      "carbsPer100g": 25.8,
+      "fatPer100g": 1.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -6963,8 +7365,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2708409 · Rice, brown, cooked, NS as to fat · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -6972,6 +7374,9 @@
       "name": "Rice, brown, long grain, raw",
       "category": "Grains & Cereals",
       "caloriesPer100g": 366,
+      "proteinPer100g": 7.3,
+      "carbsPer100g": 76.7,
+      "fatPer100g": 3.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -7008,8 +7413,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2512380 · Rice, brown, long grain, unenriched, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7017,6 +7422,9 @@
       "name": "Rice, white, cooked",
       "category": "Grains & Cereals",
       "caloriesPer100g": 129,
+      "proteinPer100g": 2.7,
+      "carbsPer100g": 28,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -7053,8 +7461,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2708403 · Rice, white, cooked, NS as to fat · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7062,6 +7470,9 @@
       "name": "Rice, white, long grain, raw",
       "category": "Grains & Cereals",
       "caloriesPer100g": 359,
+      "proteinPer100g": 7,
+      "carbsPer100g": 80.3,
+      "fatPer100g": 1,
       "servings": [
         {
           "id": "sv-gram",
@@ -7098,8 +7509,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2512381 · Rice, white, long grain, unenriched, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7107,6 +7518,9 @@
       "name": "Salmon, Atlantic, farm raised, raw",
       "category": "Fish & Seafood",
       "caloriesPer100g": 197,
+      "proteinPer100g": 20.3,
+      "carbsPer100g": 0,
+      "fatPer100g": 13.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -7143,8 +7557,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2684441 · Fish, salmon, Atlantic, farm raised, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7152,6 +7566,9 @@
       "name": "Salmon, baked or broiled",
       "category": "Fish & Seafood",
       "caloriesPer100g": 274,
+      "proteinPer100g": 25.4,
+      "carbsPer100g": 0,
+      "fatPer100g": 18.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -7212,8 +7629,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2706286 · Fish, salmon, baked or broiled · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7221,6 +7638,9 @@
       "name": "Salmon, sockeye, wild caught, raw",
       "category": "Fish & Seafood",
       "caloriesPer100g": 130,
+      "proteinPer100g": 22.3,
+      "carbsPer100g": 0,
+      "fatPer100g": 4.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -7257,8 +7677,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2684440 · Fish, salmon, sockeye, wild caught, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7266,6 +7686,9 @@
       "name": "Salsa, ready-to-serve",
       "category": "Spreads & Sauces",
       "caloriesPer100g": 29,
+      "proteinPer100g": 1.4,
+      "carbsPer100g": 6.7,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -7314,8 +7737,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 324038 · Sauce, salsa, ready-to-serve · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7323,6 +7746,9 @@
       "name": "Salt, table, iodized",
       "category": "Other",
       "caloriesPer100g": 0,
+      "proteinPer100g": 0,
+      "carbsPer100g": 0,
+      "fatPer100g": 0,
       "servings": [
         {
           "id": "sv-gram",
@@ -7365,8 +7791,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 746775 · Salt, table, iodized · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7374,6 +7800,9 @@
       "name": "Sausage, Italian, pork, cooked",
       "category": "Meat & Poultry",
       "caloriesPer100g": 322,
+      "proteinPer100g": 18.2,
+      "carbsPer100g": 2.2,
+      "fatPer100g": 26.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -7422,8 +7851,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 325658 · Sausage, Italian, pork, mild, cooked, pan-fried · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7431,6 +7860,9 @@
       "name": "Shrimp, farm raised, raw",
       "category": "Fish & Seafood",
       "caloriesPer100g": 71,
+      "proteinPer100g": 15.6,
+      "carbsPer100g": 0.5,
+      "fatPer100g": 0.8,
       "servings": [
         {
           "id": "sv-gram",
@@ -7467,8 +7899,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2684443 · Crustaceans, shrimp, farm raised, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7476,6 +7908,9 @@
       "name": "Shrimp, steamed or boiled",
       "category": "Fish & Seafood",
       "caloriesPer100g": 90,
+      "proteinPer100g": 17.2,
+      "carbsPer100g": 1.2,
+      "fatPer100g": 1.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -7536,8 +7971,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2706363 · Shrimp, steamed or boiled · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7545,6 +7980,9 @@
       "name": "Sour cream, full fat",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 196,
+      "proteinPer100g": 3.1,
+      "carbsPer100g": 5.6,
+      "fatPer100g": 18,
       "servings": [
         {
           "id": "sv-gram",
@@ -7587,8 +8025,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346387 · Cream, sour, full fat · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7596,6 +8034,9 @@
       "name": "Soy milk, unsweetened",
       "category": "Beverages",
       "caloriesPer100g": 38,
+      "proteinPer100g": 3.5,
+      "carbsPer100g": 1.3,
+      "fatPer100g": 2.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -7632,8 +8073,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 1750337 · Soy milk, unsweetened, plain, shelf stable · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7641,6 +8082,9 @@
       "name": "Soy sauce",
       "category": "Spreads & Sauces",
       "caloriesPer100g": 53,
+      "proteinPer100g": 8.1,
+      "carbsPer100g": 4.9,
+      "fatPer100g": 0.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -7695,8 +8139,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2707442 · Soy sauce · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7704,6 +8148,9 @@
       "name": "Spinach, baby, raw",
       "category": "Vegetables",
       "caloriesPer100g": 27,
+      "proteinPer100g": 2.9,
+      "carbsPer100g": 2.4,
+      "fatPer100g": 0.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -7746,8 +8193,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 1750352 · Spinach, baby · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7755,6 +8202,9 @@
       "name": "Squash, summer, zucchini, raw",
       "category": "Vegetables",
       "caloriesPer100g": 19,
+      "proteinPer100g": 1,
+      "carbsPer100g": 3.3,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -7791,8 +8241,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2685568 · Squash, summer, green, zucchini, includes skin, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7800,6 +8250,9 @@
       "name": "Squash, winter, butternut, raw",
       "category": "Vegetables",
       "caloriesPer100g": 48,
+      "proteinPer100g": 1.1,
+      "carbsPer100g": 10.5,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -7836,8 +8289,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2685570 · Squash, winter, butternut, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7845,6 +8298,9 @@
       "name": "Strawberries, raw",
       "category": "Fruits",
       "caloriesPer100g": 31,
+      "proteinPer100g": 0.6,
+      "carbsPer100g": 7.6,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -7887,8 +8343,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 327699 · Strawberries, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7896,6 +8352,9 @@
       "name": "Sugar, granulated",
       "category": "Sweets & Snacks",
       "caloriesPer100g": 385,
+      "proteinPer100g": 0,
+      "carbsPer100g": 99.6,
+      "fatPer100g": 0.3,
       "servings": [
         {
           "id": "sv-gram",
@@ -7944,8 +8403,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 334247 · Sugars, granulated · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -7953,6 +8412,9 @@
       "name": "Sunflower seed kernels, dry roasted",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 612,
+      "proteinPer100g": 21,
+      "carbsPer100g": 17.1,
+      "fatPer100g": 56.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -7995,8 +8457,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 325524 · Seeds, sunflower seed kernels, dry roasted, with salt added · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8004,6 +8466,9 @@
       "name": "Sweet potato, orange flesh, raw",
       "category": "Vegetables",
       "caloriesPer100g": 79,
+      "proteinPer100g": 1.6,
+      "carbsPer100g": 17.3,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -8046,8 +8511,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346404 · Sweet potatoes, orange flesh, without skin, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8055,6 +8520,9 @@
       "name": "Tahini (sesame butter), creamy",
       "category": "Spreads & Sauces",
       "caloriesPer100g": 697,
+      "proteinPer100g": 19.7,
+      "carbsPer100g": 14.2,
+      "fatPer100g": 62.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -8097,8 +8565,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2262073 · Sesame butter, creamy · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8106,6 +8574,9 @@
       "name": "Tilapia, farm raised, raw",
       "category": "Fish & Seafood",
       "caloriesPer100g": 95,
+      "proteinPer100g": 19,
+      "carbsPer100g": 0,
+      "fatPer100g": 2.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -8142,8 +8613,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2684442 · Fish, tilapia, farm raised, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8151,6 +8622,9 @@
       "name": "Tomatoes, grape, raw",
       "category": "Vegetables",
       "caloriesPer100g": 27,
+      "proteinPer100g": 0.8,
+      "carbsPer100g": 5.5,
+      "fatPer100g": 0.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -8193,8 +8667,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 321360 · Tomatoes, grape, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8202,6 +8676,9 @@
       "name": "Tortilla, corn",
       "category": "Breads & Tortillas",
       "caloriesPer100g": 218,
+      "proteinPer100g": 5.7,
+      "carbsPer100g": 44.6,
+      "fatPer100g": 2.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -8268,8 +8745,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2707823 · Tortilla, corn · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8277,6 +8754,9 @@
       "name": "Tortilla, flour",
       "category": "Breads & Tortillas",
       "caloriesPer100g": 306,
+      "proteinPer100g": 8.2,
+      "carbsPer100g": 49.4,
+      "fatPer100g": 8,
       "servings": [
         {
           "id": "sv-gram",
@@ -8343,8 +8823,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2707824 · Tortilla, flour · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8352,6 +8832,9 @@
       "name": "Tuna, light, canned in water, drained",
       "category": "Fish & Seafood",
       "caloriesPer100g": 90,
+      "proteinPer100g": 19,
+      "carbsPer100g": 0.1,
+      "fatPer100g": 0.9,
       "servings": [
         {
           "id": "sv-gram",
@@ -8394,8 +8877,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 334194 · Fish, tuna, light, canned in water, drained solids · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8403,6 +8886,9 @@
       "name": "Turkey, ground, 93% lean, raw",
       "category": "Meat & Poultry",
       "caloriesPer100g": 153,
+      "proteinPer100g": 17.3,
+      "carbsPer100g": 0,
+      "fatPer100g": 9.6,
       "servings": [
         {
           "id": "sv-gram",
@@ -8439,8 +8925,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2514747 · Turkey, ground, 93% lean/ 7% fat, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8448,6 +8934,9 @@
       "name": "Turkey, light meat, skin not eaten",
       "category": "Meat & Poultry",
       "caloriesPer100g": 139,
+      "proteinPer100g": 28.8,
+      "carbsPer100g": 0,
+      "fatPer100g": 2.1,
       "servings": [
         {
           "id": "sv-gram",
@@ -8508,8 +8997,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2706105 · Turkey, light meat, skin not eaten · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8517,6 +9006,9 @@
       "name": "Walnuts, English, halves, raw",
       "category": "Nuts & Seeds",
       "caloriesPer100g": 730,
+      "proteinPer100g": 14.6,
+      "carbsPer100g": 10.9,
+      "fatPer100g": 69.7,
       "servings": [
         {
           "id": "sv-gram",
@@ -8559,8 +9051,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2346394 · Nuts, walnuts, English, halves, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8568,6 +9060,9 @@
       "name": "Watermelon, raw",
       "category": "Fruits",
       "caloriesPer100g": 30,
+      "proteinPer100g": 0.6,
+      "carbsPer100g": 7.6,
+      "fatPer100g": 0.2,
       "servings": [
         {
           "id": "sv-gram",
@@ -8628,8 +9123,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2709270 · Watermelon, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8637,6 +9132,9 @@
       "name": "Wild rice, dry",
       "category": "Grains & Cereals",
       "caloriesPer100g": 369,
+      "proteinPer100g": 12.8,
+      "carbsPer100g": 75.7,
+      "fatPer100g": 1.7,
       "servings": [
         {
           "id": "sv-gram",
@@ -8673,8 +9171,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710821 · Wild rice, dry, raw · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8682,6 +9180,9 @@
       "name": "Wine, red",
       "category": "Beverages",
       "caloriesPer100g": 85,
+      "proteinPer100g": 0.1,
+      "carbsPer100g": 2.6,
+      "fatPer100g": 0,
       "servings": [
         {
           "id": "sv-gram",
@@ -8742,8 +9243,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710688 · Wine, red · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8751,6 +9252,9 @@
       "name": "Wine, white",
       "category": "Beverages",
       "caloriesPer100g": 82,
+      "proteinPer100g": 0.1,
+      "carbsPer100g": 2.6,
+      "fatPer100g": 0,
       "servings": [
         {
           "id": "sv-gram",
@@ -8811,8 +9315,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2710689 · Wine, white · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8820,6 +9324,9 @@
       "name": "Yogurt, Greek, plain, nonfat",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 61,
+      "proteinPer100g": 10.3,
+      "carbsPer100g": 3.6,
+      "fatPer100g": 0.4,
       "servings": [
         {
           "id": "sv-gram",
@@ -8856,8 +9363,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 330137 · Yogurt, Greek, plain, nonfat · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     },
     {
@@ -8865,6 +9372,9 @@
       "name": "Yogurt, plain, whole milk",
       "category": "Dairy & Eggs",
       "caloriesPer100g": 78,
+      "proteinPer100g": 3.8,
+      "carbsPer100g": 5.6,
+      "fatPer100g": 4.5,
       "servings": [
         {
           "id": "sv-gram",
@@ -8901,8 +9411,8 @@
       "ownerId": null,
       "sourceRef": "USDA FDC 2259793 · Yogurt, plain, whole milk · release 2025-04-24 + 2024-10-31",
       "approxNote": "Some serving sizes are approximations (marked per serving) and may vary.",
-      "createdAt": "2026-08-17T08:01:59.215Z",
-      "updatedAt": "2026-08-17T08:01:59.215Z",
+      "createdAt": "2026-08-17T10:16:01.140Z",
+      "updatedAt": "2026-08-17T10:16:01.140Z",
       "deletedAt": null
     }
   ]

@@ -34,6 +34,11 @@ export const TABLES: Record<string, TableSpec> = {
     indexes: ['measuredAt', 'updatedAt'],
     composite: [['measuredAt', 'updatedAt']],
   },
+  saved_recipes: {
+    name: 'saved_recipes',
+    indexes: ['name', 'updatedAt'],
+    composite: [['name', 'updatedAt']],
+  },
   sync_queue: {
     name: 'sync_queue',
     indexes: ['pushedAt', 'updatedAt'],

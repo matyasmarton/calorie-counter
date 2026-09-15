@@ -1,0 +1,42 @@
+[
+  {
+    "name": "parse_meal",
+    "description": "Extract the ingredients from a meal description.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "mealDescription": {
+          "type": "string",
+          "description": "Echo the meal text."
+        },
+        "ingredients": {
+          "type": "array",
+          "description": "The ingredients.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "raw": {
+                "type": "string",
+                "description": "Ingredient name, no amount."
+              },
+              "foodQuery": {
+                "type": "string",
+                "description": "Catalog search phrase."
+              },
+              "amount": {
+                "type": "number",
+                "description": "Quantity."
+              },
+              "servingLabel": {
+                "type": "string",
+                "description": "Unit: cup, tbsp, piece, g."
+              }
+            },
+            "required": ["raw"]
+          }
+        }
+      },
+      "required": ["mealDescription", "ingredients"]
+    }
+  }
+]

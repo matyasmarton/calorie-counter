@@ -11,7 +11,8 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "build:catalog": "tsx scripts/build-food-catalog.ts",
-    "export:web": "expo export --platform web"
+    "export:web": "expo export --platform web",
+    "desktop:install": "sh scripts/install-desktop-launcher.sh"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",
