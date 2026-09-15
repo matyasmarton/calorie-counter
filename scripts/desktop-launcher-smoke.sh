@@ -163,7 +163,7 @@ if ! lsof -nP -iTCP:"$LLM_NEEDLE" -sTCP:LISTEN >/dev/null 2>&1 || ! lsof -nP -iT
   fail "LLM stubs did not come up"
 else
   OUT=$(LLM_PORT=$LLM_NEEDLE LLM_BONSAI_PORT=$LLM_BONSAI LLM_PROXY_PORT=$LLM_PROXY \
-    LLM_BIN=/nonexistent LLM_BONSAI_MODEL=stub sh "$LLM_START" 2>&1)
+    LLM_BIN=/nonexistent LLM_BONSAI_MODEL=stub MODEL_DOWNLOAD_CMD='sleep 5' sh "$LLM_START" 2>&1)
   RC=$?
   [ "$RC" -eq 0 ] && pass "bridge reuses both running servers (exit 0)" || fail "bridge exit $RC: $OUT"
   printf '%s' "$OUT" | grep -q "reusing existing needle server" && pass "needle server reused" || fail "no needle reuse: $OUT"
@@ -175,6 +175,27 @@ else
   printf '%s' "$CORS" | grep -qi 'access-control-allow-origin: \*' && pass "proxy sends CORS headers" || fail "missing CORS headers: $CORS"
   BODY=$(curl -fsS -m 5 -X POST "http://127.0.0.1:$LLM_PROXY/complete" -H 'Content-Type: application/json' -d '{"input":"test"}' 2>/dev/null)
   printf '%s' "$BODY" | grep -q 'function_calls' && pass "proxy forwards /complete" || fail "proxy /complete failed: $BODY"
+  MODELS=$(curl -fsS -m 5 "http://127.0.0.1:$LLM_PROXY/models" 2>/dev/null)
+  if printf '%s' "$MODELS" | grep -q '"needle-2"' &&
+    printf '%s' "$MODELS" | grep -q '"bonsai-4b"' &&
+    printf '%s' "$MODELS" | grep -q '"bonsai-8b-1bit"'; then
+    pass "proxy /models lists all three models"
+  else
+    fail "proxy /models malformed: $MODELS"
+  fi
+  CODE=$(curl -s -o /dev/null -w '%{http_code}' -m 5 -X POST "http://127.0.0.1:$LLM_PROXY/models/download" \
+    -H 'Content-Type: application/json' -d '{"id":"nope"}' 2>/dev/null)
+  [ "$CODE" = "404" ] && pass "proxy rejects an unknown model id (404)" || fail "unknown model id returned $CODE"
+  curl -s -o /dev/null -m 5 -X POST "http://127.0.0.1:$LLM_PROXY/models/download" \
+    -H 'Content-Type: application/json' -d '{"id":"bonsai-4b"}' 2>/dev/null
+  CODE=$(curl -s -o /dev/null -w '%{http_code}' -m 5 -X POST "http://127.0.0.1:$LLM_PROXY/models/download" \
+    -H 'Content-Type: application/json' -d '{"id":"bonsai-8b-1bit"}' 2>/dev/null)
+  [ "$CODE" = "409" ] && pass "proxy refuses a concurrent download (409)" || fail "second download returned $CODE"
+  ST=$(curl -fsS -m 5 "http://127.0.0.1:$LLM_PROXY/models/download/status" 2>/dev/null)
+  printf '%s' "$ST" | grep -q '"running":true' && pass "proxy reports the download as running" || fail "download status: $ST"
+  CODE=$(curl -s -o /dev/null -w '%{http_code}' -m 5 -X POST "http://127.0.0.1:$LLM_PROXY/models/use" \
+    -H 'Content-Type: application/json' -d '{"id":"needle-2"}' 2>/dev/null)
+  [ "$CODE" = "400" ] && pass "proxy refuses to switch the needle model (400)" || fail "needle switch returned $CODE"
 fi
 kill "$NEEDLE_PID" "$BONSAI_PID" 2>/dev/null
 sleep 1

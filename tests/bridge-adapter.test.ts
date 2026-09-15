@@ -17,10 +17,33 @@ import type { AddressInfo } from 'node:net';
 interface StubRoutes {
   health?: number;          // status for GET /health
   bonsaiHealth?: number;    // status for GET /health/bonsai
+  bonsaiListening?: boolean; // whether a bonsai server is listening (default true)
   completeStatus?: number;  // status for POST /complete
   completeBody?: unknown;   // body for POST /complete
   chatStatus?: number;      // status for POST /v1/chat/completions
   chatBody?: unknown;       // body for POST /v1/chat/completions
+  modelsBody?: unknown;     // body for GET /models (default: derived from health)
+  downloadStatus?: number;  // status for POST /models/download
+  downloadBody?: unknown;   // body for POST /models/download
+  downloadPoll?: unknown[]; // queued bodies for GET /models/download/status
+  useStatus?: number;       // status for POST /models/use
+  useBody?: unknown;        // body for POST /models/use
+}
+
+/**
+ * The inventory the real proxy derives from the two health probes, so tests
+ * that do not care about disk state still see a coherent bridge.
+ */
+function derivedInventory(r: StubRoutes) {
+  const needleUp = (r.health ?? 200) === 200;
+  const bonsaiUp = (r.bonsaiHealth ?? 200) === 200;
+  return {
+    models: [
+      { id: 'needle-2', downloaded: true, sizeBytes: 14543760, source: 'bridge-cache', active: needleUp, servedAs: needleUp ? 'needle-2' : null },
+      { id: 'bonsai-4b', downloaded: true, sizeBytes: 1143062384, source: 'hf-cache', active: bonsaiUp, servedAs: bonsaiUp ? 'prism-ml/Ternary-Bonsai-4B-mlx-2bit' : null },
+      { id: 'bonsai-8b-1bit', downloaded: false, sizeBytes: null, source: null, active: false, servedAs: null },
+    ],
+  };
 }
 
 let server: http.Server;
@@ -49,13 +72,47 @@ beforeEach(async () => {
         return;
       }
       if (url === '/health/bonsai') {
-        res.writeHead(routes.bonsaiHealth ?? 200);
-        res.end(JSON.stringify({ status: 'ok' }));
+        const status = routes.bonsaiHealth ?? 200;
+        res.writeHead(status);
+        res.end(
+          JSON.stringify(
+            status === 200
+              ? { status: 'ok', listening: true }
+              : { status: 'loading', listening: routes.bonsaiListening ?? true },
+          ),
+        );
         return;
       }
       if (url === '/v1/models') {
         res.writeHead(200);
         res.end(JSON.stringify({ data: [{ id: 'prism-ml/Ternary-Bonsai-4B-mlx-2bit' }] }));
+        return;
+      }
+      if (url === '/models') {
+        res.writeHead(200);
+        res.end(JSON.stringify(routes.modelsBody ?? derivedInventory(routes)));
+        return;
+      }
+      if (url === '/models/download') {
+        res.writeHead(routes.downloadStatus ?? 202);
+        res.end(JSON.stringify(routes.downloadBody ?? { downloadId: 'bonsai-4b' }));
+        return;
+      }
+      if (url === '/models/download/status') {
+        const queued = routes.downloadPoll;
+        const body =
+          queued && queued.length
+            ? queued.length > 1
+              ? queued.shift()
+              : queued[0]
+            : { running: false, done: true, error: null, progress: 1, logTail: [] };
+        res.writeHead(200);
+        res.end(JSON.stringify(body));
+        return;
+      }
+      if (url === '/models/use') {
+        res.writeHead(routes.useStatus ?? 200);
+        res.end(JSON.stringify(routes.useBody ?? { status: 'ok' }));
         return;
       }
       if (url === '/complete') {
@@ -84,7 +141,7 @@ beforeEach(async () => {
 afterEach(() => new Promise<void>((resolve) => server.close(() => resolve())));
 
 function adapter(): BridgeAdapter {
-  return createBridgeAdapter({ baseUrl, modelName: 'cactus-needle-2' }) as BridgeAdapter;
+  return createBridgeAdapter({ baseUrl, modelName: 'cactus-needle-2', pollIntervalMs: 10 }) as BridgeAdapter;
 }
 
 const VALID_ENVELOPE = {
@@ -417,6 +474,143 @@ describe('bridge adapter — pipeline integration', () => {
     expect(chat.messages?.[1]?.content).toBe('Input: chicken burrito with rice');
     // no needle server round trip happened (Bonsai did the extraction)
     expect(received.find((r) => r.path === '/complete')).toBeUndefined();
+  });
+});
+
+describe('bridge adapter — model management', () => {
+  it('names the bridge itself as the blocker when the proxy is unreachable', async () => {
+    // Port 1 has no listener: the exact situation the Settings screen hit when
+    // the proxy died while the needle server was still up.
+    const a = createBridgeAdapter({
+      baseUrl: 'http://127.0.0.1:1',
+      modelName: 'cactus-needle-2',
+      pollIntervalMs: 10,
+    }) as BridgeAdapter;
+    await a.refresh();
+    expect(a.isBridgeUp()).toBe(false);
+    expect(a.getInventory()).toEqual([]);
+    for (const m of a.getModels()) {
+      expect(m.status).toBe('unavailable');
+      expect(m.detail).toContain('scripts/start-local-llm.sh');
+    }
+  });
+
+  it('marks a downloaded but idle model as activatable instead of repeating the download hint', async () => {
+    // Nothing is listening on the Bonsai port: the weights are on disk but no
+    // server is running, which is not the same as "downloading".
+    stub({ bonsaiHealth: 503, bonsaiListening: false });
+    const a = adapter();
+    await a.refresh();
+    const bonsai = a.getModels().find((m) => m.id === 'bonsai-4b');
+    expect(bonsai?.status).toBe('unavailable');
+    expect(bonsai?.detail).toBe('Downloaded — press Use to activate');
+    expect(a.getInventory().find((m) => m.id === 'bonsai-4b')).toMatchObject({
+      downloaded: true,
+      source: 'hf-cache',
+    });
+  });
+
+  it('keeps the download hint when the model is not on disk', async () => {
+    stub({ bonsaiHealth: 503 });
+    const a = adapter();
+    await a.refresh();
+    expect(a.getModels().find((m) => m.id === 'bonsai-8b-1bit')?.detail).toMatch(/Opt-in planner/);
+  });
+
+  it('starts a download, follows progress to completion, and refreshes the row', async () => {
+    stub({
+      bonsaiHealth: 503,
+      downloadPoll: [
+        { running: true, id: 'bonsai-8b-1bit', done: false, error: null, progress: 0.5, logTail: ['halfway'] },
+        { running: false, id: 'bonsai-8b-1bit', done: true, error: null, progress: 1, logTail: ['complete'] },
+      ],
+      modelsBody: {
+        models: [
+          { id: 'needle-2', downloaded: false, sizeBytes: null, source: null, active: false, servedAs: null },
+          { id: 'bonsai-4b', downloaded: true, sizeBytes: 1143062384, source: 'hf-cache', active: false, servedAs: null },
+          { id: 'bonsai-8b-1bit', downloaded: true, sizeBytes: 2200000000, source: 'omlx-library', active: false, servedAs: null },
+        ],
+      },
+    });
+    const a = adapter();
+    await a.refresh();
+    const seen: number[] = [];
+    await a.downloadModel('bonsai-8b-1bit', (f) => seen.push(f));
+    expect(received.find((r) => r.path === '/models/download')?.body).toEqual({ id: 'bonsai-8b-1bit' });
+    expect(seen).toEqual([0, 0.5, 1]);
+    expect(a.getModels().find((m) => m.id === 'bonsai-8b-1bit')?.detail).toBe('Downloaded — press Use to activate');
+  });
+
+  it('surfaces the bridge error and log tail when a download fails', async () => {
+    stub({
+      downloadPoll: [
+        { running: false, id: 'bonsai-4b', done: false, error: 'exited 1', progress: 0.3, logTail: ['no space left on device'] },
+      ],
+    });
+    const a = adapter();
+    await a.refresh();
+    await expect(a.downloadModel('bonsai-4b')).rejects.toThrow(/exited 1.*no space left on device/);
+  });
+
+  it('reports the bridge message when a download cannot start', async () => {
+    stub({ downloadStatus: 409, downloadBody: { error: 'download in progress', id: 'bonsai-4b' } });
+    const a = adapter();
+    await a.refresh();
+    await expect(a.downloadModel('bonsai-4b')).rejects.toThrow(/download in progress/);
+  });
+
+  it('activates a model through the bridge and re-reads the rows afterwards', async () => {
+    stub({ bonsaiHealth: 200 });
+    const a = adapter();
+    await a.refresh();
+    await a.loadModel('bonsai-8b-1bit');
+    expect(received.find((r) => r.path === '/models/use')?.body).toEqual({ id: 'bonsai-8b-1bit' });
+    expect(a.getModels().find((m) => m.id === 'bonsai-4b')?.status).toBe('ready');
+  });
+
+  it('surfaces the backend failure when activating a model fails', async () => {
+    stub({
+      useStatus: 503,
+      useBody: { error: 'backend did not become ready', logTail: ['metal: out of memory'] },
+    });
+    const a = adapter();
+    await a.refresh();
+    await expect(a.loadModel('bonsai-8b-1bit')).rejects.toThrow(/backend did not become ready.*metal: out of memory/);
+  });
+
+  it('activates a folder on disk through the same route', async () => {
+    const a = adapter();
+    await a.refresh();
+    await a.useModelPath('/Users/me/Models/bonsai-4b');
+    expect(received.find((r) => r.path === '/models/use')?.body).toEqual({
+      path: '/Users/me/Models/bonsai-4b',
+    });
+  });
+
+  it('sends the id the backend reports, not the first entry of a multi-model server', async () => {
+    // oMLX serves several models at once and lists them alphabetically, so
+    // data[0] is routinely a model the app never asked for.
+    stub({
+      bonsaiHealth: 200,
+      chatBody: {
+        choices: [{ message: { content: JSON.stringify({ mealDescription: 'rice', ingredients: [], confidence: 0.9 }) } }],
+      },
+      modelsBody: {
+        models: [
+          { id: 'needle-2', downloaded: true, sizeBytes: 1, source: 'bridge-cache', active: true, servedAs: 'needle-2' },
+          { id: 'bonsai-4b', downloaded: true, sizeBytes: 1, source: 'hf-cache', active: true, servedAs: 'prism-ml--Ternary-Bonsai-4B-mlx-2bit' },
+          { id: 'bonsai-8b-1bit', downloaded: false, sizeBytes: null, source: null, active: false, servedAs: null },
+        ],
+      },
+    });
+    const a = adapter();
+    await a.refresh();
+    await a.generate({
+      modelId: 'needle-2',
+      prompt: 'Extract the meal into strict JSON matching the schema. Input: rice',
+    });
+    const chat = received.find((r) => r.path === '/v1/chat/completions')?.body as { model?: string };
+    expect(chat.model).toBe('prism-ml--Ternary-Bonsai-4B-mlx-2bit');
   });
 });
 

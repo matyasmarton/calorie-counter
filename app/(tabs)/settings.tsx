@@ -3,7 +3,7 @@
  * and JSON backup export/import (merge by UUID, or explicit restore).
  */
 import { useApp } from '@/app-context';
-import { DEFAULT_LLM_BASE_URL } from '@/local-ai/bridge';
+import { DEFAULT_LLM_BASE_URL, type LocalModelId } from '@/local-ai/bridge';
 import { useLocalModel } from '@/local-ai/model-context';
 import { Button, Card, ErrorBanner, Field, Screen, SectionTitle, TextInput } from '@/components/ui';
 import type { CatalogMetadata } from '@/domain/types';
@@ -12,10 +12,46 @@ import { colors, font, spacing } from '@/theme';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Modal, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 
+/** Human-readable size for the inventory line; a missing size is unknown, not 0. */
+function formatBytes(bytes: number | null): string {
+  if (bytes === null || !Number.isFinite(bytes) || bytes <= 0) return 'unknown size';
+  const units = ['B', 'KB', 'MB', 'GB'];
+  let value = bytes;
+  let unit = 0;
+  while (value >= 1024 && unit < units.length - 1) {
+    value /= 1024;
+    unit += 1;
+  }
+  return `${value >= 10 || unit === 0 ? Math.round(value) : value.toFixed(1)} ${units[unit]}`;
+}
+
+/** Only the 4B size is known; the 8B is stated relative to it rather than invented. */
+function downloadLabel(id: LocalModelId): string {
+  if (id === 'needle-2') return 'Download (≈15 MB)';
+  if (id === 'bonsai-8b-1bit') return 'Download (≈2× the 4B)';
+  return 'Download (≈1.1 GB)';
+}
+
 export default function SettingsScreen() {
   const { repo, sync } = useApp();
   const { status, pending, error } = useSyncStatus();
-  const { models, enabled, setEnabled, refresh: refreshModels } = useLocalModel();
+  const {
+    models,
+    inventory,
+    enabled,
+    bridgeUp,
+    busy,
+    progress,
+    actionError,
+    setEnabled,
+    refresh: refreshModels,
+    downloadModel,
+    useModel,
+    useModelPath,
+    clearActionError,
+  } = useLocalModel();
+  const [modelPath, setModelPath] = useState('');
+  const [pathError, setPathError] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
@@ -136,6 +172,10 @@ export default function SettingsScreen() {
   );
 
   const statusText = syncStatusLabel(status, pending);
+  // When every model reports the same blocker (bridge down, AI switched off),
+  // say it once under the list instead of repeating it on all three rows.
+  const sharedDetail =
+    models.length > 0 && models.every((m) => m.detail === models[0]!.detail) ? models[0]!.detail : null;
   const statusColor =
     status === 'synced'
       ? colors.primary
@@ -224,34 +264,120 @@ export default function SettingsScreen() {
             trackColor={{ true: colors.primary, false: colors.border }}
           />
         </View>
-        {models.map((m) => (
-          <View key={m.id} style={styles.statusRow}>
-            <Text
-              style={[
-                styles.statusDot,
-                { color: m.status === 'ready' ? colors.primary : m.status === 'downloading' ? colors.warning : colors.textMuted },
-              ]}
-            >
-              ●
-            </Text>
-            <View style={styles.statusText}>
-              <Text style={styles.statusTitle}>
-                {m.id} — {m.status}
-              </Text>
-              {m.detail ? <Text style={styles.statusSub}>{m.detail}</Text> : null}
+        {models.map((m) => {
+          const info = inventory.find((i) => i.id === m.id);
+          const downloaded = info?.downloaded ?? false;
+          const rowBusy = busy === m.id;
+          // needle-2 has no sibling to switch to: its binary is the only model.
+          const canUse = bridgeUp && downloaded && m.status !== 'ready' && m.id !== 'needle-2';
+          const canDownload = bridgeUp && !downloaded;
+          return (
+            <View key={m.id} style={styles.modelRow}>
+              <View style={styles.statusRow}>
+                <Text
+                  style={[
+                    styles.statusDot,
+                    { color: m.status === 'ready' ? colors.primary : m.status === 'downloading' ? colors.warning : colors.textMuted },
+                  ]}
+                >
+                  ●
+                </Text>
+                <View style={styles.statusText}>
+                  <Text style={styles.statusTitle}>
+                    {m.id} — {m.status}
+                  </Text>
+                  {m.detail && !sharedDetail ? <Text style={styles.statusSub}>{m.detail}</Text> : null}
+                  {downloaded ? (
+                    <Text style={styles.statusSub}>
+                      On disk: {formatBytes(info?.sizeBytes ?? null)}
+                      {info?.source ? ` (${info.source})` : ''}
+                    </Text>
+                  ) : null}
+                  {rowBusy && progress !== null ? (
+                    <Text style={styles.statusSub}>{Math.round(progress * 100)}%</Text>
+                  ) : null}
+                </View>
+              </View>
+              {canUse || canDownload ? (
+                <View style={styles.actions}>
+                  {canUse ? (
+                    <Button
+                      variant="secondary"
+                      label="Use"
+                      onPress={() => void useModel(m.id)}
+                      loading={rowBusy}
+                      disabled={busy !== null}
+                      testID={`model-use-${m.id}`}
+                    />
+                  ) : null}
+                  {canDownload ? (
+                    <Button
+                      label={downloadLabel(m.id)}
+                      onPress={() => void downloadModel(m.id)}
+                      loading={rowBusy}
+                      disabled={busy !== null}
+                      testID={`model-download-${m.id}`}
+                    />
+                  ) : null}
+                </View>
+              ) : null}
             </View>
-          </View>
-        ))}
+          );
+        })}
+        {sharedDetail ? <Text style={styles.hint}>{sharedDetail}</Text> : null}
+        {actionError ? <ErrorBanner message={actionError} /> : null}
         <Text style={styles.hint}>
           Model server: {DEFAULT_LLM_BASE_URL} · needle-2 parses meals · bonsai-4b plans tool calls.
-          The desktop launcher starts both automatically; scripts/start-local-llm.sh starts them standalone.
-          First run downloads the 14.6 MB needle binary and the Bonsai model (≈1.1 GB for 4B).
+          The desktop launcher starts the bridge automatically; scripts/start-local-llm.sh starts it standalone.
+          Downloads run on this Mac through the bridge and land in the oMLX model library.
         </Text>
-        {!enabled ? (
+        {enabled ? (
+          <>
+            <Field
+              label="Model folder on this Mac"
+              hint="An MLX model directory (config.json plus *.safetensors). A browser cannot hand a server a usable file-picker path, so paste the folder path instead."
+              error={pathError}
+            >
+              <TextInput
+                value={modelPath}
+                onChangeText={(t) => {
+                  setModelPath(t);
+                  setPathError(null);
+                }}
+                placeholder="/Users/you/Models/bonsai-4b"
+                testID="model-path"
+              />
+            </Field>
+            <View style={styles.actions}>
+              <Button
+                variant="secondary"
+                label="Use local folder"
+                loading={busy === 'path'}
+                disabled={!bridgeUp || busy !== null}
+                onPress={() => {
+                  const candidate = modelPath.trim();
+                  if (!candidate.startsWith('/')) {
+                    setPathError('Enter an absolute path that exists on this Mac');
+                    return;
+                  }
+                  void useModelPath(candidate);
+                }}
+                testID="model-use-path"
+              />
+            </View>
+          </>
+        ) : (
           <Text style={styles.hint}>AI meal parsing and quick add are disabled.</Text>
-        ) : null}
+        )}
         <View style={styles.actions}>
-          <Button variant="ghost" label="Refresh" onPress={() => void refreshModels()} />
+          <Button
+            variant="ghost"
+            label="Refresh"
+            onPress={() => {
+              clearActionError();
+              void refreshModels();
+            }}
+          />
         </View>
       </Card>
 
@@ -292,6 +418,7 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   statusRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
+  modelRow: { gap: spacing.sm },
   statusDot: { fontSize: 18, color: colors.primary },
   statusText: { flex: 1, gap: 2 },
   statusTitle: { fontSize: font.body, fontWeight: '600', color: colors.text },
