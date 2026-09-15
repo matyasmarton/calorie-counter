@@ -10,42 +10,43 @@
  *  - every write stamps updatedAt and queues the record for sync
  *  - deletes are tombstones (deletedAt), never physical removal
  *  - entries snapshot food/serving values at write time
+ *  - workouts snapshot the calories an estimate produced (manual override beats
+ *    the HR regression, which beats the MET estimate — see domain/workouts.ts)
  */
-import { calculateCalories, servingAmountToGrams } from '@/domain/calories';
+import { calculateCalories, roundTo, servingAmountToGrams } from '@/domain/calories';
 import { calculateMacros } from '@/domain/macros';
 import { isValidDateKey, todayKey } from '@/domain/dates';
+import { netEnergy } from '@/domain/energy';
+import { NotFoundError, ValidationError } from '@/domain/errors';
+import { estimateWorkoutCalories, resolveAge } from '@/domain/workouts';
 import type {
+  ActivityDay,
   CatalogMetadata,
+  DailyEnergy,
   DailyEntry,
   DailySummary,
+  EnergySummary,
   Food,
   HealthMeasurement,
   MacroSummary,
   SavedRecipe,
   Serving,
+  Sex,
   SummaryRange,
   SyncRecord,
   SyncTable,
   UserFood,
+  UserProfile,
+  Workout,
+  WorkoutCaloriesSource,
 } from '@/domain/types';
 import type { MealIngredient } from '@/local-ai/types';
 import { uuid } from '@/domain/uuid';
 import { CATALOG_VERSION_KEY, seedCatalog, type CatalogBundle } from './seedCatalog';
 import type { Row, StorageAdapter } from './storage';
 
-export class ValidationError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'ValidationError';
-  }
-}
-
-export class NotFoundError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'NotFoundError';
-  }
-}
+/** The single profile row's id — one profile per device/user. */
+const PROFILE_ID = 'profile';
 
 export interface NewEntryInput {
   logDate: string;
@@ -71,13 +72,40 @@ export interface MeasurementInput {
   heightCm: number | null;
 }
 
+export interface ActivityDayInput {
+  logDate: string;
+  /** Whole steps — fractional steps are meaningless, so they are rejected. */
+  steps: number;
+  activeKcal: number;
+  activeMinutes: number;
+}
+
+export interface WorkoutInput {
+  logDate: string;
+  workoutType: string;
+  durationMin: number;
+  avgHr: number | null;
+  peakHr: number | null;
+  /** Explicit override; null lets the HR/MET estimate decide. */
+  manualCalories: number | null;
+  notes: string | null;
+}
+
+export interface ProfileInput {
+  sex: Sex | null;
+  birthYear: number | null;
+}
+
 export interface BackupPayload {
   app: 'calorie-counter';
-  version: 2;
+  version: 3;
   exportedAt: string;
   userFoods: UserFood[];
   entries: DailyEntry[];
   measurements: HealthMeasurement[];
+  activityDays: ActivityDay[];
+  workouts: Workout[];
+  profile: UserProfile | null;
 }
 
 function assertDate(key: string, label = 'date'): void {
@@ -94,6 +122,35 @@ function assertPositiveNullable(value: number | null, label: string): void {
   if (value != null && (!Number.isFinite(value) || value <= 0)) {
     throw new ValidationError(`${label} must be a positive number (got ${value})`);
   }
+}
+
+/** Counts (steps, minutes) are whole numbers — half a step is a data error, not data. */
+function assertNonNegativeInt(value: number, label: string): void {
+  if (!Number.isInteger(value) || value < 0) {
+    throw new ValidationError(`${label} must be a whole, non-negative number (got ${value})`);
+  }
+}
+
+function assertNonNegative(value: number, label: string): void {
+  if (!Number.isFinite(value) || value < 0) {
+    throw new ValidationError(`${label} must be a non-negative number (got ${value})`);
+  }
+}
+
+function assertWorkoutInput(input: WorkoutInput): void {
+  assertDate(input.logDate, 'workout date');
+  if (typeof input.workoutType !== 'string' || input.workoutType.trim() === '') {
+    throw new ValidationError('Workout type is required');
+  }
+  if (!Number.isFinite(input.durationMin) || input.durationMin <= 0) {
+    throw new ValidationError(`Duration must be a positive number of minutes (got ${input.durationMin})`);
+  }
+  assertPositiveNullable(input.avgHr, 'Average heart rate');
+  assertPositiveNullable(input.peakHr, 'Peak heart rate');
+  if (input.avgHr != null && input.peakHr != null && input.peakHr < input.avgHr) {
+    throw new ValidationError('Peak heart rate cannot be lower than the average');
+  }
+  if (input.manualCalories != null) assertNonNegative(input.manualCalories, 'Calories');
 }
 
 function assertServing(s: Serving): void {
@@ -429,6 +486,201 @@ export class Repository {
   }
 
   /* ------------------------------------------------------------------ */
+  /* activity days, workouts & profile                                   */
+  /* ------------------------------------------------------------------ */
+
+  private async loadActivityDay(id: string): Promise<ActivityDay> {
+    const row = await this.db.get('activity_days', id);
+    if (!row) throw new NotFoundError(`Activity day ${id} not found`);
+    // SAFETY: activity_days only ever stores ActivityDay rows written by this
+    // repository, so a row read back by id is one (or a tombstone of one).
+    const day = row as unknown as ActivityDay;
+    if (day.deletedAt) throw new NotFoundError(`Activity day ${id} not found`);
+    return day;
+  }
+
+  /** The live activity row for one date (one row per calendar day), or null. */
+  async getActivityDay(date: string): Promise<ActivityDay | null> {
+    assertDate(date, 'activity date');
+    const rows = await this.getActivityDays(date, date);
+    if (rows.length === 0) return null;
+    return rows.reduce((a, b) => (a.updatedAt >= b.updatedAt ? a : b));
+  }
+
+  /** Activity days within [from, to] (inclusive), newest date first. */
+  async getActivityDays(from?: string, to?: string): Promise<ActivityDay[]> {
+    if (from) assertDate(from, 'from date');
+    if (to) assertDate(to, 'to date');
+    const rows = await this.liveActivityDays(from, to);
+    rows.sort((a, b) => (a.logDate < b.logDate ? 1 : -1));
+    return rows;
+  }
+
+  /** Create or update the single live activity row for a date. */
+  async upsertActivityDay(input: ActivityDayInput): Promise<ActivityDay> {
+    assertDate(input.logDate, 'activity date');
+    assertNonNegativeInt(input.steps, 'Steps');
+    assertNonNegativeInt(input.activeMinutes, 'Active minutes');
+    assertNonNegative(input.activeKcal, 'Active calories');
+    const existing = await this.getActivityDay(input.logDate);
+    const now = new Date().toISOString();
+    const day: ActivityDay = {
+      id: existing?.id ?? uuid(),
+      logDate: input.logDate,
+      steps: input.steps,
+      activeKcal: Math.round(input.activeKcal),
+      activeMinutes: input.activeMinutes,
+      source: 'manual',
+      createdAt: existing?.createdAt ?? now,
+      updatedAt: now,
+      deletedAt: null,
+    };
+    // SAFETY: ActivityDay is the exact row shape activity_days stores; the
+    // adapter serializes it verbatim, so the widening is a no-op.
+    await this.writeAndQueue('activity_days', day as unknown as Row);
+    return day;
+  }
+
+  async deleteActivityDay(id: string): Promise<void> {
+    await this.loadActivityDay(id);
+    await this.tombstoneAndQueue('activity_days', id);
+  }
+
+  private async loadWorkout(id: string): Promise<Workout> {
+    const row = await this.db.get('workouts', id);
+    if (!row) throw new NotFoundError(`Workout ${id} not found`);
+    // SAFETY: workouts only ever stores Workout rows written by this repository.
+    const workout = row as unknown as Workout;
+    if (workout.deletedAt) throw new NotFoundError(`Workout ${id} not found`);
+    return workout;
+  }
+
+  /** Workouts within [from, to] (inclusive), newest date first. */
+  async getWorkouts(from?: string, to?: string): Promise<Workout[]> {
+    if (from) assertDate(from, 'from date');
+    if (to) assertDate(to, 'to date');
+    const rows = await this.liveWorkouts(from, to);
+    rows.sort((a, b) =>
+      a.logDate === b.logDate ? (a.createdAt < b.createdAt ? 1 : -1) : a.logDate < b.logDate ? 1 : -1,
+    );
+    return rows;
+  }
+
+  /**
+   * Calories (and the source that produced them) for a workout, resolved from
+   * the stored profile and the latest weight at or before the workout date.
+   * Snapshotted on the row so later profile/weight changes never rewrite it.
+   */
+  private async workoutEnergy(
+    input: WorkoutInput,
+  ): Promise<{ calories: number; caloriesSource: WorkoutCaloriesSource }> {
+    const profile = await this.getProfile();
+    const measurement = await this.getLatestHealthBefore(input.logDate);
+    const energy = estimateWorkoutCalories({
+      workoutType: input.workoutType,
+      durationMin: input.durationMin,
+      avgHr: input.avgHr,
+      weightKg: measurement?.weightKg ?? null,
+      age: resolveAge(profile?.birthYear ?? null, input.logDate),
+      sex: profile?.sex ?? null,
+      manualCalories: input.manualCalories,
+    });
+    return { calories: energy.calories, caloriesSource: energy.source };
+  }
+
+  /** The user-editable workout fields, normalized (shared by add and update). */
+  private static workoutFields(input: WorkoutInput) {
+    return {
+      logDate: input.logDate,
+      workoutType: input.workoutType.trim(),
+      durationMin: roundTo(input.durationMin, 1),
+      avgHr: input.avgHr,
+      peakHr: input.peakHr,
+      notes: input.notes?.trim() ? input.notes.trim() : null,
+    };
+  }
+
+  async addWorkout(input: WorkoutInput): Promise<Workout> {
+    assertWorkoutInput(input);
+    const { calories, caloriesSource } = await this.workoutEnergy(input);
+    const now = new Date().toISOString();
+    const workout: Workout = {
+      id: uuid(),
+      ...Repository.workoutFields(input),
+      calories,
+      caloriesSource,
+      createdAt: now,
+      updatedAt: now,
+      deletedAt: null,
+    };
+    // SAFETY: Workout is the exact row shape workouts stores.
+    await this.writeAndQueue('workouts', workout as unknown as Row);
+    return workout;
+  }
+
+  /** Replace the editable fields; the calorie value is recomputed from scratch. */
+  async updateWorkout(id: string, patch: WorkoutInput): Promise<Workout> {
+    const existing = await this.loadWorkout(id);
+    assertWorkoutInput(patch);
+    const { calories, caloriesSource } = await this.workoutEnergy(patch);
+    const updated: Workout = {
+      ...existing,
+      ...Repository.workoutFields(patch),
+      calories,
+      caloriesSource,
+      updatedAt: new Date().toISOString(),
+    };
+    // SAFETY: same Workout row shape as addWorkout.
+    await this.writeAndQueue('workouts', updated as unknown as Row);
+    return updated;
+  }
+
+  async deleteWorkout(id: string): Promise<void> {
+    await this.loadWorkout(id);
+    await this.tombstoneAndQueue('workouts', id);
+  }
+
+  /**
+   * The single profile row (sex + birth year) that powers HR-based estimates,
+   * or null when the user has never saved one.
+   */
+  async getProfile(): Promise<UserProfile | null> {
+    const row = await this.db.get('user_profile', PROFILE_ID);
+    if (!row) return null;
+    // SAFETY: user_profile only ever stores the one UserProfile row.
+    const profile = row as unknown as UserProfile;
+    return profile.deletedAt ? null : profile;
+  }
+
+  /** Upsert the profile row. Either field may be null (not disclosed). */
+  async saveProfile(input: ProfileInput): Promise<UserProfile> {
+    if (input.sex != null && input.sex !== 'male' && input.sex !== 'female') {
+      throw new ValidationError(`Sex must be "male", "female", or null (got ${String(input.sex)})`);
+    }
+    if (input.birthYear != null) {
+      const thisYear = new Date().getFullYear();
+      if (!Number.isInteger(input.birthYear) || input.birthYear < 1900 || input.birthYear > thisYear) {
+        throw new ValidationError(
+          `Birth year must be a whole year between 1900 and ${thisYear} (got ${input.birthYear})`,
+        );
+      }
+    }
+    const existing = await this.getProfile();
+    const now = new Date().toISOString();
+    const profile: UserProfile = {
+      id: PROFILE_ID,
+      sex: input.sex,
+      birthYear: input.birthYear,
+      createdAt: existing?.createdAt ?? now,
+      updatedAt: now,
+      deletedAt: null,
+    };
+    // SAFETY: UserProfile is the exact row shape user_profile stores.
+    await this.writeAndQueue('user_profile', profile as unknown as Row);
+    return profile;
+  }
+
+  /* ------------------------------------------------------------------ */
   /* localized recipe memory (consent-gated)                            */
   /* ------------------------------------------------------------------ */
 
@@ -601,6 +853,70 @@ export class Repository {
     return out;
   }
 
+  /**
+   * Intake (live food entries) vs. burn (live activity days + live workouts)
+   * over a day / ISO week / calendar month. Net is intake − burn; a range with
+   * no rows reports zeros rather than failing.
+   */
+  async getEnergySummary(range: SummaryRange, anchorDate: string): Promise<EnergySummary> {
+    assertDate(anchorDate, 'anchor date');
+    const { from, to } = rangeBounds(range, anchorDate);
+    const daily = await this.getDailyEnergy(from, to);
+    let intakeCalories = 0;
+    let burnCalories = 0;
+    for (const day of daily) {
+      intakeCalories += day.intakeCalories;
+      burnCalories += day.burnCalories;
+    }
+    const workoutCount = (await this.liveWorkouts(from, to)).length;
+    return {
+      range,
+      from,
+      to,
+      intakeCalories,
+      burnCalories,
+      netCalories: netEnergy(intakeCalories, burnCalories).net,
+      workoutCount,
+    };
+  }
+
+  /**
+   * One row per date in [from, to] that has intake or burn (entries, activity
+   * or workouts). Dates with nothing are absent so charts render gaps instead
+   * of a zero line — same convention as getDailySummaries.
+   */
+  async getDailyEnergy(from: string, to: string): Promise<DailyEnergy[]> {
+    assertDate(from, 'from date');
+    assertDate(to, 'to date');
+    if (from > to) throw new ValidationError('from date must be <= to date');
+
+    const intakeByDate = new Map<string, number>();
+    for (const entry of await this.liveEntries(from, to)) {
+      intakeByDate.set(entry.logDate, (intakeByDate.get(entry.logDate) ?? 0) + entry.calories);
+    }
+    const burnByDate = new Map<string, number>();
+    for (const day of await this.liveActivityDays(from, to)) {
+      burnByDate.set(day.logDate, (burnByDate.get(day.logDate) ?? 0) + day.activeKcal);
+    }
+    for (const workout of await this.liveWorkouts(from, to)) {
+      burnByDate.set(workout.logDate, (burnByDate.get(workout.logDate) ?? 0) + workout.calories);
+    }
+
+    const out: DailyEnergy[] = [];
+    for (let d = from; d <= to; d = nextDateKey(d)) {
+      const intakeCalories = intakeByDate.get(d) ?? 0;
+      const burnCalories = burnByDate.get(d) ?? 0;
+      if (intakeCalories === 0 && burnCalories === 0) continue;
+      out.push({
+        logDate: d,
+        intakeCalories,
+        burnCalories,
+        netCalories: netEnergy(intakeCalories, burnCalories).net,
+      });
+    }
+    return out;
+  }
+
   /* ------------------------------------------------------------------ */
   /* sync                                                                */
   /* ------------------------------------------------------------------ */
@@ -679,27 +995,55 @@ export class Repository {
       .filter((r) => !r.deletedAt) as unknown as DailyEntry[];
     const measurements = (await this.listForSync('health_measurements'))
       .filter((r) => !r.deletedAt) as unknown as HealthMeasurement[];
+    // SAFETY: these stores only ever hold the corresponding domain rows
+    // (written by this repository), and backup export re-serializes them as-is.
+    const activityDays = (await this.listForSync('activity_days'))
+      .filter((r) => !r.deletedAt) as unknown as ActivityDay[];
+    // SAFETY: same as activityDays — workouts holds Workout rows only.
+    const workouts = (await this.listForSync('workouts'))
+      .filter((r) => !r.deletedAt) as unknown as Workout[];
     return {
       app: 'calorie-counter',
-      version: 2,
+      version: 3,
       exportedAt: new Date().toISOString(),
       userFoods,
       entries,
       measurements,
+      activityDays,
+      workouts,
+      profile: await this.getProfile(),
     };
   }
 
   /**
    * Import a backup. `restore: false` merges by UUID (newest updatedAt wins,
    * existing rows are kept); `restore: true` first clears all user data
-   * (user foods, entries, measurements, sync queue — never catalog rows),
-   * then inserts the backup. Imported rows are queued for sync.
+   * (user foods, entries, measurements, activity, workouts, profile, sync
+   * queue — never catalog rows), then inserts the backup. Imported rows are
+   * queued for sync. Version 1 and 2 backups stay importable: the activity,
+   * workout and profile sections they lack are treated as empty.
    */
   async importBackup(
     payload: unknown,
     opts: { restore: boolean },
-  ): Promise<{ userFoods: number; entries: number; measurements: number }> {
-    const data = payload as { version?: unknown; app?: unknown; userFoods?: unknown[]; entries?: unknown[]; measurements?: unknown[] };
+  ): Promise<{
+    userFoods: number;
+    entries: number;
+    measurements: number;
+    activityDays: number;
+    workouts: number;
+    profile: number;
+  }> {
+    const data = payload as {
+      version?: unknown;
+      app?: unknown;
+      userFoods?: unknown[];
+      entries?: unknown[];
+      measurements?: unknown[];
+      activityDays?: unknown[];
+      workouts?: unknown[];
+      profile?: unknown;
+    };
     if (
       !data ||
       typeof data !== 'object' ||
@@ -710,12 +1054,20 @@ export class Repository {
     ) {
       throw new ValidationError('Not a valid calorie-counter backup');
     }
-    if (data.version !== 1 && data.version !== 2) {
+    if (data.version !== 1 && data.version !== 2 && data.version !== 3) {
       throw new ValidationError(`Unsupported backup version ${String(data.version)}`);
     }
     const foods = data.userFoods as unknown as Food[];
     const entries = data.entries as unknown as DailyEntry[];
     const measurements = data.measurements as unknown as HealthMeasurement[];
+    // SAFETY: the shape checks below reject anything that is not the expected
+    // row type before a single row reaches storage.
+    const activityDays = (Array.isArray(data.activityDays) ? data.activityDays : []) as unknown as ActivityDay[];
+    // SAFETY: same — validated per row below.
+    const workouts = (Array.isArray(data.workouts) ? data.workouts : []) as unknown as Workout[];
+    // SAFETY: profile is validated below (id + updatedAt) before it is merged.
+    const profile =
+      data.profile && typeof data.profile === 'object' ? (data.profile as unknown as UserProfile) : null;
     // version-1 backups have no macro columns; normalize to null (legacy)
     if (data.version === 1) {
       for (const f of foods) {
@@ -750,12 +1102,28 @@ export class Repository {
         throw new ValidationError('Backup contains an invalid measurement');
       }
     }
+    for (const a of activityDays) {
+      if (typeof a.id !== 'string' || typeof a.updatedAt !== 'string' || typeof a.logDate !== 'string') {
+        throw new ValidationError('Backup contains an invalid activity day');
+      }
+    }
+    for (const w of workouts) {
+      if (typeof w.id !== 'string' || typeof w.updatedAt !== 'string' || typeof w.logDate !== 'string') {
+        throw new ValidationError('Backup contains an invalid workout');
+      }
+    }
+    if (profile && (typeof profile.updatedAt !== 'string' || profile.id !== PROFILE_ID)) {
+      throw new ValidationError('Backup contains an invalid profile');
+    }
 
     if (opts.restore) {
       const userFoods = await this.getUserFoods();
       for (const f of userFoods) await this.db.remove('foods', f.id);
       await this.db.clear('daily_entries');
       await this.db.clear('health_measurements');
+      await this.db.clear('activity_days');
+      await this.db.clear('workouts');
+      await this.db.clear('user_profile');
       await this.db.clear('sync_queue');
     }
 
@@ -774,12 +1142,50 @@ export class Repository {
       userFoods: await merged<Food>('foods', foods),
       entries: await merged<DailyEntry>('daily_entries', entries),
       measurements: await merged<HealthMeasurement>('health_measurements', measurements),
+      activityDays: await merged<ActivityDay>('activity_days', activityDays),
+      workouts: await merged<Workout>('workouts', workouts),
+      profile: await merged<UserProfile>('user_profile', profile ? [profile] : []),
     };
   }
 
   /* ------------------------------------------------------------------ */
   /* internals                                                           */
   /* ------------------------------------------------------------------ */
+
+  /**
+   * Live (non-tombstoned) rows of one table within [from, to] by date index.
+   * The callers sort; these stay unsorted so each aggregation reads once.
+   */
+  private async liveEntries(from?: string, to?: string): Promise<DailyEntry[]> {
+    // SAFETY: daily_entries only ever stores DailyEntry rows written by this
+    // repository, so the queried rows are exactly that shape.
+    return (await this.db.query('daily_entries', {
+      index: 'logDate',
+      lower: from ?? undefined,
+      upper: to ?? undefined,
+      filter: (r) => !(r as unknown as DailyEntry).deletedAt,
+    })) as unknown as DailyEntry[];
+  }
+
+  private async liveActivityDays(from?: string, to?: string): Promise<ActivityDay[]> {
+    // SAFETY: activity_days only ever stores ActivityDay rows.
+    return (await this.db.query('activity_days', {
+      index: 'logDate',
+      lower: from ?? undefined,
+      upper: to ?? undefined,
+      filter: (r) => !(r as unknown as ActivityDay).deletedAt,
+    })) as unknown as ActivityDay[];
+  }
+
+  private async liveWorkouts(from?: string, to?: string): Promise<Workout[]> {
+    // SAFETY: workouts only ever stores Workout rows.
+    return (await this.db.query('workouts', {
+      index: 'logDate',
+      lower: from ?? undefined,
+      upper: to ?? undefined,
+      filter: (r) => !(r as unknown as Workout).deletedAt,
+    })) as unknown as Workout[];
+  }
 
   private async writeAndQueue(table: SyncTable, row: Row): Promise<void> {
     await this.db.put(table, row);

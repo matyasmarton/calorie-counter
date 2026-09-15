@@ -9,7 +9,7 @@ const DB_NAME = 'calorie-counter';
 // Bump when TABLES gains or changes stores: onupgradeneeded only fires on a
 // version change, so existing installs would otherwise keep the old store set
 // (e.g. a pre-saved_recipes database silently lacks that store).
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 function openDb(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {

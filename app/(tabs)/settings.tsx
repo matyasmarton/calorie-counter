@@ -125,7 +125,7 @@ export default function SettingsScreen() {
       try {
         const r = await repo.importBackup(payload, { restore });
         setImportResult(
-          `Imported: ${r.userFoods} foods, ${r.entries} entries, ${r.measurements} measurements.${restore ? ' Existing user data was replaced.' : ''}`,
+          `Imported: ${r.userFoods} foods, ${r.entries} entries, ${r.measurements} measurements, ${r.activityDays} activity days, ${r.workouts} workouts, profile ${r.profile ? 'yes' : 'no'}.${restore ? ' Existing user data was replaced.' : ''}`,
         );
         setImportText('');
       } catch (e) {

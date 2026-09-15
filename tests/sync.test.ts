@@ -38,6 +38,9 @@ interface RemoteTables {
   daily_entries: RemoteRow[];
   health_measurements: RemoteRow[];
   saved_recipes: RemoteRow[];
+  activity_days: RemoteRow[];
+  workouts: RemoteRow[];
+  user_profile: RemoteRow[];
 }
 
 interface FakeClientOptions {
@@ -104,6 +107,9 @@ async function makeEnv(opts?: Partial<FakeClientOptions>) {
     daily_entries: [],
     health_measurements: [],
     saved_recipes: [],
+    activity_days: [],
+    workouts: [],
+    user_profile: [],
   };
   const client = makeFakeClient({
     remote: remote as unknown as Record<string, RemoteRow[]>,
@@ -175,7 +181,7 @@ describe('SyncEngine', () => {
 
   it('pulls remote rows newer than the cursor and applies newest-wins', async () => {
     const { repo, engine, remote } = await makeEnv();
-    const e = await addBroccoliEntry(repo);
+    await addBroccoliEntry(repo);
     await engine.sync(); // push local, cursor set
     // a second device edits the same row more recently
     const newer = remote.daily_entries[0]!;
@@ -192,7 +198,7 @@ describe('SyncEngine', () => {
 
   it('propagates remote tombstones to local via pull', async () => {
     const { repo, engine, remote } = await makeEnv();
-    const e = await addBroccoliEntry(repo);
+    await addBroccoliEntry(repo);
     await engine.sync(); // push local first
     const row = remote.daily_entries[0]!;
     remote.daily_entries = [{ ...row, deleted_at: '2099-01-01T00:00:00.000Z', updated_at: '2099-01-01T00:00:00.000Z' }];
@@ -312,7 +318,7 @@ describe('SyncEngine', () => {
   it('syncs saved recipes (consent-gated memory) in both directions', async () => {
     const { repo, engine, remote } = await makeEnv();
     const peppers = await repo.searchFoods('Pepper, bell, green', 1);
-    const recipe = await repo.saveRecipe({
+    await repo.saveRecipe({
       name: 'lecsó',
       ingredients: [{ raw: 'green peppers', foodQuery: 'Pepper, bell, green', amount: 3, servingLabel: 'piece' }],
       foodIds: [peppers[0]!.id],
@@ -333,5 +339,103 @@ describe('SyncEngine', () => {
     const found = await repo2.searchRecipes('pepper stew');
     expect(found.map((r) => r.name)).toEqual(['lecsó']);
     expect(found[0]!.foodIds).toEqual([peppers[0]!.id]);
+  });
+
+  it('syncs activity days, workouts and the profile in both directions', async () => {
+    const { repo, engine, remote } = await makeEnv();
+    await repo.saveProfile({ sex: 'male', birthYear: 1990 });
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-01', weightKg: 75, heightCm: null });
+    const day = await repo.upsertActivityDay({
+      logDate: '2026-08-17',
+      steps: 9000,
+      activeKcal: 300,
+      activeMinutes: 45,
+    });
+    const workout = await repo.addWorkout({
+      logDate: '2026-08-17',
+      workoutType: 'running',
+      durationMin: 30,
+      avgHr: 150,
+      peakHr: 171,
+      manualCalories: null,
+      notes: 'tempo',
+    });
+    await engine.sync();
+
+    // push: snake_case columns carrying the local values
+    expect(remote.activity_days.length).toBe(1);
+    expect(remote.activity_days[0]).toMatchObject({
+      id: day.id,
+      user_id: 'user-1',
+      log_date: '2026-08-17',
+      steps: 9000,
+      active_kcal: 300,
+      active_minutes: 45,
+      source: 'manual',
+      deleted_at: null,
+    });
+    expect(remote.workouts.length).toBe(1);
+    expect(remote.workouts[0]).toMatchObject({
+      id: workout.id,
+      user_id: 'user-1',
+      log_date: '2026-08-17',
+      workout_type: 'running',
+      duration_min: 30,
+      avg_hr: 150,
+      peak_hr: 171,
+      calories: workout.calories,
+      calories_source: workout.caloriesSource,
+      notes: 'tempo',
+    });
+    expect(remote.user_profile.length).toBe(1);
+    expect(remote.user_profile[0]).toMatchObject({
+      id: 'profile',
+      user_id: 'user-1',
+      sex: 'male',
+      birth_year: 1990,
+    });
+
+    // pull: remote edits land in the local camelCase shape
+    remote.workouts[0] = {
+      ...remote.workouts[0]!,
+      calories: 999,
+      calories_source: 'manual',
+      notes: null,
+      updated_at: '2099-01-01T00:00:00.000Z',
+    };
+    remote.activity_days[0] = {
+      ...remote.activity_days[0]!,
+      steps: 12345,
+      updated_at: '2099-01-01T00:00:00.000Z',
+    };
+    remote.user_profile[0] = {
+      ...remote.user_profile[0]!,
+      sex: 'female',
+      birth_year: 1992,
+      updated_at: '2099-01-01T00:00:00.000Z',
+    };
+    await engine.sync();
+    expect((await repo.getWorkouts())[0]).toMatchObject({
+      calories: 999,
+      caloriesSource: 'manual',
+      avgHr: 150,
+      notes: null,
+    });
+    expect(await repo.getActivityDay('2026-08-17')).toMatchObject({ id: day.id, steps: 12345, activeKcal: 300 });
+    expect(await repo.getProfile()).toMatchObject({ sex: 'female', birthYear: 1992 });
+
+    // remote tombstones propagate (deletes win), local tombstones push
+    remote.activity_days[0] = {
+      ...remote.activity_days[0]!,
+      deleted_at: '2099-02-01T00:00:00.000Z',
+      updated_at: '2099-02-01T00:00:00.000Z',
+    };
+    await engine.sync();
+    expect(await repo.getActivityDay('2026-08-17')).toBeNull();
+
+    await repo.deleteWorkout(workout.id);
+    await engine.sync();
+    expect(remote.workouts[0]!.deleted_at).not.toBeNull();
+    expect(await repo.getUnsyncedChanges()).toEqual([]);
   });
 });

@@ -36,13 +36,24 @@ export interface SyncResult {
   applied: number;
 }
 
-const SYNC_TABLES: SyncTable[] = ['foods', 'daily_entries', 'health_measurements', 'saved_recipes'];
+const SYNC_TABLES: SyncTable[] = [
+  'foods',
+  'daily_entries',
+  'health_measurements',
+  'saved_recipes',
+  'activity_days',
+  'workouts',
+  'user_profile',
+];
 
 const REMOTE_TABLE: Record<SyncTable, string> = {
   foods: 'user_foods',
   daily_entries: 'daily_entries',
   health_measurements: 'health_measurements',
   saved_recipes: 'saved_recipes',
+  activity_days: 'activity_days',
+  workouts: 'workouts',
+  user_profile: 'user_profile',
 };
 
 /* ------------------------- row mapping (camel <-> snake) ------------------------- */
@@ -176,6 +187,83 @@ const recipeLocal = (r: Record<string, unknown>): Row => ({
   deletedAt: r.deleted_at,
 });
 
+const activityRemote = (row: Row, userId: string) => ({
+  id: row.id,
+  user_id: userId,
+  log_date: row.logDate,
+  steps: row.steps,
+  active_kcal: row.activeKcal,
+  active_minutes: row.activeMinutes,
+  source: row.source ?? 'manual',
+  created_at: row.createdAt,
+  updated_at: row.updatedAt,
+  deleted_at: row.deletedAt,
+});
+
+const activityLocal = (r: Record<string, unknown>): Row => ({
+  id: r.id,
+  logDate: r.log_date,
+  steps: r.steps ?? 0,
+  activeKcal: r.active_kcal ?? 0,
+  activeMinutes: r.active_minutes ?? 0,
+  source: 'manual',
+  createdAt: r.created_at,
+  updatedAt: r.updated_at,
+  deletedAt: r.deleted_at,
+});
+
+const workoutRemote = (row: Row, userId: string) => ({
+  id: row.id,
+  user_id: userId,
+  log_date: row.logDate,
+  workout_type: row.workoutType,
+  duration_min: row.durationMin,
+  avg_hr: row.avgHr ?? null,
+  peak_hr: row.peakHr ?? null,
+  calories: row.calories,
+  calories_source: row.caloriesSource,
+  notes: row.notes ?? null,
+  created_at: row.createdAt,
+  updated_at: row.updatedAt,
+  deleted_at: row.deletedAt,
+});
+
+const workoutLocal = (r: Record<string, unknown>): Row => ({
+  id: r.id,
+  logDate: r.log_date,
+  workoutType: r.workout_type,
+  durationMin: r.duration_min,
+  avgHr: r.avg_hr ?? null,
+  peakHr: r.peak_hr ?? null,
+  calories: r.calories ?? 0,
+  caloriesSource: r.calories_source,
+  notes: r.notes ?? null,
+  createdAt: r.created_at,
+  updatedAt: r.updated_at,
+  deletedAt: r.deleted_at,
+});
+
+/* The profile row's id is the literal "profile" (one row per user), which is
+   why the remote column is text rather than uuid — see 003_activity.sql. */
+const profileRemote = (row: Row, userId: string) => ({
+  id: row.id,
+  user_id: userId,
+  sex: row.sex ?? null,
+  birth_year: row.birthYear ?? null,
+  created_at: row.createdAt,
+  updated_at: row.updatedAt,
+  deleted_at: row.deletedAt,
+});
+
+const profileLocal = (r: Record<string, unknown>): Row => ({
+  id: r.id,
+  sex: r.sex ?? null,
+  birthYear: r.birth_year ?? null,
+  createdAt: r.created_at,
+  updatedAt: r.updated_at,
+  deletedAt: r.deleted_at,
+});
+
 function toRemote(table: SyncTable, row: Row, userId: string): Record<string, unknown> {
   switch (table) {
     case 'foods':
@@ -186,6 +274,12 @@ function toRemote(table: SyncTable, row: Row, userId: string): Record<string, un
       return measurementRemote(row, userId);
     case 'saved_recipes':
       return recipeRemote(row, userId);
+    case 'activity_days':
+      return activityRemote(row, userId);
+    case 'workouts':
+      return workoutRemote(row, userId);
+    case 'user_profile':
+      return profileRemote(row, userId);
   }
 }
 
@@ -199,6 +293,12 @@ function toLocal(table: SyncTable, r: Record<string, unknown>): Row {
       return measurementLocal(r);
     case 'saved_recipes':
       return recipeLocal(r);
+    case 'activity_days':
+      return activityLocal(r);
+    case 'workouts':
+      return workoutLocal(r);
+    case 'user_profile':
+      return profileLocal(r);
   }
 }
 

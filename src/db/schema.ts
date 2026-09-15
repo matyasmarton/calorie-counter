@@ -39,6 +39,21 @@ export const TABLES: Record<string, TableSpec> = {
     indexes: ['name', 'updatedAt'],
     composite: [['name', 'updatedAt']],
   },
+  activity_days: {
+    name: 'activity_days',
+    indexes: ['logDate', 'updatedAt'],
+    composite: [['logDate', 'updatedAt']],
+  },
+  workouts: {
+    name: 'workouts',
+    indexes: ['logDate', 'updatedAt'],
+    composite: [['logDate', 'updatedAt']],
+  },
+  user_profile: {
+    name: 'user_profile',
+    indexes: ['updatedAt'],
+    composite: [],
+  },
   sync_queue: {
     name: 'sync_queue',
     indexes: ['pushedAt', 'updatedAt'],
