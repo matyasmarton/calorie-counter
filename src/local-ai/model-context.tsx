@@ -1,18 +1,39 @@
 /**
- * App-wide local-AI state: one bridge adapter, live model states, and the
- * persisted on/off toggle. Mirrors the AppProvider/useApp pattern.
+ * App-wide local-AI state: one bridge adapter, live model states, the on-disk
+ * inventory, and the persisted on/off toggle. Mirrors the AppProvider/useApp
+ * pattern. Settings drives download/activate through the actions here so the
+ * screen never talks to the bridge directly.
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { createBridgeAdapter, DEFAULT_LLM_BASE_URL, LOCAL_AI_ENABLED_KEY, type BridgeAdapter } from './bridge';
-import type { LocalModelState, NativeModelAdapter } from './adapter';
+import {
+  createBridgeAdapter,
+  DEFAULT_LLM_BASE_URL,
+  LOCAL_AI_ENABLED_KEY,
+  type BridgeAdapter,
+  type LocalModelInfo,
+} from './bridge';
+import type { LocalModelId, LocalModelState, NativeModelAdapter } from './adapter';
 
 interface LocalModelContextValue {
   adapter: NativeModelAdapter;
   models: LocalModelState[];
+  /** What the bridge found on disk, keyed by id (empty when it is unreachable). */
+  inventory: LocalModelInfo[];
   enabled: boolean;
+  /** True when the CORS proxy answered; false means "bridge not running". */
+  bridgeUp: boolean;
+  /** Which model (or 'path') is mid-action, so the UI can disable its buttons. */
+  busy: LocalModelId | 'path' | null;
+  /** 0–1 while a download runs. */
+  progress: number | null;
+  actionError: string | null;
   setEnabled: (v: boolean) => Promise<void>;
   refresh: () => Promise<void>;
+  downloadModel: (id: LocalModelId) => Promise<void>;
+  useModel: (id: LocalModelId) => Promise<void>;
+  useModelPath: (path: string) => Promise<void>;
+  clearActionError: () => void;
 }
 
 const LocalModelContext = createContext<LocalModelContextValue | null>(null);
@@ -28,12 +49,23 @@ export function LocalModelProvider({ children }: { children: ReactNode }) {
   const adapter = adapterRef.current;
 
   const [models, setModels] = useState<LocalModelState[]>(() => adapter.getModels());
+  const [inventory, setInventory] = useState<LocalModelInfo[]>(() => adapter.getInventory());
+  const [bridgeUp, setBridgeUp] = useState(false);
   const [enabled, setEnabledState] = useState(true);
+  const [busy, setBusy] = useState<LocalModelId | 'path' | null>(null);
+  const [progress, setProgress] = useState<number | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+
+  const syncFromAdapter = useCallback(() => {
+    setModels(adapter.getModels());
+    setInventory(adapter.getInventory());
+    setBridgeUp(adapter.isBridgeUp());
+  }, [adapter]);
 
   const refresh = useCallback(async () => {
     await adapter.refresh();
-    setModels(adapter.getModels());
-  }, [adapter]);
+    syncFromAdapter();
+  }, [adapter, syncFromAdapter]);
 
   useEffect(() => {
     let cancelled = false;
@@ -69,9 +101,76 @@ export function LocalModelProvider({ children }: { children: ReactNode }) {
     [adapter, refresh],
   );
 
+  // Shared busy/error envelope for the three model actions: Settings only ever
+  // needs "which row is working, and what went wrong".
+  const runModelAction = useCallback(
+    async (key: LocalModelId | 'path', action: () => Promise<void>) => {
+      setBusy(key);
+      setProgress(null);
+      setActionError(null);
+      try {
+        await action();
+      } catch (e) {
+        setActionError(e instanceof Error ? e.message : String(e));
+      } finally {
+        setBusy(null);
+        setProgress(null);
+        syncFromAdapter();
+      }
+    },
+    [syncFromAdapter],
+  );
+
+  const downloadModel = useCallback(
+    (id: LocalModelId) => runModelAction(id, () => adapter.downloadModel(id, (f) => setProgress(f))),
+    [adapter, runModelAction],
+  );
+
+  const useModel = useCallback(
+    (id: LocalModelId) => runModelAction(id, () => adapter.loadModel(id)),
+    [adapter, runModelAction],
+  );
+
+  const useModelPath = useCallback(
+    (path: string) => runModelAction('path', () => adapter.useModelPath(path)),
+    [adapter, runModelAction],
+  );
+
+  const clearActionError = useCallback(() => setActionError(null), []);
+
   const value = useMemo(
-    () => ({ adapter, models, enabled, setEnabled, refresh }),
-    [adapter, models, enabled, setEnabled, refresh],
+    () => ({
+      adapter,
+      models,
+      inventory,
+      enabled,
+      bridgeUp,
+      busy,
+      progress,
+      actionError,
+      setEnabled,
+      refresh,
+      downloadModel,
+      useModel,
+      useModelPath,
+      clearActionError,
+    }),
+    [
+      adapter,
+      models,
+      inventory,
+      enabled,
+      bridgeUp,
+      busy,
+      progress,
+      actionError,
+      setEnabled,
+      refresh,
+      downloadModel,
+      useModel,
+      useModelPath,
+      clearActionError,
+    ],
   );
 
   return <LocalModelContext.Provider value={value}>{children}</LocalModelContext.Provider>;

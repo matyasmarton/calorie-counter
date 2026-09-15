@@ -37,12 +37,48 @@ const PIPELINE_NEEDLE_PREFIX = 'Extract the meal into strict JSON matching the s
 const NEEDLE_OFFLINE = 'Local model server is offline. Start it with the desktop launcher or scripts/start-local-llm.sh.';
 const DISABLED_REASON = 'Local AI is turned off in Settings';
 const BONSAI_OPTIN_DETAIL = 'Opt-in planner: requires mlx-lm + model download (see scripts/start-local-llm.sh)';
+const BRIDGE_DOWN = 'Local model bridge is not running. Start it with: scripts/start-local-llm.sh';
+const DOWNLOADED_INACTIVE = 'Downloaded — press Use to activate';
+
+/** Every model id the app knows about, in display order. */
+const ALL_MODEL_IDS: LocalModelId[] = ['needle-2', 'bonsai-4b', 'bonsai-8b-1bit'];
+
+/** One row of the bridge's on-disk inventory (GET /models). */
+export interface LocalModelInfo {
+  id: LocalModelId;
+  downloaded: boolean;
+  sizeBytes: number | null;
+  /** Where the artifact lives: bridge-cache | hf-cache | omlx-library. */
+  source: string | null;
+  /** True when this id is the one the bridge currently serves. */
+  active: boolean;
+  /**
+   * The id string the backend reports for this model, which is what chat
+   * requests must send back. A multi-model server (oMLX) serves several ids,
+   * so picking "the first one" would silently route to the wrong model.
+   */
+  servedAs: string | null;
+}
 
 export interface BridgeConfig {
   /** Proxy origin, e.g. http://127.0.0.1:8090. */
   baseUrl: string;
   /** OpenAI `model` label sent to chat completions. */
   modelName: string;
+  /** How often to poll the bridge while a download runs. Tests shrink this. */
+  pollIntervalMs?: number;
+}
+
+/** Read a bridge error body, keeping the proxy's own words rather than a status code. */
+async function bridgeError(res: Response, prefix: string): Promise<Error> {
+  let detail = '';
+  try {
+    const parsed = (await res.json()) as { error?: string; logTail?: string[] };
+    detail = [parsed.error, ...(parsed.logTail ?? [])].filter(Boolean).join(' — ');
+  } catch {
+    detail = await res.text().catch(() => '');
+  }
+  return new Error(`${prefix} (HTTP ${res.status})${detail ? `: ${detail}` : ''}`);
 }
 
 async function fetchJson(url: string, init: RequestInit, timeoutMs: number): Promise<Response> {
@@ -94,6 +130,12 @@ export class BridgeAdapter implements NativeModelAdapter {
   private enabled = true;
   private needleReady = false;
   private bonsaiModelName: string | null = null;
+  /** True when the proxy answered the last health probe. */
+  private proxyUp = false;
+  /** True when the Bonsai backend answered the last health probe. */
+  private bonsaiReady = false;
+  /** Last on-disk inventory reported by the bridge. */
+  private inventory: LocalModelInfo[] = [];
 
   constructor(private readonly cfg: BridgeConfig) {
     this.models = (['needle-2', 'bonsai-4b', 'bonsai-8b-1bit'] as LocalModelId[]).map((id) => ({
@@ -130,49 +172,163 @@ export class BridgeAdapter implements NativeModelAdapter {
     }
   }
 
-  /** BridgeAdapter-only: probe both backends and refresh model states. Never throws. */
+  /** BridgeAdapter-only: probe each layer separately and refresh model states. Never throws. */
   async refresh(): Promise<void> {
+    // Layer 1 — the proxy itself. Any HTTP answer proves it is alive, even a
+    // 503; only a transport failure means the bridge is down. Without this
+    // split, a dead proxy and a dead needle server looked identical, which is
+    // exactly why Refresh appeared to do nothing.
     let needleOk = false;
     try {
       const res = await fetchJson(`${this.cfg.baseUrl}/health`, { method: 'GET' }, 5000);
+      this.proxyUp = true;
       needleOk = res.status === 200;
     } catch {
+      this.proxyUp = false;
       needleOk = false;
     }
-    this.needleReady = this.enabled && needleOk;
-    this.setStatus('needle-2', needleOk && this.enabled ? 'ready' : 'unavailable', needleOk ? null : NEEDLE_OFFLINE);
 
+    if (!this.proxyUp) {
+      this.needleReady = false;
+      this.bonsaiReady = false;
+      this.inventory = [];
+      for (const id of ALL_MODEL_IDS) {
+        this.setStatus(id, 'unavailable', this.enabled ? BRIDGE_DOWN : DISABLED_REASON);
+      }
+      return;
+    }
+
+    this.needleReady = this.enabled && needleOk;
+    if (!this.enabled) {
+      this.setStatus('needle-2', 'unavailable', DISABLED_REASON);
+    } else if (needleOk) {
+      this.setStatus('needle-2', 'ready', null);
+    } else {
+      this.setStatus('needle-2', 'unavailable', NEEDLE_OFFLINE);
+    }
+
+    // Layer 2 — the Bonsai backend behind the proxy. A 503 means either "still
+    // loading the weights" or "no server at all"; only the first is progress,
+    // otherwise the row claims to be downloading forever.
     let bonsaiOk = false;
-    let bonsaiLoading = false;
+    let bonsaiStarting = false;
     try {
       const res = await fetchJson(`${this.cfg.baseUrl}/health/bonsai`, { method: 'GET' }, 5000);
-      if (res.status === 200) bonsaiOk = true;
-      else if (res.status === 503) bonsaiLoading = true;
-    } catch {
-      // unreachable
-    }
-    if (bonsaiOk) {
-      // mlx server validates the `model` field against the loaded model id.
-      try {
-        const res = await fetchJson(`${this.cfg.baseUrl}/v1/models`, { method: 'GET' }, 5000);
-        const data = (await res.json()) as { data?: Array<{ id?: unknown }> };
-        const id = data?.data?.[0]?.id;
-        if (typeof id === 'string' && id) this.bonsaiModelName = id;
-      } catch {
-        // keep the previously captured id
+      if (res.status === 200) {
+        bonsaiOk = true;
+      } else {
+        const data = (await res.json().catch(() => ({}))) as { listening?: boolean };
+        bonsaiStarting = data.listening === true;
       }
+    } catch {
+      // proxy answered /health but not /health/bonsai — treat as down
     }
+    this.bonsaiReady = bonsaiOk;
+
+    // Layer 3 — what is actually on disk, so a downloaded-but-idle model can
+    // offer Use instead of repeating the download hint forever.
+    let inventory: LocalModelInfo[] = [];
+    try {
+      const res = await fetchJson(`${this.cfg.baseUrl}/models`, { method: 'GET' }, 8000);
+      if (res.ok) {
+        const data = (await res.json()) as { models?: unknown };
+        inventory = Array.isArray(data?.models) ? (data.models as LocalModelInfo[]) : [];
+      }
+    } catch {
+      // older or busy bridge: fall back to health-only reporting
+    }
+    this.inventory = inventory;
+    const live = inventory.find((m) => m.active && m.id !== 'needle-2');
+    if (live?.servedAs) this.bonsaiModelName = live.servedAs;
+
     for (const id of ['bonsai-4b', 'bonsai-8b-1bit'] as LocalModelId[]) {
+      const info = inventory.find((m) => m.id === id);
       if (!this.enabled) {
         this.setStatus(id, 'unavailable', DISABLED_REASON);
-      } else if (id === BONSAI_MODEL_ID) {
-        if (bonsaiOk) this.setStatus(id, 'ready', null);
-        else if (bonsaiLoading) this.setStatus(id, 'downloading', 'Model downloading/loading on first start (≈1.1 GB for 4B)');
-        else this.setStatus(id, 'unavailable', BONSAI_OPTIN_DETAIL);
+      } else if (bonsaiOk && id === BONSAI_MODEL_ID) {
+        this.setStatus(id, 'ready', null);
+      } else if (bonsaiStarting && id === BONSAI_MODEL_ID) {
+        this.setStatus(id, 'downloading', 'Model downloading/loading on first start (≈1.1 GB for 4B)');
+      } else if (info?.downloaded) {
+        this.setStatus(id, 'unavailable', DOWNLOADED_INACTIVE);
       } else {
         this.setStatus(id, 'unavailable', BONSAI_OPTIN_DETAIL);
       }
     }
+  }
+
+  /** BridgeAdapter-only: the last inventory reported by the bridge. */
+  getInventory(): LocalModelInfo[] {
+    return this.inventory.map((m) => ({ ...m }));
+  }
+
+  /** BridgeAdapter-only: true when the proxy answered the last refresh. */
+  isBridgeUp(): boolean {
+    return this.proxyUp;
+  }
+
+  /**
+   * BridgeAdapter-only: download a model through the bridge and follow its
+   * progress. The proxy owns the command and the destination; this only
+   * starts it and polls, surfacing the proxy's log tail verbatim on failure.
+   */
+  async downloadModel(id: LocalModelId, onProgress?: (fraction: number) => void): Promise<void> {
+    const started = await fetchJson(
+      `${this.cfg.baseUrl}/models/download`,
+      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) },
+      10_000,
+    );
+    if (!started.ok) {
+      throw await bridgeError(started, 'Download failed to start');
+    }
+    this.setStatus(id, 'downloading', 'Downloading…');
+    onProgress?.(0);
+
+    const interval = this.cfg.pollIntervalMs ?? 2000;
+    const deadline = Date.now() + 60 * 60 * 1000;
+    for (;;) {
+      await new Promise<void>((resolve) => setTimeout(resolve, interval));
+      let status: {
+        running?: boolean;
+        error?: string | null;
+        progress?: number;
+        logTail?: string[];
+      };
+      try {
+        const res = await fetchJson(`${this.cfg.baseUrl}/models/download/status`, { method: 'GET' }, 10_000);
+        status = (await res.json()) as typeof status;
+      } catch (err) {
+        throw new Error(`Lost contact with the bridge during the download (${String(err)})`);
+      }
+      onProgress?.(typeof status.progress === 'number' ? status.progress : 0);
+      if (status.running) {
+        if (Date.now() > deadline) throw new Error('Download did not finish within an hour');
+        continue;
+      }
+      if (status.error) {
+        const tail = (status.logTail ?? []).slice(-3).join(' · ');
+        throw new Error(`Download failed: ${status.error}${tail ? ` — ${tail}` : ''}`);
+      }
+      await this.refresh();
+      return;
+    }
+  }
+
+  /** BridgeAdapter-only: point the Bonsai backend at a folder on this Mac. */
+  async useModelPath(path: string): Promise<void> {
+    await this.postUse({ path });
+  }
+
+  private async postUse(body: { id?: LocalModelId; path?: string }): Promise<void> {
+    const res = await fetchJson(
+      `${this.cfg.baseUrl}/models/use`,
+      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) },
+      200_000,
+    );
+    if (!res.ok) {
+      throw await bridgeError(res, 'Switching models failed');
+    }
+    await this.refresh();
   }
 
   async generate(req: {
@@ -203,7 +359,10 @@ export class BridgeAdapter implements NativeModelAdapter {
     }
     // Bonsai (a full 4B LLM) extracts reliably; needle (45M, 256-token
     // window) is the grammar-safe fallback when Bonsai is unavailable.
-    if (this.bonsaiModelName) {
+    // Gate on the live probe, not just a remembered id: a Bonsai that died
+    // after the last refresh would otherwise stall this call for the full
+    // 120 s request timeout before falling back.
+    if (this.bonsaiReady && this.bonsaiModelName) {
       const text = await this.extractWithBonsai(input);
       if (text) return { text, toolCalls: [], pendingApproval: false };
     }
@@ -355,9 +514,17 @@ export class BridgeAdapter implements NativeModelAdapter {
   }
 
   async initialize(): Promise<void> {}
-  async downloadModel(): Promise<void> {}
+
+  /** Not supported by the bridge: a download runs to completion once started. */
   async cancelDownload(): Promise<void> {}
-  async loadModel(): Promise<void> {}
+
+  /** Switch the Bonsai backend to a model id (the proxy restarts the server). */
+  async loadModel(id: LocalModelId): Promise<void> {
+    await this.postUse({ id });
+  }
+
   async unloadModel(): Promise<void> {}
+
+  /** Not supported by the bridge: the proxy owns the on-disk artifacts. */
   async deleteModel(): Promise<void> {}
 }
