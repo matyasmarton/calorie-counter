@@ -46,6 +46,15 @@ import { CATALOG_VERSION_KEY, seedCatalog, type CatalogBundle } from './seedCata
 import type { Row, StorageAdapter } from './storage';
 
 /**
+ * Meal nouns. If one appears after the query, the name is a dish built from
+ * the ingredient — "Chicken, with pasta stew", "Beef, canned stew" — not the
+ * ingredient itself, and the app's macro math would be wrong for a plain
+ * "chicken" or "beef" log line.
+ */
+const DISH_NOUNS =
+  /\b(stew|soup|salad|curry|casserole|burger|sandwich|burrito|taco|quesadilla|enchilada|lasagna|pizza|pie|cake|muffin|pancake|waffle|omelet|quiche|dumpling|stir-fry|chili|hash|croquette|nugget|meatball|gravy|stuffing|risotto|gnocchi|noodle|noodles|pasta|bowl|wrap|pot pie)\b/;
+
+/**
  * How directly a food name answers the query; lower is a better hit.
  *
  * Catalog names lead with the head noun and qualify after a comma
@@ -53,16 +62,23 @@ import type { Row, StorageAdapter } from './storage';
  * the strongest signal. Ranking matters twice over: the Foods tab lists by it,
  * and the local-AI matcher takes `search(q, 1)` as the definitive hit, so a
  * plain alphabetical sort would quietly feed "Broccoli cheese soup" to both.
+ *
+ * Dish names are pushed behind plain ones, but only relative to each other:
+ * searching "soup" still returns soups, because then the dish noun is the
+ * query itself and nothing follows it.
  */
 function matchRank(name: string, query: string): number {
   const n = name.toLowerCase();
+  const at = n.indexOf(query);
+  const penalty = at >= 0 && DISH_NOUNS.test(n.slice(at + query.length)) ? 3 : 0;
   if (n === query) return 0;
   if (n.startsWith(query)) {
     const next = n.charAt(query.length);
-    return next === '' || next === ',' ? 1 : 2;
+    if (next === '' || next === ',') return 1 + penalty;
+    return 2 + penalty;
   }
-  if (n.split(/[\s,;:()/\-–]+/).some((w) => w.startsWith(query))) return 3;
-  return 4;
+  if (n.split(/[\s,;:()/\-–]+/).some((w) => w.startsWith(query))) return 3 + penalty;
+  return 4 + penalty;
 }
 
 /** The single profile row's id — one profile per device/user. */

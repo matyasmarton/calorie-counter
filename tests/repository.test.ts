@@ -466,6 +466,27 @@ describe('catalog search ranking', () => {
     expect(hits[0]!.name.startsWith('Rice,')).toBe(true);
   });
 
+  // "Chicken, with pasta stew" shares the head noun and is shorter, so without
+  // a dish penalty it wins the length tiebreak — and Quick-add logs a stew's
+  // macros for someone who typed "chicken".
+  it('does not let a dish sharing the head noun outrank the plain ingredient', async () => {
+    const repo = await makeRepo();
+    for (const [query, banned] of [
+      ['chicken', /stew|soup|salad|curry/i],
+      ['beef', /stew|soup|salad|curry/i],
+    ] as const) {
+      const first = (await repo.searchFoods(query, 1))[0]!;
+      expect(first.name.toLowerCase()).not.toMatch(banned);
+    }
+  });
+
+  it('still returns dishes when the dish noun is the query itself', async () => {
+    const repo = await makeRepo();
+    const hits = await repo.searchFoods('soup', 5);
+    expect(hits.length).toBeGreaterThan(1);
+    expect(hits.every((f) => /soup/i.test(f.name))).toBe(true);
+  });
+
   it('keeps an empty query alphabetical (browsing, not searching)', async () => {
     const repo = await makeRepo();
     const names = (await repo.searchFoods('', 20)).map((f) => f.name);
