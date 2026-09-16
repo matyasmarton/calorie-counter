@@ -45,6 +45,26 @@ import { uuid } from '@/domain/uuid';
 import { CATALOG_VERSION_KEY, seedCatalog, type CatalogBundle } from './seedCatalog';
 import type { Row, StorageAdapter } from './storage';
 
+/**
+ * How directly a food name answers the query; lower is a better hit.
+ *
+ * Catalog names lead with the head noun and qualify after a comma
+ * ("Broccoli, raw"), so a query followed by a comma or the end of the name is
+ * the strongest signal. Ranking matters twice over: the Foods tab lists by it,
+ * and the local-AI matcher takes `search(q, 1)` as the definitive hit, so a
+ * plain alphabetical sort would quietly feed "Broccoli cheese soup" to both.
+ */
+function matchRank(name: string, query: string): number {
+  const n = name.toLowerCase();
+  if (n === query) return 0;
+  if (n.startsWith(query)) {
+    const next = n.charAt(query.length);
+    return next === '' || next === ',' ? 1 : 2;
+  }
+  if (n.split(/[\s,;:()/\-–]+/).some((w) => w.startsWith(query))) return 3;
+  return 4;
+}
+
 /** The single profile row's id — one profile per device/user. */
 const PROFILE_ID = 'profile';
 
@@ -206,7 +226,16 @@ export class Repository {
         return !f.deletedAt && (q === '' || f.name.toLowerCase().includes(q));
       },
     })) as unknown as Food[];
-    rows.sort((a, b) => a.name.localeCompare(b.name));
+    // An empty query is a browse, so it stays alphabetical. A real query is
+    // ranked, otherwise plain alphabetical order decides which hit is first —
+    // and "Broccoli cheese soup" beats "Broccoli, raw" for "broccoli".
+    rows.sort((a, b) =>
+      q === ''
+        ? a.name.localeCompare(b.name)
+        : matchRank(a.name, q) - matchRank(b.name, q) ||
+          a.name.length - b.name.length ||
+          a.name.localeCompare(b.name),
+    );
     return rows.slice(0, limit);
   }
 

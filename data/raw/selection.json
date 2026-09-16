@@ -1251,5 +1251,2385 @@
     "source": "foundation",
     "name": "Salt, table, iodized",
     "category": "Other"
+  },
+  {
+    "fdcId": "2707453",
+    "source": "fndds",
+    "name": "Bean soup",
+    "category": "Soups",
+    "match": "Soup, bean"
+  },
+  {
+    "fdcId": "2710115",
+    "source": "fndds",
+    "name": "Beef soup",
+    "category": "Soups",
+    "match": "Soup, beef"
+  },
+  {
+    "fdcId": "2709146",
+    "source": "fndds",
+    "name": "Rice soup",
+    "category": "Soups",
+    "match": "Soup, rice"
+  },
+  {
+    "fdcId": "2707132",
+    "source": "fndds",
+    "name": "Broth",
+    "category": "Soups",
+    "match": "Soup, broth"
+  },
+  {
+    "fdcId": "2709311",
+    "source": "fndds",
+    "name": "Fruit soup",
+    "category": "Soups",
+    "match": "Soup, fruit"
+  },
+  {
+    "fdcId": "2709147",
+    "source": "fndds",
+    "name": "Barley soup",
+    "category": "Soups",
+    "match": "Soup, barley"
+  },
+  {
+    "fdcId": "2707462",
+    "source": "fndds",
+    "name": "Lentil soup",
+    "category": "Soups",
+    "match": "Soup, lentil"
+  },
+  {
+    "fdcId": "2707129",
+    "source": "fndds",
+    "name": "Pozole",
+    "category": "Soups",
+    "match": "Soup, pozole"
+  },
+  {
+    "fdcId": "2709757",
+    "source": "fndds",
+    "name": "Tomato soup",
+    "category": "Soups",
+    "match": "Soup, tomato"
+  },
+  {
+    "fdcId": "2710105",
+    "source": "fndds",
+    "name": "Borscht",
+    "category": "Soups",
+    "match": "Soup, borscht"
+  },
+  {
+    "fdcId": "2707134",
+    "source": "fndds",
+    "name": "Chicken soup",
+    "category": "Soups",
+    "match": "Soup, chicken"
+  },
+  {
+    "fdcId": "2710106",
+    "source": "fndds",
+    "name": "Gazpacho",
+    "category": "Soups",
+    "match": "Soup, gazpacho"
+  },
+  {
+    "fdcId": "2707123",
+    "source": "fndds",
+    "name": "Meatball soup",
+    "category": "Soups",
+    "match": "Soup, meatball"
+  },
+  {
+    "fdcId": "2709162",
+    "source": "fndds",
+    "name": "Tortilla soup",
+    "category": "Soups",
+    "match": "Soup, tortilla"
+  },
+  {
+    "fdcId": "2707459",
+    "source": "fndds",
+    "name": "Split pea soup",
+    "category": "Soups",
+    "match": "Soup, split pea"
+  },
+  {
+    "fdcId": "2710113",
+    "source": "fndds",
+    "name": "Vegetable soup",
+    "category": "Soups",
+    "match": "Soup, vegetable"
+  },
+  {
+    "fdcId": "2709151",
+    "source": "fndds",
+    "name": "Matzo ball soup",
+    "category": "Soups",
+    "match": "Soup, Matzo ball"
+  },
+  {
+    "fdcId": "2710114",
+    "source": "fndds",
+    "name": "Minestrone",
+    "category": "Soups",
+    "match": "Soup, minestrone"
+  },
+  {
+    "fdcId": "2707131",
+    "source": "fndds",
+    "name": "Pork or ham soup",
+    "category": "Soups",
+    "match": "Soup, pork or ham"
+  },
+  {
+    "fdcId": "2707454",
+    "source": "fndds",
+    "name": "Bean soup, canned",
+    "category": "Soups",
+    "match": "Soup, bean, canned"
+  },
+  {
+    "fdcId": "2707140",
+    "source": "fndds",
+    "name": "Bisque",
+    "category": "Soups",
+    "match": "Soup, bisque"
+  },
+  {
+    "fdcId": "2707547",
+    "source": "fndds",
+    "name": "Peanut soup",
+    "category": "Soups",
+    "match": "Soup, peanut"
+  },
+  {
+    "fdcId": "2709556",
+    "source": "fndds",
+    "name": "Potato soup",
+    "category": "Soups",
+    "match": "Soup, potato"
+  },
+  {
+    "fdcId": "2709718",
+    "source": "fndds",
+    "name": "Pumpkin soup",
+    "category": "Soups",
+    "match": "Soup, pumpkin"
+  },
+  {
+    "fdcId": "2707126",
+    "source": "fndds",
+    "name": "Pepperpot",
+    "category": "Soups",
+    "match": "Soup, pepperpot"
+  },
+  {
+    "fdcId": "2710108",
+    "source": "fndds",
+    "name": "French onion soup",
+    "category": "Soups",
+    "match": "Soup, French onion"
+  },
+  {
+    "fdcId": "2709659",
+    "source": "fndds",
+    "name": "Broccoli cheese soup",
+    "category": "Soups",
+    "match": "Soup, broccoli cheese"
+  },
+  {
+    "fdcId": "2709758",
+    "source": "fndds",
+    "name": "Cream of tomato soup",
+    "category": "Soups",
+    "match": "Soup, cream of tomato"
+  },
+  {
+    "fdcId": "2707137",
+    "source": "fndds",
+    "name": "Cream of chicken soup",
+    "category": "Soups",
+    "match": "Soup, cream of chicken"
+  },
+  {
+    "fdcId": "2709557",
+    "source": "fndds",
+    "name": "Potato soup with meat",
+    "category": "Soups",
+    "match": "Soup, potato with meat"
+  },
+  {
+    "fdcId": "2709160",
+    "source": "fndds",
+    "name": "Wonton soup",
+    "category": "Soups",
+    "match": "Soup, wonton"
+  },
+  {
+    "fdcId": "2710110",
+    "source": "fndds",
+    "name": "Seaweed soup",
+    "category": "Soups",
+    "match": "Soup, seaweed"
+  },
+  {
+    "fdcId": "2707282",
+    "source": "fndds",
+    "name": "Egg drop soup",
+    "category": "Soups",
+    "match": "Soup, egg drop"
+  },
+  {
+    "fdcId": "2707136",
+    "source": "fndds",
+    "name": "Hot and sour soup",
+    "category": "Soups",
+    "match": "Soup, hot and sour"
+  },
+  {
+    "fdcId": "2707455",
+    "source": "fndds",
+    "name": "Miso or tofu soup",
+    "category": "Soups",
+    "match": "Soup, miso or tofu"
+  },
+  {
+    "fdcId": "2707125",
+    "source": "fndds",
+    "name": "Pho, no meat",
+    "category": "Soups",
+    "match": "Soup, pho, no meat"
+  },
+  {
+    "fdcId": "2709154",
+    "source": "fndds",
+    "name": "Ramen bowl with beef",
+    "category": "Soups",
+    "match": "Ramen bowl with beef"
+  },
+  {
+    "fdcId": "2709156",
+    "source": "fndds",
+    "name": "Ramen bowl with fish",
+    "category": "Soups",
+    "match": "Ramen bowl with fish"
+  },
+  {
+    "fdcId": "2707124",
+    "source": "fndds",
+    "name": "Pho, with meat",
+    "category": "Soups",
+    "match": "Soup, pho, with meat"
+  },
+  {
+    "fdcId": "2709157",
+    "source": "fndds",
+    "name": "Ramen bowl, vegetarian",
+    "category": "Soups",
+    "match": "Ramen bowl, vegetarian"
+  },
+  {
+    "fdcId": "2706766",
+    "source": "fndds",
+    "name": "Pork hash",
+    "category": "Prepared Dishes",
+    "match": "Pork hash"
+  },
+  {
+    "fdcId": "2706388",
+    "source": "fndds",
+    "name": "Beef curry",
+    "category": "Prepared Dishes",
+    "match": "Beef curry"
+  },
+  {
+    "fdcId": "2706749",
+    "source": "fndds",
+    "name": "Beef salad",
+    "category": "Prepared Dishes",
+    "match": "Beef salad"
+  },
+  {
+    "fdcId": "2706592",
+    "source": "fndds",
+    "name": "Beef stew",
+    "category": "Prepared Dishes",
+    "match": "Stew, beef"
+  },
+  {
+    "fdcId": "2706660",
+    "source": "fndds",
+    "name": "Lamb stew",
+    "category": "Prepared Dishes",
+    "match": "Stew, lamb"
+  },
+  {
+    "fdcId": "2706519",
+    "source": "fndds",
+    "name": "Pork stew",
+    "category": "Prepared Dishes",
+    "match": "Stew, pork"
+  },
+  {
+    "fdcId": "2706732",
+    "source": "fndds",
+    "name": "Swiss steak",
+    "category": "Prepared Dishes",
+    "match": "Swiss steak"
+  },
+  {
+    "fdcId": "2706747",
+    "source": "fndds",
+    "name": "Pepper steak",
+    "category": "Prepared Dishes",
+    "match": "Pepper steak"
+  },
+  {
+    "fdcId": "2706416",
+    "source": "fndds",
+    "name": "Veal Marsala",
+    "category": "Prepared Dishes",
+    "match": "Veal Marsala"
+  },
+  {
+    "fdcId": "2706371",
+    "source": "fndds",
+    "name": "Beef burgundy",
+    "category": "Prepared Dishes",
+    "match": "Beef burgundy"
+  },
+  {
+    "fdcId": "2706372",
+    "source": "fndds",
+    "name": "Guisada, beef",
+    "category": "Prepared Dishes",
+    "match": "Guisada, beef"
+  },
+  {
+    "fdcId": "2706407",
+    "source": "fndds",
+    "name": "Guisada, pork",
+    "category": "Prepared Dishes",
+    "match": "Guisada, pork"
+  },
+  {
+    "fdcId": "2706508",
+    "source": "fndds",
+    "name": "Ham croquette",
+    "category": "Prepared Dishes",
+    "match": "Ham croquette"
+  },
+  {
+    "fdcId": "2706630",
+    "source": "fndds",
+    "name": "Beef pot pie",
+    "category": "Prepared Dishes",
+    "match": "Pot pie, beef"
+  },
+  {
+    "fdcId": "2706406",
+    "source": "fndds",
+    "name": "Sausage gravy",
+    "category": "Prepared Dishes",
+    "match": "Sausage gravy"
+  },
+  {
+    "fdcId": "2706394",
+    "source": "fndds",
+    "name": "Steak tartare",
+    "category": "Prepared Dishes",
+    "match": "Steak tartare"
+  },
+  {
+    "fdcId": "2706402",
+    "source": "fndds",
+    "name": "Ham stroganoff",
+    "category": "Prepared Dishes",
+    "match": "Ham stroganoff"
+  },
+  {
+    "fdcId": "2706594",
+    "source": "fndds",
+    "name": "Shepherd's pie",
+    "category": "Prepared Dishes",
+    "match": "Shepherd's pie"
+  },
+  {
+    "fdcId": "2706382",
+    "source": "fndds",
+    "name": "Beef stroganoff",
+    "category": "Prepared Dishes",
+    "match": "Beef stroganoff"
+  },
+  {
+    "fdcId": "2706501",
+    "source": "fndds",
+    "name": "Beef wellington",
+    "category": "Prepared Dishes",
+    "match": "Beef wellington"
+  },
+  {
+    "fdcId": "2706379",
+    "source": "fndds",
+    "name": "Beef with gravy",
+    "category": "Prepared Dishes",
+    "match": "Beef with gravy"
+  },
+  {
+    "fdcId": "2706377",
+    "source": "fndds",
+    "name": "Chili with meat",
+    "category": "Prepared Dishes",
+    "match": "Chili with meat"
+  },
+  {
+    "fdcId": "2706417",
+    "source": "fndds",
+    "name": "Veal parmigiana",
+    "category": "Prepared Dishes",
+    "match": "Veal parmigiana"
+  },
+  {
+    "fdcId": "2706415",
+    "source": "fndds",
+    "name": "Veal scallopini",
+    "category": "Prepared Dishes",
+    "match": "Veal scallopini"
+  },
+  {
+    "fdcId": "2706477",
+    "source": "fndds",
+    "name": "Corned beef hash",
+    "category": "Prepared Dishes",
+    "match": "Corned beef hash"
+  },
+  {
+    "fdcId": "2706418",
+    "source": "fndds",
+    "name": "Veal cordon bleu",
+    "category": "Prepared Dishes",
+    "match": "Veal cordon bleu"
+  },
+  {
+    "fdcId": "2706476",
+    "source": "fndds",
+    "name": "Beef, roast, hash",
+    "category": "Prepared Dishes",
+    "match": "Beef, roast, hash"
+  },
+  {
+    "fdcId": "2706502",
+    "source": "fndds",
+    "name": "Corned beef patty",
+    "category": "Prepared Dishes",
+    "match": "Corned beef patty"
+  },
+  {
+    "fdcId": "2706756",
+    "source": "fndds",
+    "name": "Ham or pork salad",
+    "category": "Prepared Dishes",
+    "match": "Ham or pork salad"
+  },
+  {
+    "fdcId": "2706378",
+    "source": "fndds",
+    "name": "Sloppy joe, no bun",
+    "category": "Prepared Dishes",
+    "match": "Sloppy joe, no bun"
+  },
+  {
+    "fdcId": "2706591",
+    "source": "fndds",
+    "name": "Beef, canned stew",
+    "category": "Prepared Dishes",
+    "match": "Stew, beef, canned"
+  },
+  {
+    "fdcId": "2706483",
+    "source": "fndds",
+    "name": "Chili with macaroni",
+    "category": "Prepared Dishes",
+    "match": "Chili with macaroni"
+  },
+  {
+    "fdcId": "2706521",
+    "source": "fndds",
+    "name": "Lamb or mutton loaf",
+    "category": "Prepared Dishes",
+    "match": "Lamb or mutton loaf"
+  },
+  {
+    "fdcId": "2705872",
+    "source": "fndds",
+    "name": "Pork, chop, stuffed",
+    "category": "Prepared Dishes",
+    "match": "Pork, chop, stuffed"
+  },
+  {
+    "fdcId": "2706389",
+    "source": "fndds",
+    "name": "Beef curry with rice",
+    "category": "Prepared Dishes",
+    "match": "Beef curry with rice"
+  },
+  {
+    "fdcId": "2706445",
+    "source": "fndds",
+    "name": "Chicken kiev",
+    "category": "Prepared Dishes",
+    "match": "Chicken kiev"
+  },
+  {
+    "fdcId": "2706427",
+    "source": "fndds",
+    "name": "Chili, white",
+    "category": "Prepared Dishes",
+    "match": "Chili, white"
+  },
+  {
+    "fdcId": "2706437",
+    "source": "fndds",
+    "name": "Chicken curry",
+    "category": "Prepared Dishes",
+    "match": "Chicken curry"
+  },
+  {
+    "fdcId": "2706678",
+    "source": "fndds",
+    "name": "Chicken stew",
+    "category": "Prepared Dishes",
+    "match": "Stew, chicken"
+  },
+  {
+    "fdcId": "2708958",
+    "source": "fndds",
+    "name": "Adobo, with rice",
+    "category": "Prepared Dishes",
+    "match": "Adobo, with rice"
+  },
+  {
+    "fdcId": "2706434",
+    "source": "fndds",
+    "name": "Barbecue chicken",
+    "category": "Prepared Dishes",
+    "match": "Barbecue chicken"
+  },
+  {
+    "fdcId": "2706703",
+    "source": "fndds",
+    "name": "Chicken pot pie",
+    "category": "Prepared Dishes",
+    "match": "Pot pie, chicken"
+  },
+  {
+    "fdcId": "2708745",
+    "source": "fndds",
+    "name": "Chicken cornbread",
+    "category": "Prepared Dishes",
+    "match": "Chicken cornbread"
+  },
+  {
+    "fdcId": "2706430",
+    "source": "fndds",
+    "name": "Turkey with gravy",
+    "category": "Prepared Dishes",
+    "match": "Turkey with gravy"
+  },
+  {
+    "fdcId": "2706428",
+    "source": "fndds",
+    "name": "Chicken with gravy",
+    "category": "Prepared Dishes",
+    "match": "Chicken with gravy"
+  },
+  {
+    "fdcId": "2706426",
+    "source": "fndds",
+    "name": "Chili with chicken",
+    "category": "Prepared Dishes",
+    "match": "Chili with chicken"
+  },
+  {
+    "fdcId": "2708809",
+    "source": "fndds",
+    "name": "Adobo, with noodles",
+    "category": "Prepared Dishes",
+    "match": "Adobo, with noodles"
+  },
+  {
+    "fdcId": "2706527",
+    "source": "fndds",
+    "name": "Chicken or turkey hash",
+    "category": "Prepared Dishes",
+    "match": "Chicken or turkey hash"
+  },
+  {
+    "fdcId": "2706438",
+    "source": "fndds",
+    "name": "Chicken curry with rice",
+    "category": "Prepared Dishes",
+    "match": "Chicken curry with rice"
+  },
+  {
+    "fdcId": "2706789",
+    "source": "fndds",
+    "name": "Chicken or turkey divan",
+    "category": "Prepared Dishes",
+    "match": "Chicken or turkey divan"
+  },
+  {
+    "fdcId": "2706439",
+    "source": "fndds",
+    "name": "Chicken with mole sauce",
+    "category": "Prepared Dishes",
+    "match": "Chicken with mole sauce"
+  },
+  {
+    "fdcId": "2706546",
+    "source": "fndds",
+    "name": "Chicken or turkey souffle",
+    "category": "Prepared Dishes",
+    "match": "Chicken or turkey souffle"
+  },
+  {
+    "fdcId": "2706677",
+    "source": "fndds",
+    "name": "Chicken, with pasta stew",
+    "category": "Prepared Dishes",
+    "match": "Stew, chicken, with pasta"
+  },
+  {
+    "fdcId": "2706429",
+    "source": "fndds",
+    "name": "Chicken or turkey fricassee",
+    "category": "Prepared Dishes",
+    "match": "Chicken or turkey fricassee"
+  },
+  {
+    "fdcId": "2706421",
+    "source": "fndds",
+    "name": "Chicken or turkey cacciatore",
+    "category": "Prepared Dishes",
+    "match": "Chicken or turkey cacciatore"
+  },
+  {
+    "fdcId": "2706442",
+    "source": "fndds",
+    "name": "Chicken or turkey parmigiana",
+    "category": "Prepared Dishes",
+    "match": "Chicken or turkey parmigiana"
+  },
+  {
+    "fdcId": "2706534",
+    "source": "fndds",
+    "name": "Chicken or turkey tetrazzini",
+    "category": "Prepared Dishes",
+    "match": "Chicken or turkey tetrazzini"
+  },
+  {
+    "fdcId": "2706425",
+    "source": "fndds",
+    "name": "Chili with chicken and beans",
+    "category": "Prepared Dishes",
+    "match": "Chili with chicken and beans"
+  },
+  {
+    "fdcId": "2706441",
+    "source": "fndds",
+    "name": "Chicken or turkey cordon bleu",
+    "category": "Prepared Dishes",
+    "match": "Chicken or turkey cordon bleu"
+  },
+  {
+    "fdcId": "2706544",
+    "source": "fndds",
+    "name": "Chicken or turkey with stuffing",
+    "category": "Prepared Dishes",
+    "match": "Chicken or turkey with stuffing"
+  },
+  {
+    "fdcId": "2706463",
+    "source": "fndds",
+    "name": "Ceviche",
+    "category": "Prepared Dishes",
+    "match": "Ceviche"
+  },
+  {
+    "fdcId": "2706873",
+    "source": "fndds",
+    "name": "Lau lau",
+    "category": "Prepared Dishes",
+    "match": "Lau lau"
+  },
+  {
+    "fdcId": "2706824",
+    "source": "fndds",
+    "name": "Crab salad",
+    "category": "Prepared Dishes",
+    "match": "Crab salad"
+  },
+  {
+    "fdcId": "2706549",
+    "source": "fndds",
+    "name": "Crab, cake",
+    "category": "Prepared Dishes",
+    "match": "Crab, cake"
+  },
+  {
+    "fdcId": "2706460",
+    "source": "fndds",
+    "name": "Fish curry",
+    "category": "Prepared Dishes",
+    "match": "Fish curry"
+  },
+  {
+    "fdcId": "2706466",
+    "source": "fndds",
+    "name": "Fish stew",
+    "category": "Prepared Dishes",
+    "match": "Stew, fish"
+  },
+  {
+    "fdcId": "2706850",
+    "source": "fndds",
+    "name": "Lomi salmon",
+    "category": "Prepared Dishes",
+    "match": "Lomi salmon"
+  },
+  {
+    "fdcId": "2706564",
+    "source": "fndds",
+    "name": "Clams Casino",
+    "category": "Prepared Dishes",
+    "match": "Clams Casino"
+  },
+  {
+    "fdcId": "2706551",
+    "source": "fndds",
+    "name": "Gefilte fish",
+    "category": "Prepared Dishes",
+    "match": "Gefilte fish"
+  },
+  {
+    "fdcId": "2706826",
+    "source": "fndds",
+    "name": "Salmon salad",
+    "category": "Prepared Dishes",
+    "match": "Salmon salad"
+  },
+  {
+    "fdcId": "2707142",
+    "source": "fndds",
+    "name": "Shrimp gumbo",
+    "category": "Prepared Dishes",
+    "match": "Shrimp gumbo"
+  },
+  {
+    "fdcId": "2706837",
+    "source": "fndds",
+    "name": "Shrimp salad",
+    "category": "Prepared Dishes",
+    "match": "Shrimp salad"
+  },
+  {
+    "fdcId": "2706567",
+    "source": "fndds",
+    "name": "Shrimp toast",
+    "category": "Prepared Dishes",
+    "match": "Shrimp toast"
+  },
+  {
+    "fdcId": "2707141",
+    "source": "fndds",
+    "name": "Lobster gumbo",
+    "category": "Prepared Dishes",
+    "match": "Lobster gumbo"
+  },
+  {
+    "fdcId": "2706825",
+    "source": "fndds",
+    "name": "Lobster salad",
+    "category": "Prepared Dishes",
+    "match": "Lobster salad"
+  },
+  {
+    "fdcId": "2708930",
+    "source": "fndds",
+    "name": "Flavored pasta",
+    "category": "Prepared Dishes",
+    "match": "Flavored pasta"
+  },
+  {
+    "fdcId": "2708949",
+    "source": "fndds",
+    "name": "Noodle pudding",
+    "category": "Prepared Dishes",
+    "match": "Noodle pudding"
+  },
+  {
+    "fdcId": "2708721",
+    "source": "fndds",
+    "name": "Gnocchi, cheese",
+    "category": "Prepared Dishes",
+    "match": "Gnocchi, cheese"
+  },
+  {
+    "fdcId": "2708722",
+    "source": "fndds",
+    "name": "Gnocchi, potato",
+    "category": "Prepared Dishes",
+    "match": "Gnocchi, potato"
+  },
+  {
+    "fdcId": "2708750",
+    "source": "fndds",
+    "name": "Lasagna with meat",
+    "category": "Prepared Dishes",
+    "match": "Lasagna with meat"
+  },
+  {
+    "fdcId": "2708758",
+    "source": "fndds",
+    "name": "Lasagna, meatless",
+    "category": "Prepared Dishes",
+    "match": "Lasagna, meatless"
+  },
+  {
+    "fdcId": "2708751",
+    "source": "fndds",
+    "name": "Lasagna with meat, canned",
+    "category": "Prepared Dishes",
+    "match": "Lasagna with meat, canned"
+  },
+  {
+    "fdcId": "2708754",
+    "source": "fndds",
+    "name": "Lasagna with meat, frozen",
+    "category": "Prepared Dishes",
+    "match": "Lasagna with meat, frozen"
+  },
+  {
+    "fdcId": "2708755",
+    "source": "fndds",
+    "name": "Lasagna with meat and spinach",
+    "category": "Prepared Dishes",
+    "match": "Lasagna with meat and spinach"
+  },
+  {
+    "fdcId": "2708756",
+    "source": "fndds",
+    "name": "Lasagna with chicken or turkey",
+    "category": "Prepared Dishes",
+    "match": "Lasagna with chicken or turkey"
+  },
+  {
+    "fdcId": "2708753",
+    "source": "fndds",
+    "name": "Lasagna with meat, home recipe",
+    "category": "Prepared Dishes",
+    "match": "Lasagna with meat, home recipe"
+  },
+  {
+    "fdcId": "2708763",
+    "source": "fndds",
+    "name": "Ravioli, meat-filled, no sauce",
+    "category": "Prepared Dishes",
+    "match": "Ravioli, meat-filled, no sauce"
+  },
+  {
+    "fdcId": "2708941",
+    "source": "fndds",
+    "name": "Macaroni or pasta salad with egg",
+    "category": "Prepared Dishes",
+    "match": "Macaroni or pasta salad with egg"
+  },
+  {
+    "fdcId": "2708767",
+    "source": "fndds",
+    "name": "Ravioli, cheese-filled, no sauce",
+    "category": "Prepared Dishes",
+    "match": "Ravioli, cheese-filled, no sauce"
+  },
+  {
+    "fdcId": "2708948",
+    "source": "fndds",
+    "name": "Macaroni or pasta salad with meat",
+    "category": "Prepared Dishes",
+    "match": "Macaroni or pasta salad with meat"
+  },
+  {
+    "fdcId": "2708942",
+    "source": "fndds",
+    "name": "Macaroni or pasta salad with tuna",
+    "category": "Prepared Dishes",
+    "match": "Macaroni or pasta salad with tuna"
+  },
+  {
+    "fdcId": "2708790",
+    "source": "fndds",
+    "name": "Tortellini, meat-filled, no sauce",
+    "category": "Prepared Dishes",
+    "match": "Tortellini, meat-filled, no sauce"
+  },
+  {
+    "fdcId": "2708752",
+    "source": "fndds",
+    "name": "Lasagna with meat, from restaurant",
+    "category": "Prepared Dishes",
+    "match": "Lasagna with meat, from restaurant"
+  },
+  {
+    "fdcId": "2708759",
+    "source": "fndds",
+    "name": "Lasagna, meatless, with vegetables",
+    "category": "Prepared Dishes",
+    "match": "Lasagna, meatless, with vegetables"
+  },
+  {
+    "fdcId": "2708775",
+    "source": "fndds",
+    "name": "Manicotti, cheese-filled, no sauce",
+    "category": "Prepared Dishes",
+    "match": "Manicotti, cheese-filled, no sauce"
+  },
+  {
+    "fdcId": "2708346",
+    "source": "fndds",
+    "name": "Idli",
+    "category": "Prepared Dishes",
+    "match": "Idli"
+  },
+  {
+    "fdcId": "2709078",
+    "source": "fndds",
+    "name": "Dirty rice",
+    "category": "Prepared Dishes",
+    "match": "Dirty rice"
+  },
+  {
+    "fdcId": "2709077",
+    "source": "fndds",
+    "name": "Rice pilaf",
+    "category": "Prepared Dishes",
+    "match": "Rice pilaf"
+  },
+  {
+    "fdcId": "2709089",
+    "source": "fndds",
+    "name": "Rice dressing",
+    "category": "Prepared Dishes",
+    "match": "Rice dressing"
+  },
+  {
+    "fdcId": "2709071",
+    "source": "fndds",
+    "name": "Rice croquette",
+    "category": "Prepared Dishes",
+    "match": "Rice croquette"
+  },
+  {
+    "fdcId": "2708950",
+    "source": "fndds",
+    "name": "Bibimbap, Korean",
+    "category": "Prepared Dishes",
+    "match": "Bibimbap, Korean"
+  },
+  {
+    "fdcId": "2708984",
+    "source": "fndds",
+    "name": "Congee, with egg",
+    "category": "Prepared Dishes",
+    "match": "Congee, with egg"
+  },
+  {
+    "fdcId": "2706490",
+    "source": "fndds",
+    "name": "Biryani with meat",
+    "category": "Prepared Dishes",
+    "match": "Biryani with meat"
+  },
+  {
+    "fdcId": "2709090",
+    "source": "fndds",
+    "name": "Rice with raisins",
+    "category": "Prepared Dishes",
+    "match": "Rice with raisins"
+  },
+  {
+    "fdcId": "2706711",
+    "source": "fndds",
+    "name": "Paella with seafood",
+    "category": "Prepared Dishes",
+    "match": "Paella with seafood"
+  },
+  {
+    "fdcId": "2706538",
+    "source": "fndds",
+    "name": "Biryani with chicken",
+    "category": "Prepared Dishes",
+    "match": "Biryani with chicken"
+  },
+  {
+    "fdcId": "2709079",
+    "source": "fndds",
+    "name": "Flavored rice mixture",
+    "category": "Prepared Dishes",
+    "match": "Flavored rice mixture"
+  },
+  {
+    "fdcId": "2708985",
+    "source": "fndds",
+    "name": "Biryani with vegetables",
+    "category": "Prepared Dishes",
+    "match": "Biryani with vegetables"
+  },
+  {
+    "fdcId": "2708983",
+    "source": "fndds",
+    "name": "Congee, with vegetables",
+    "category": "Prepared Dishes",
+    "match": "Congee, with vegetables"
+  },
+  {
+    "fdcId": "2709085",
+    "source": "fndds",
+    "name": "Spanish rice, fat added",
+    "category": "Prepared Dishes",
+    "match": "Spanish rice, fat added"
+  },
+  {
+    "fdcId": "2708799",
+    "source": "fndds",
+    "name": "Lo mein, meatless",
+    "category": "Prepared Dishes",
+    "match": "Lo mein, meatless"
+  },
+  {
+    "fdcId": "2708802",
+    "source": "fndds",
+    "name": "Lo mein, with beef",
+    "category": "Prepared Dishes",
+    "match": "Lo mein, with beef"
+  },
+  {
+    "fdcId": "2708801",
+    "source": "fndds",
+    "name": "Lo mein, with pork",
+    "category": "Prepared Dishes",
+    "match": "Lo mein, with pork"
+  },
+  {
+    "fdcId": "2708808",
+    "source": "fndds",
+    "name": "Pad Thai with meat",
+    "category": "Prepared Dishes",
+    "match": "Pad Thai with meat"
+  },
+  {
+    "fdcId": "2708805",
+    "source": "fndds",
+    "name": "Pad Thai, meatless",
+    "category": "Prepared Dishes",
+    "match": "Pad Thai, meatless"
+  },
+  {
+    "fdcId": "2708800",
+    "source": "fndds",
+    "name": "Lo mein, with shrimp",
+    "category": "Prepared Dishes",
+    "match": "Lo mein, with shrimp"
+  },
+  {
+    "fdcId": "2708803",
+    "source": "fndds",
+    "name": "Lo mein, with chicken",
+    "category": "Prepared Dishes",
+    "match": "Lo mein, with chicken"
+  },
+  {
+    "fdcId": "2708806",
+    "source": "fndds",
+    "name": "Pad Thai with chicken",
+    "category": "Prepared Dishes",
+    "match": "Pad Thai with chicken"
+  },
+  {
+    "fdcId": "2708807",
+    "source": "fndds",
+    "name": "Pad Thai with seafood",
+    "category": "Prepared Dishes",
+    "match": "Pad Thai with seafood"
+  },
+  {
+    "fdcId": "2708951",
+    "source": "fndds",
+    "name": "Rice, fried, meatless",
+    "category": "Prepared Dishes",
+    "match": "Rice, fried, meatless"
+  },
+  {
+    "fdcId": "2706741",
+    "source": "fndds",
+    "name": "Hunan beef",
+    "category": "Prepared Dishes",
+    "match": "Hunan beef"
+  },
+  {
+    "fdcId": "2706743",
+    "source": "fndds",
+    "name": "Kung Pao beef",
+    "category": "Prepared Dishes",
+    "match": "Kung Pao beef"
+  },
+  {
+    "fdcId": "2706763",
+    "source": "fndds",
+    "name": "Kung Pao pork",
+    "category": "Prepared Dishes",
+    "match": "Kung Pao pork"
+  },
+  {
+    "fdcId": "2706740",
+    "source": "fndds",
+    "name": "Szechuan beef",
+    "category": "Prepared Dishes",
+    "match": "Szechuan beef"
+  },
+  {
+    "fdcId": "2706797",
+    "source": "fndds",
+    "name": "Almond chicken",
+    "category": "Prepared Dishes",
+    "match": "Almond chicken"
+  },
+  {
+    "fdcId": "2706443",
+    "source": "fndds",
+    "name": "Orange chicken",
+    "category": "Prepared Dishes",
+    "match": "Orange chicken"
+  },
+  {
+    "fdcId": "2706444",
+    "source": "fndds",
+    "name": "Sesame chicken",
+    "category": "Prepared Dishes",
+    "match": "Sesame chicken"
+  },
+  {
+    "fdcId": "2706387",
+    "source": "fndds",
+    "name": "Steak teriyaki",
+    "category": "Prepared Dishes",
+    "match": "Steak teriyaki"
+  },
+  {
+    "fdcId": "2706857",
+    "source": "fndds",
+    "name": "Kung Pao shrimp",
+    "category": "Prepared Dishes",
+    "match": "Kung Pao shrimp"
+  },
+  {
+    "fdcId": "2706795",
+    "source": "fndds",
+    "name": "Moo Goo Gai Pan",
+    "category": "Prepared Dishes",
+    "match": "Moo Goo Gai Pan"
+  },
+  {
+    "fdcId": "2706462",
+    "source": "fndds",
+    "name": "Shrimp teriyaki",
+    "category": "Prepared Dishes",
+    "match": "Shrimp teriyaki"
+  },
+  {
+    "fdcId": "2706796",
+    "source": "fndds",
+    "name": "Kung pao chicken",
+    "category": "Prepared Dishes",
+    "match": "Kung pao chicken"
+  },
+  {
+    "fdcId": "2708506",
+    "source": "fndds",
+    "name": "Frito pie",
+    "category": "Prepared Dishes",
+    "match": "Frito pie"
+  },
+  {
+    "fdcId": "2708505",
+    "source": "fndds",
+    "name": "Chilaquiles",
+    "category": "Prepared Dishes",
+    "match": "Chilaquiles"
+  },
+  {
+    "fdcId": "2708610",
+    "source": "fndds",
+    "name": "Pupusa, meat",
+    "category": "Prepared Dishes",
+    "match": "Pupusa, meat"
+  },
+  {
+    "fdcId": "2708571",
+    "source": "fndds",
+    "name": "Tamale, beef",
+    "category": "Prepared Dishes",
+    "match": "Tamale, beef"
+  },
+  {
+    "fdcId": "2708572",
+    "source": "fndds",
+    "name": "Tamale, pork",
+    "category": "Prepared Dishes",
+    "match": "Tamale, pork"
+  },
+  {
+    "fdcId": "2708585",
+    "source": "fndds",
+    "name": "Gordita, meat",
+    "category": "Prepared Dishes",
+    "match": "Gordita, meat"
+  },
+  {
+    "fdcId": "2708507",
+    "source": "fndds",
+    "name": "Mexican pizza",
+    "category": "Prepared Dishes",
+    "match": "Mexican pizza"
+  },
+  {
+    "fdcId": "2708606",
+    "source": "fndds",
+    "name": "Fajita, shrimp",
+    "category": "Prepared Dishes",
+    "match": "Fajita, shrimp"
+  },
+  {
+    "fdcId": "2708566",
+    "source": "fndds",
+    "name": "Enchilada, beef",
+    "category": "Prepared Dishes",
+    "match": "Enchilada, beef"
+  },
+  {
+    "fdcId": "2708567",
+    "source": "fndds",
+    "name": "Enchilada, pork",
+    "category": "Prepared Dishes",
+    "match": "Enchilada, pork"
+  },
+  {
+    "fdcId": "2708604",
+    "source": "fndds",
+    "name": "Fajita, chicken",
+    "category": "Prepared Dishes",
+    "match": "Fajita, chicken"
+  },
+  {
+    "fdcId": "2708573",
+    "source": "fndds",
+    "name": "Tamale, chicken",
+    "category": "Prepared Dishes",
+    "match": "Tamale, chicken"
+  },
+  {
+    "fdcId": "2708574",
+    "source": "fndds",
+    "name": "Tamale, no meat",
+    "category": "Prepared Dishes",
+    "match": "Tamale, no meat"
+  },
+  {
+    "fdcId": "2708601",
+    "source": "fndds",
+    "name": "Taquito, chicken",
+    "category": "Prepared Dishes",
+    "match": "Taquito, chicken"
+  },
+  {
+    "fdcId": "2708587",
+    "source": "fndds",
+    "name": "Chimichanga, meat",
+    "category": "Prepared Dishes",
+    "match": "Chimichanga, meat"
+  },
+  {
+    "fdcId": "2708686",
+    "source": "fndds",
+    "name": "Pizza rolls",
+    "category": "Pizza",
+    "match": "Pizza rolls"
+  },
+  {
+    "fdcId": "2708618",
+    "source": "fndds",
+    "name": "Pizza, cheese, stuffed crust",
+    "category": "Pizza",
+    "match": "Pizza, cheese, stuffed crust"
+  },
+  {
+    "fdcId": "2708674",
+    "source": "fndds",
+    "name": "Pizza, no cheese, thin crust",
+    "category": "Pizza",
+    "match": "Pizza, no cheese, thin crust"
+  },
+  {
+    "fdcId": "2708685",
+    "source": "fndds",
+    "name": "Calzone, with meat and cheese",
+    "category": "Pizza",
+    "match": "Calzone, with meat and cheese"
+  },
+  {
+    "fdcId": "2708675",
+    "source": "fndds",
+    "name": "Pizza, no cheese, thick crust",
+    "category": "Pizza",
+    "match": "Pizza, no cheese, thick crust"
+  },
+  {
+    "fdcId": "2708684",
+    "source": "fndds",
+    "name": "Calzone, with cheese, meatless",
+    "category": "Pizza",
+    "match": "Calzone, with cheese, meatless"
+  },
+  {
+    "fdcId": "2708622",
+    "source": "fndds",
+    "name": "Pizza, extra cheese, thin crust",
+    "category": "Pizza",
+    "match": "Pizza, extra cheese, thin crust"
+  },
+  {
+    "fdcId": "2708676",
+    "source": "fndds",
+    "name": "White pizza, cheese, thin crust",
+    "category": "Pizza",
+    "match": "White pizza, cheese, thin crust"
+  },
+  {
+    "fdcId": "2708623",
+    "source": "fndds",
+    "name": "Pizza, extra cheese, thick crust",
+    "category": "Pizza",
+    "match": "Pizza, extra cheese, thick crust"
+  },
+  {
+    "fdcId": "2708677",
+    "source": "fndds",
+    "name": "White pizza, cheese, thick crust",
+    "category": "Pizza",
+    "match": "White pizza, cheese, thick crust"
+  },
+  {
+    "fdcId": "2708657",
+    "source": "fndds",
+    "name": "Pizza with extra meat, thin crust",
+    "category": "Pizza",
+    "match": "Pizza with extra meat, thin crust"
+  },
+  {
+    "fdcId": "2708659",
+    "source": "fndds",
+    "name": "Pizza with extra meat, thick crust",
+    "category": "Pizza",
+    "match": "Pizza with extra meat, thick crust"
+  },
+  {
+    "fdcId": "2706926",
+    "source": "fndds",
+    "name": "Hamburger slider",
+    "category": "Sandwiches & Burgers",
+    "match": "Hamburger slider"
+  },
+  {
+    "fdcId": "2706916",
+    "source": "fndds",
+    "name": "Big Mac (McDonalds)",
+    "category": "Sandwiches & Burgers",
+    "match": "Big Mac (McDonalds)"
+  },
+  {
+    "fdcId": "2706894",
+    "source": "fndds",
+    "name": "Cheeseburger slider",
+    "category": "Sandwiches & Burgers",
+    "match": "Cheeseburger slider"
+  },
+  {
+    "fdcId": "2706915",
+    "source": "fndds",
+    "name": "McDouble (McDonalds)",
+    "category": "Sandwiches & Burgers",
+    "match": "McDouble (McDonalds)"
+  },
+  {
+    "fdcId": "2706924",
+    "source": "fndds",
+    "name": "Hamburger (McDonalds)",
+    "category": "Sandwiches & Burgers",
+    "match": "Hamburger (McDonalds)"
+  },
+  {
+    "fdcId": "2706931",
+    "source": "fndds",
+    "name": "Whopper (Burger King)",
+    "category": "Sandwiches & Burgers",
+    "match": "Whopper (Burger King)"
+  },
+  {
+    "fdcId": "2706922",
+    "source": "fndds",
+    "name": "Hamburger (Burger King)",
+    "category": "Sandwiches & Burgers",
+    "match": "Hamburger (Burger King)"
+  },
+  {
+    "fdcId": "2706892",
+    "source": "fndds",
+    "name": "Cheeseburger (McDonalds)",
+    "category": "Sandwiches & Burgers",
+    "match": "Cheeseburger (McDonalds)"
+  },
+  {
+    "fdcId": "2706923",
+    "source": "fndds",
+    "name": "Whopper Jr (Burger King)",
+    "category": "Sandwiches & Burgers",
+    "match": "Whopper Jr (Burger King)"
+  },
+  {
+    "fdcId": "2706890",
+    "source": "fndds",
+    "name": "Cheeseburger (Burger King)",
+    "category": "Sandwiches & Burgers",
+    "match": "Cheeseburger (Burger King)"
+  },
+  {
+    "fdcId": "2707055",
+    "source": "fndds",
+    "name": "Spam sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Spam sandwich"
+  },
+  {
+    "fdcId": "2706952",
+    "source": "fndds",
+    "name": "Reuben sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Reuben sandwich"
+  },
+  {
+    "fdcId": "2706970",
+    "source": "fndds",
+    "name": "Ham sandwich wrap",
+    "category": "Sandwiches & Burgers",
+    "match": "Ham sandwich wrap"
+  },
+  {
+    "fdcId": "2706957",
+    "source": "fndds",
+    "name": "French dip sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "French dip sandwich"
+  },
+  {
+    "fdcId": "2706987",
+    "source": "fndds",
+    "name": "Turkey sandwich wrap",
+    "category": "Sandwiches & Burgers",
+    "match": "Turkey sandwich wrap"
+  },
+  {
+    "fdcId": "2706966",
+    "source": "fndds",
+    "name": "Ham sandwich on wheat",
+    "category": "Sandwiches & Burgers",
+    "match": "Ham sandwich on wheat"
+  },
+  {
+    "fdcId": "2706964",
+    "source": "fndds",
+    "name": "Ham sandwich on white",
+    "category": "Sandwiches & Burgers",
+    "match": "Ham sandwich on white"
+  },
+  {
+    "fdcId": "2706995",
+    "source": "fndds",
+    "name": "Club sandwich on wheat",
+    "category": "Sandwiches & Burgers",
+    "match": "Club sandwich on wheat"
+  },
+  {
+    "fdcId": "2706993",
+    "source": "fndds",
+    "name": "Club sandwich on white",
+    "category": "Sandwiches & Burgers",
+    "match": "Club sandwich on white"
+  },
+  {
+    "fdcId": "2707048",
+    "source": "fndds",
+    "name": "Salami sandwich on wheat",
+    "category": "Sandwiches & Burgers",
+    "match": "Salami sandwich on wheat"
+  },
+  {
+    "fdcId": "2706992",
+    "source": "fndds",
+    "name": "Chicken salad sandwich wrap",
+    "category": "Sandwiches & Burgers",
+    "match": "Chicken salad sandwich wrap"
+  },
+  {
+    "fdcId": "2706991",
+    "source": "fndds",
+    "name": "Chicken salad sandwich on wheat",
+    "category": "Sandwiches & Burgers",
+    "match": "Chicken salad sandwich on wheat"
+  },
+  {
+    "fdcId": "2706990",
+    "source": "fndds",
+    "name": "Chicken salad sandwich on white",
+    "category": "Sandwiches & Burgers",
+    "match": "Chicken salad sandwich on white"
+  },
+  {
+    "fdcId": "2707002",
+    "source": "fndds",
+    "name": "Chicken fillet biscuit, from fast food",
+    "category": "Sandwiches & Burgers",
+    "match": "Chicken fillet biscuit, from fast food"
+  },
+  {
+    "fdcId": "2707010",
+    "source": "fndds",
+    "name": "Chicken fillet sandwich, fried, on wheat bun",
+    "category": "Sandwiches & Burgers",
+    "match": "Chicken fillet sandwich, fried, on wheat bun"
+  },
+  {
+    "fdcId": "2707008",
+    "source": "fndds",
+    "name": "Chicken fillet sandwich, fried, on white bun",
+    "category": "Sandwiches & Burgers",
+    "match": "Chicken fillet sandwich, fried, on white bun"
+  },
+  {
+    "fdcId": "2707003",
+    "source": "fndds",
+    "name": "Chicken fillet sandwich, fried, from fast food",
+    "category": "Sandwiches & Burgers",
+    "match": "Chicken fillet sandwich, fried, from fast food"
+  },
+  {
+    "fdcId": "2707001",
+    "source": "fndds",
+    "name": "Chicken fillet sandwich, from school cafeteria",
+    "category": "Sandwiches & Burgers",
+    "match": "Chicken fillet sandwich, from school cafeteria"
+  },
+  {
+    "fdcId": "2706962",
+    "source": "fndds",
+    "name": "Gyro sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Gyro sandwich"
+  },
+  {
+    "fdcId": "2706977",
+    "source": "fndds",
+    "name": "Pork sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Pork sandwich"
+  },
+  {
+    "fdcId": "2706973",
+    "source": "fndds",
+    "name": "Cuban sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Cuban sandwich"
+  },
+  {
+    "fdcId": "2706946",
+    "source": "fndds",
+    "name": "Meatloaf sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Meatloaf sandwich"
+  },
+  {
+    "fdcId": "2706974",
+    "source": "fndds",
+    "name": "Barbecue rib sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Barbecue rib sandwich"
+  },
+  {
+    "fdcId": "2706945",
+    "source": "fndds",
+    "name": "Meatball sandwich or sub",
+    "category": "Sandwiches & Burgers",
+    "match": "Meatball sandwich or sub"
+  },
+  {
+    "fdcId": "2706978",
+    "source": "fndds",
+    "name": "Pork sandwich, with cheese",
+    "category": "Sandwiches & Burgers",
+    "match": "Pork sandwich, with cheese"
+  },
+  {
+    "fdcId": "2706959",
+    "source": "fndds",
+    "name": "Steak sandwich or sub on wheat",
+    "category": "Sandwiches & Burgers",
+    "match": "Steak sandwich or sub on wheat"
+  },
+  {
+    "fdcId": "2707343",
+    "source": "fndds",
+    "name": "Egg burrito",
+    "category": "Sandwiches & Burgers",
+    "match": "Egg burrito"
+  },
+  {
+    "fdcId": "2708602",
+    "source": "fndds",
+    "name": "Taquito, egg",
+    "category": "Sandwiches & Burgers",
+    "match": "Taquito, egg"
+  },
+  {
+    "fdcId": "2708597",
+    "source": "fndds",
+    "name": "Quesadilla, egg",
+    "category": "Sandwiches & Burgers",
+    "match": "Quesadilla, egg"
+  },
+  {
+    "fdcId": "2708744",
+    "source": "fndds",
+    "name": "Biscuit with gravy",
+    "category": "Sandwiches & Burgers",
+    "match": "Biscuit with gravy"
+  },
+  {
+    "fdcId": "2707334",
+    "source": "fndds",
+    "name": "Egg white sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Egg white sandwich"
+  },
+  {
+    "fdcId": "2707338",
+    "source": "fndds",
+    "name": "Ham biscuit sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Ham biscuit sandwich"
+  },
+  {
+    "fdcId": "2707346",
+    "source": "fndds",
+    "name": "Egg burrito, with ham",
+    "category": "Sandwiches & Burgers",
+    "match": "Egg burrito, with ham"
+  },
+  {
+    "fdcId": "2707328",
+    "source": "fndds",
+    "name": "Egg sandwich on bagel",
+    "category": "Sandwiches & Burgers",
+    "match": "Egg sandwich on bagel"
+  },
+  {
+    "fdcId": "2707044",
+    "source": "fndds",
+    "name": "Corn dog",
+    "category": "Sandwiches & Burgers",
+    "match": "Corn dog"
+  },
+  {
+    "fdcId": "2707045",
+    "source": "fndds",
+    "name": "Pig in a blanket",
+    "category": "Sandwiches & Burgers",
+    "match": "Pig in a blanket"
+  },
+  {
+    "fdcId": "2707053",
+    "source": "fndds",
+    "name": "Italian sausage sandwich on white",
+    "category": "Sandwiches & Burgers",
+    "match": "Italian sausage sandwich on white"
+  },
+  {
+    "fdcId": "2707079",
+    "source": "fndds",
+    "name": "Chili hot dog sandwich, on wheat bun",
+    "category": "Sandwiches & Burgers",
+    "match": "Chili hot dog sandwich, on wheat bun"
+  },
+  {
+    "fdcId": "2707078",
+    "source": "fndds",
+    "name": "Chili hot dog sandwich, on white bun",
+    "category": "Sandwiches & Burgers",
+    "match": "Chili hot dog sandwich, on white bun"
+  },
+  {
+    "fdcId": "2707061",
+    "source": "fndds",
+    "name": "Hot dog sandwich, beef, on wheat bun",
+    "category": "Sandwiches & Burgers",
+    "match": "Hot dog sandwich, beef, on wheat bun"
+  },
+  {
+    "fdcId": "2705798",
+    "source": "fndds",
+    "name": "Cheese sandwich, cheddar cheese, on wheat bread",
+    "category": "Sandwiches & Burgers",
+    "match": "Cheese sandwich, cheddar cheese, on wheat bread"
+  },
+  {
+    "fdcId": "2705797",
+    "source": "fndds",
+    "name": "Cheese sandwich, cheddar cheese, on white bread",
+    "category": "Sandwiches & Burgers",
+    "match": "Cheese sandwich, cheddar cheese, on white bread"
+  },
+  {
+    "fdcId": "2705796",
+    "source": "fndds",
+    "name": "Cheese sandwich, American cheese, on wheat bread",
+    "category": "Sandwiches & Burgers",
+    "match": "Cheese sandwich, American cheese, on wheat bread"
+  },
+  {
+    "fdcId": "2705795",
+    "source": "fndds",
+    "name": "Cheese sandwich, American cheese, on white bread",
+    "category": "Sandwiches & Burgers",
+    "match": "Cheese sandwich, American cheese, on white bread"
+  },
+  {
+    "fdcId": "2705800",
+    "source": "fndds",
+    "name": "Cheese sandwich, reduced fat cheese, on wheat bread",
+    "category": "Sandwiches & Burgers",
+    "match": "Cheese sandwich, reduced fat cheese, on wheat bread"
+  },
+  {
+    "fdcId": "2707033",
+    "source": "fndds",
+    "name": "Sardine sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Sardine sandwich"
+  },
+  {
+    "fdcId": "2707022",
+    "source": "fndds",
+    "name": "Crab cake sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Crab cake sandwich"
+  },
+  {
+    "fdcId": "2707032",
+    "source": "fndds",
+    "name": "Fish wrap sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Fish wrap sandwich"
+  },
+  {
+    "fdcId": "2707023",
+    "source": "fndds",
+    "name": "Salmon cake sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Salmon cake sandwich"
+  },
+  {
+    "fdcId": "2707031",
+    "source": "fndds",
+    "name": "Fish sandwich, grilled",
+    "category": "Sandwiches & Burgers",
+    "match": "Fish sandwich, grilled"
+  },
+  {
+    "fdcId": "2709139",
+    "source": "fndds",
+    "name": "Jelly sandwich, on wheat bread",
+    "category": "Sandwiches & Burgers",
+    "match": "Jelly sandwich, on wheat bread"
+  },
+  {
+    "fdcId": "2709138",
+    "source": "fndds",
+    "name": "Jelly sandwich, on white bread",
+    "category": "Sandwiches & Burgers",
+    "match": "Jelly sandwich, on white bread"
+  },
+  {
+    "fdcId": "2707567",
+    "source": "fndds",
+    "name": "Nutella sandwich on wheat bread",
+    "category": "Sandwiches & Burgers",
+    "match": "Nutella sandwich on wheat bread"
+  },
+  {
+    "fdcId": "2707566",
+    "source": "fndds",
+    "name": "Nutella sandwich on white bread",
+    "category": "Sandwiches & Burgers",
+    "match": "Nutella sandwich on white bread"
+  },
+  {
+    "fdcId": "2707652",
+    "source": "fndds",
+    "name": "Bruschetta",
+    "category": "Sandwiches & Burgers",
+    "match": "Bruschetta"
+  },
+  {
+    "fdcId": "2707483",
+    "source": "fndds",
+    "name": "Falafel sandwich",
+    "category": "Sandwiches & Burgers",
+    "match": "Falafel sandwich"
+  },
+  {
+    "fdcId": "2707481",
+    "source": "fndds",
+    "name": "Veggie burger, on bun",
+    "category": "Sandwiches & Burgers",
+    "match": "Veggie burger, on bun"
+  },
+  {
+    "fdcId": "2709136",
+    "source": "fndds",
+    "name": "Vegetable sandwich wrap",
+    "category": "Sandwiches & Burgers",
+    "match": "Vegetable sandwich wrap"
+  },
+  {
+    "fdcId": "2708347",
+    "source": "fndds",
+    "name": "Dosa, plain",
+    "category": "Breakfast",
+    "match": "Dosa, plain"
+  },
+  {
+    "fdcId": "2708342",
+    "source": "fndds",
+    "name": "Crepe, plain",
+    "category": "Breakfast",
+    "match": "Crepe, plain"
+  },
+  {
+    "fdcId": "2708326",
+    "source": "fndds",
+    "name": "Waffle, fruit",
+    "category": "Breakfast",
+    "match": "Waffle, fruit"
+  },
+  {
+    "fdcId": "2708325",
+    "source": "fndds",
+    "name": "Waffle, plain",
+    "category": "Breakfast",
+    "match": "Waffle, plain"
+  },
+  {
+    "fdcId": "2708343",
+    "source": "fndds",
+    "name": "Chinese pancake",
+    "category": "Breakfast",
+    "match": "Chinese pancake"
+  },
+  {
+    "fdcId": "2708306",
+    "source": "fndds",
+    "name": "Pancakes, fruit",
+    "category": "Breakfast",
+    "match": "Pancakes, fruit"
+  },
+  {
+    "fdcId": "2708304",
+    "source": "fndds",
+    "name": "Pancakes, plain",
+    "category": "Breakfast",
+    "match": "Pancakes, plain"
+  },
+  {
+    "fdcId": "2708328",
+    "source": "fndds",
+    "name": "Waffle, cinnamon",
+    "category": "Breakfast",
+    "match": "Waffle, cinnamon"
+  },
+  {
+    "fdcId": "2708307",
+    "source": "fndds",
+    "name": "Pancakes, pumpkin",
+    "category": "Breakfast",
+    "match": "Pancakes, pumpkin"
+  },
+  {
+    "fdcId": "2708327",
+    "source": "fndds",
+    "name": "Waffle, chocolate",
+    "category": "Breakfast",
+    "match": "Waffle, chocolate"
+  },
+  {
+    "fdcId": "2708724",
+    "source": "fndds",
+    "name": "Bao bun",
+    "category": "Prepared Dishes",
+    "match": "Bao bun"
+  },
+  {
+    "fdcId": "2708965",
+    "source": "fndds",
+    "name": "Sushi roll tuna",
+    "category": "Prepared Dishes",
+    "match": "Sushi roll tuna"
+  },
+  {
+    "fdcId": "2708962",
+    "source": "fndds",
+    "name": "Sushi roll, eel",
+    "category": "Prepared Dishes",
+    "match": "Sushi roll, eel"
+  },
+  {
+    "fdcId": "2708725",
+    "source": "fndds",
+    "name": "Bao bun, no meat",
+    "category": "Prepared Dishes",
+    "match": "Bao bun, no meat"
+  },
+  {
+    "fdcId": "2708700",
+    "source": "fndds",
+    "name": "Egg roll, meatless",
+    "category": "Prepared Dishes",
+    "match": "Egg roll, meatless"
+  },
+  {
+    "fdcId": "2708963",
+    "source": "fndds",
+    "name": "Sushi roll, salmon",
+    "category": "Prepared Dishes",
+    "match": "Sushi roll, salmon"
+  },
+  {
+    "fdcId": "2708964",
+    "source": "fndds",
+    "name": "Sushi roll, shrimp",
+    "category": "Prepared Dishes",
+    "match": "Sushi roll, shrimp"
+  },
+  {
+    "fdcId": "2708960",
+    "source": "fndds",
+    "name": "Sushi roll, avocado",
+    "category": "Prepared Dishes",
+    "match": "Sushi roll, avocado"
+  },
+  {
+    "fdcId": "2708701",
+    "source": "fndds",
+    "name": "Egg roll, with shrimp",
+    "category": "Prepared Dishes",
+    "match": "Egg roll, with shrimp"
+  },
+  {
+    "fdcId": "2708966",
+    "source": "fndds",
+    "name": "Sushi roll, vegetable",
+    "category": "Prepared Dishes",
+    "match": "Sushi roll, vegetable"
+  },
+  {
+    "fdcId": "2708961",
+    "source": "fndds",
+    "name": "Sushi roll, California",
+    "category": "Prepared Dishes",
+    "match": "Sushi roll, California"
+  },
+  {
+    "fdcId": "2708968",
+    "source": "fndds",
+    "name": "Sushi, topped with eel",
+    "category": "Prepared Dishes",
+    "match": "Sushi, topped with eel"
+  },
+  {
+    "fdcId": "2708972",
+    "source": "fndds",
+    "name": "Sushi, topped with egg",
+    "category": "Prepared Dishes",
+    "match": "Sushi, topped with egg"
+  },
+  {
+    "fdcId": "2708967",
+    "source": "fndds",
+    "name": "Sushi, topped with crab",
+    "category": "Prepared Dishes",
+    "match": "Sushi, topped with crab"
+  },
+  {
+    "fdcId": "2708971",
+    "source": "fndds",
+    "name": "Sushi, topped with tuna",
+    "category": "Prepared Dishes",
+    "match": "Sushi, topped with tuna"
+  },
+  {
+    "fdcId": "2710077",
+    "source": "fndds",
+    "name": "Kimchi",
+    "category": "Spreads & Sauces",
+    "match": "Kimchi"
+  },
+  {
+    "fdcId": "2709982",
+    "source": "fndds",
+    "name": "Sauerkraut",
+    "category": "Spreads & Sauces",
+    "match": "Sauerkraut"
+  },
+  {
+    "fdcId": "2710073",
+    "source": "fndds",
+    "name": "Relish, corn",
+    "category": "Spreads & Sauces",
+    "match": "Relish, corn"
+  },
+  {
+    "fdcId": "2710087",
+    "source": "fndds",
+    "name": "Okra, pickled",
+    "category": "Spreads & Sauces",
+    "match": "Okra, pickled"
+  },
+  {
+    "fdcId": "2710090",
+    "source": "fndds",
+    "name": "Olives, black",
+    "category": "Spreads & Sauces",
+    "match": "Olives, black"
+  },
+  {
+    "fdcId": "2710089",
+    "source": "fndds",
+    "name": "Olives, green",
+    "category": "Spreads & Sauces",
+    "match": "Olives, green"
+  },
+  {
+    "fdcId": "2710078",
+    "source": "fndds",
+    "name": "Pickles, dill",
+    "category": "Spreads & Sauces",
+    "match": "Pickles, dill"
+  },
+  {
+    "fdcId": "2710071",
+    "source": "fndds",
+    "name": "Beets, pickled",
+    "category": "Spreads & Sauces",
+    "match": "Beets, pickled"
+  },
+  {
+    "fdcId": "2710092",
+    "source": "fndds",
+    "name": "Olive tapenade",
+    "category": "Spreads & Sauces",
+    "match": "Olive tapenade"
+  },
+  {
+    "fdcId": "2710080",
+    "source": "fndds",
+    "name": "Pickles, sweet",
+    "category": "Spreads & Sauces",
+    "match": "Pickles, sweet"
+  },
+  {
+    "fdcId": "2710079",
+    "source": "fndds",
+    "name": "Relish, pickle",
+    "category": "Spreads & Sauces",
+    "match": "Relish, pickle"
+  },
+  {
+    "fdcId": "2707408",
+    "source": "fndds",
+    "name": "Falafel",
+    "category": "Prepared Dishes",
+    "match": "Falafel"
+  },
+  {
+    "fdcId": "2707409",
+    "source": "fndds",
+    "name": "Bean cake",
+    "category": "Prepared Dishes",
+    "match": "Bean cake"
+  },
+  {
+    "fdcId": "2707431",
+    "source": "fndds",
+    "name": "Lentil curry",
+    "category": "Prepared Dishes",
+    "match": "Lentil curry"
+  },
+  {
+    "fdcId": "2707395",
+    "source": "fndds",
+    "name": "Black bean salad",
+    "category": "Prepared Dishes",
+    "match": "Black bean salad"
+  },
+  {
+    "fdcId": "2707475",
+    "source": "fndds",
+    "name": "Pot pie, no meat",
+    "category": "Prepared Dishes",
+    "match": "Pot pie, no meat"
+  },
+  {
+    "fdcId": "2707411",
+    "source": "fndds",
+    "name": "Chili, vegetarian",
+    "category": "Prepared Dishes",
+    "match": "Chili, vegetarian"
+  },
+  {
+    "fdcId": "2709033",
+    "source": "fndds",
+    "name": "Beans and brown rice",
+    "category": "Prepared Dishes",
+    "match": "Beans and brown rice"
+  },
+  {
+    "fdcId": "2708990",
+    "source": "fndds",
+    "name": "Beans and white rice",
+    "category": "Prepared Dishes",
+    "match": "Beans and white rice"
+  },
+  {
+    "fdcId": "2707480",
+    "source": "fndds",
+    "name": "Vegetarian stroganoff",
+    "category": "Prepared Dishes",
+    "match": "Vegetarian stroganoff"
+  },
+  {
+    "fdcId": "2707432",
+    "source": "fndds",
+    "name": "Lentil curry with rice",
+    "category": "Prepared Dishes",
+    "match": "Lentil curry with rice"
+  },
+  {
+    "fdcId": "2709130",
+    "source": "fndds",
+    "name": "Vada",
+    "category": "Prepared Dishes",
+    "match": "Vada"
+  },
+  {
+    "fdcId": "2708723",
+    "source": "fndds",
+    "name": "Knish",
+    "category": "Prepared Dishes",
+    "match": "Knish"
+  },
+  {
+    "fdcId": "2708730",
+    "source": "fndds",
+    "name": "Samosa",
+    "category": "Prepared Dishes",
+    "match": "Samosa"
+  },
+  {
+    "fdcId": "2708720",
+    "source": "fndds",
+    "name": "Pierogi",
+    "category": "Prepared Dishes",
+    "match": "Pierogi"
+  },
+  {
+    "fdcId": "2709131",
+    "source": "fndds",
+    "name": "Tabbouleh",
+    "category": "Prepared Dishes",
+    "match": "Tabbouleh"
+  },
+  {
+    "fdcId": "2708729",
+    "source": "fndds",
+    "name": "Spanakopita",
+    "category": "Prepared Dishes",
+    "match": "Spanakopita"
+  },
+  {
+    "fdcId": "2707687",
+    "source": "fndds",
+    "name": "Bread stuffing",
+    "category": "Prepared Dishes",
+    "match": "Bread stuffing"
+  },
+  {
+    "fdcId": "2708711",
+    "source": "fndds",
+    "name": "Empanada, beef",
+    "category": "Prepared Dishes",
+    "match": "Empanada, beef"
+  },
+  {
+    "fdcId": "2708719",
+    "source": "fndds",
+    "name": "Crepe, with meat",
+    "category": "Prepared Dishes",
+    "match": "Crepe, with meat"
+  },
+  {
+    "fdcId": "2708713",
+    "source": "fndds",
+    "name": "Empanada, chicken",
+    "category": "Prepared Dishes",
+    "match": "Empanada, chicken"
+  },
+  {
+    "fdcId": "2708710",
+    "source": "fndds",
+    "name": "Empanada, no meat",
+    "category": "Prepared Dishes",
+    "match": "Empanada, no meat"
+  },
+  {
+    "fdcId": "2708741",
+    "source": "fndds",
+    "name": "Turnover, seafood",
+    "category": "Prepared Dishes",
+    "match": "Turnover, seafood"
+  },
+  {
+    "fdcId": "2707812",
+    "source": "fndds",
+    "name": "Cornbread stuffing",
+    "category": "Prepared Dishes",
+    "match": "Cornbread stuffing"
+  },
+  {
+    "fdcId": "2708044",
+    "source": "fndds",
+    "name": "Baklava",
+    "category": "Sweets & Snacks",
+    "match": "Baklava"
+  },
+  {
+    "fdcId": "2708045",
+    "source": "fndds",
+    "name": "Basbousa",
+    "category": "Sweets & Snacks",
+    "match": "Basbousa"
+  },
+  {
+    "fdcId": "2705702",
+    "source": "fndds",
+    "name": "Tiramisu",
+    "category": "Sweets & Snacks",
+    "match": "Tiramisu"
+  },
+  {
+    "fdcId": "2708017",
+    "source": "fndds",
+    "name": "Pie shell",
+    "category": "Sweets & Snacks",
+    "match": "Pie shell"
+  },
+  {
+    "fdcId": "2707995",
+    "source": "fndds",
+    "name": "Pie, apple",
+    "category": "Sweets & Snacks",
+    "match": "Pie, apple"
+  },
+  {
+    "fdcId": "2707997",
+    "source": "fndds",
+    "name": "Pie, berry",
+    "category": "Sweets & Snacks",
+    "match": "Pie, berry"
+  },
+  {
+    "fdcId": "2708000",
+    "source": "fndds",
+    "name": "Pie, lemon",
+    "category": "Sweets & Snacks",
+    "match": "Pie, lemon"
+  },
+  {
+    "fdcId": "2708002",
+    "source": "fndds",
+    "name": "Pie, peach",
+    "category": "Sweets & Snacks",
+    "match": "Pie, peach"
+  },
+  {
+    "fdcId": "2708015",
+    "source": "fndds",
+    "name": "Pie, pecan",
+    "category": "Sweets & Snacks",
+    "match": "Pie, pecan"
+  },
+  {
+    "fdcId": "2707872",
+    "source": "fndds",
+    "name": "Cake, cream",
+    "category": "Sweets & Snacks",
+    "match": "Cake, cream"
+  },
+  {
+    "fdcId": "2707882",
+    "source": "fndds",
+    "name": "Cake, pound",
+    "category": "Sweets & Snacks",
+    "match": "Cake, pound"
+  },
+  {
+    "fdcId": "2707888",
+    "source": "fndds",
+    "name": "Cake, torte",
+    "category": "Sweets & Snacks",
+    "match": "Cake, torte"
+  },
+  {
+    "fdcId": "2707999",
+    "source": "fndds",
+    "name": "Pie, cherry",
+    "category": "Sweets & Snacks",
+    "match": "Pie, cherry"
+  },
+  {
+    "fdcId": "2707886",
+    "source": "fndds",
+    "name": "Cake, sponge",
+    "category": "Sweets & Snacks",
+    "match": "Cake, sponge"
   }
 ]

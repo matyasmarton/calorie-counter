@@ -49,6 +49,24 @@ Environment (all optional): `LLM_ENABLED=0` disables the bridge; `LLM_BONSAI_ENA
 
 Standalone server control: `sh scripts/start-local-llm.sh` starts (or reuses) the servers and the proxy; it never kills an existing process. `LLM_DOWNLOAD_ONLY=1` fetches the needle binary without starting anything.
 
+## Food catalog
+
+`data/foods.json` ships with the app, is seeded into local storage on first run, and is re-seeded whenever its `version` changes. It holds ~450 foods from three USDA FoodData Central datasets — all public domain, each row carrying its own `sourceRef`:
+
+- **Foundation Foods** and **FNDDS 2019-2020** — the original raw-ingredient and staple set.
+- **FNDDS 2021-2023** — composite dishes: soups, mixed dishes, sandwiches, burgers, pizza and breakfast, i.e. the categories a free-text meal log actually hits.
+
+Rebuilding:
+
+- `npm run capture:catalog` — regenerates `data/raw/dishes_*.csv` from the release pinned in `data/raw/PROVENANCE.json` (downloads are cached under `.cache/`).
+- `npm run build:catalog` — normalizes `data/raw/` into `data/foods.json`.
+
+`data/raw/{food,food_nutrient,food_portion}.csv` are a **frozen legacy extract**: 23 of their USDA ids no longer exist in any published release (e.g. `Banana, ripe, raw`, fdcId 790991), so regenerating them would silently drop foods. They are left untouched and `PROVENANCE.json` says so per dataset.
+
+To add a food: add an entry to `data/raw/selection.json`, run `capture:catalog` if it is a dish, then `build:catalog`. The catalog `version` is derived from the pinned releases, so new rows only reach an already-seeded install when that version changes — a bump that is easy to forget and makes the whole change a silent no-op.
+
+Not covered: Hungarian and Turkish dishes. No USDA dataset contains them, and the EU national databases (CIQUAL, CoFID, Fineli) each need their own redistribution review before shipping.
+
 ## Project layout
 
 - `app/` — expo-router screens: log, foods, history, activity, health, settings
@@ -56,11 +74,11 @@ Standalone server control: `sh scripts/start-local-llm.sh` starts (or reuses) th
 - `src/db/` — storage adapters (IndexedDB / SQLite), repository, catalog seeding
 - `src/sync/` — Supabase sync engine and migrations
 - `src/local-ai/` — model contracts, bridge adapter, meal-parsing pipeline, draft validation, recipe memory
-- `scripts/` — catalog build, desktop launcher + installer, local-model bridge (server lifecycle + CORS proxy), model benchmark fixture
+- `scripts/` — catalog capture + build, desktop launcher + installer, local-model bridge (server lifecycle + CORS proxy), model benchmark fixture
 - `data/foods.json` — USDA-provenanced catalog bundle
 
 ## Testing
 
-- `npm test` (vitest): domain math, repository, sync, catalog, local-ai schema validation, the bridge adapter (against stub HTTP servers), the bridge proxy's own routes (spawned for real against stub backends, a temp model library and a fake oMLX), draft→catalog mapping, deterministic per-100 g macro aggregation, and the activity/workout/energy paths (Keytel and MET estimates, one-row-per-day activity upsert, profile validation, calorie snapshots, net-energy aggregation)
+- `npm test` (vitest): domain math, repository, sync, catalog, local-ai schema validation, the bridge adapter (against stub HTTP servers), the bridge proxy's own routes (spawned for real against stub backends, a temp model library and a fake oMLX), catalog search ranking, draft→catalog mapping, deterministic per-100 g macro aggregation, and the activity/workout/energy paths (Keytel and MET estimates, one-row-per-day activity upsert, profile validation, calorie snapshots, net-energy aggregation)
 - `sh scripts/desktop-launcher-smoke.sh`: deterministic launcher/bridge behavior checks on isolated test ports — server reuse, occupied-port errors, CORS proxy round-trips, model inventory and download routes, and missing-binary failures
 - `npm run verify:transfer`: end-to-end device-transfer check against two genuinely separate IndexedDB stores — persistence across an app restart, isolation of the second device, the JSON backup path, the sync path (against an in-memory stand-in for Supabase) and deletion propagation. Prints a PASS/FAIL report and exits non-zero on failure.

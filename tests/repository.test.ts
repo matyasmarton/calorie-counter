@@ -448,3 +448,27 @@ describe('backup export / import', () => {
     await expect(repo.importBackup(bad2, { restore: false })).rejects.toBeInstanceOf(ValidationError);
   });
 });
+
+describe('catalog search ranking', () => {
+  // The catalog now carries composite dishes ("Broccoli cheese soup") beside
+  // raw ingredients, so plain alphabetical order would answer "broccoli" with
+  // the soup. The local-AI matcher takes search(q, 1) as the definitive hit,
+  // which makes this ordering load-bearing well beyond the Foods tab.
+  it('prefers the raw ingredient over a longer dish name sharing the prefix', async () => {
+    const repo = await makeRepo();
+    const hits = await repo.searchFoods('Broccoli', 3);
+    expect(hits[0]!.name).toBe('Broccoli, raw');
+  });
+
+  it('prefers a head-noun match over a substring match', async () => {
+    const repo = await makeRepo();
+    const hits = await repo.searchFoods('rice', 5);
+    expect(hits[0]!.name.startsWith('Rice,')).toBe(true);
+  });
+
+  it('keeps an empty query alphabetical (browsing, not searching)', async () => {
+    const repo = await makeRepo();
+    const names = (await repo.searchFoods('', 20)).map((f) => f.name);
+    expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
+  });
+});

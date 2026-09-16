@@ -17,3 +17,6 @@ expo-env.d.ts
 # Local planning artifacts
 calorie-counter-macros-plan.md
 local-needle2-bridge-plan.md
+
+# Pinned USDA dataset downloads (regenerate with npm run capture:catalog)
+.cache/

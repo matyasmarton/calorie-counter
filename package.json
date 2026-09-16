@@ -13,7 +13,8 @@
     "build:catalog": "tsx scripts/build-food-catalog.ts",
     "export:web": "expo export --platform web",
     "desktop:install": "sh scripts/install-desktop-launcher.sh",
-    "verify:transfer": "tsx scripts/verify-device-transfer.ts"
+    "verify:transfer": "tsx scripts/verify-device-transfer.ts",
+    "capture:catalog": "tsx scripts/capture-food-extracts.ts"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",

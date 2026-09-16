@@ -2,19 +2,39 @@
   "catalog": "USDA FoodData Central",
   "datasets": [
     {
-      "name": "FoodData Central \u2014 Foundation Foods",
+      "name": "FoodData Central — Foundation Foods",
       "release": "2025-04-24",
-      "url": "https://fdc.nal.usda.gov/download-datasets.html",
-      "license": "Public domain \u2014 U.S. Government work. No copyright; USDA requests citation."
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2025-04-24.zip",
+      "license": "Public domain — U.S. Government work. No copyright; USDA requests citation.",
+      "extract": "data/raw/food.csv, food_nutrient.csv, food_portion.csv (foundation_food rows)",
+      "reproducible": false,
+      "note": "Frozen legacy extract. 23 of its foods (e.g. 'Banana, ripe, raw', fdcId 790991) no longer exist in any published FDC release, so it cannot be regenerated without dropping foods."
     },
     {
-      "name": "FoodData Central \u2014 Survey Foods (FNDDS)",
+      "name": "FoodData Central — Survey Foods (FNDDS 2019-2020)",
+      "release": "2022-10-28",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_survey_food_json_2022-10-28.zip",
+      "license": "Public domain — U.S. Government work. No copyright; USDA requests citation.",
+      "extract": "data/raw/food.csv, food_nutrient.csv, food_portion.csv (survey_fndds_food rows)",
+      "reproducible": false,
+      "note": "Frozen legacy extract predating the pinned FNDDS 2021-2023 release."
+    },
+    {
+      "name": "FoodData Central — Survey Foods (FNDDS 2021-2023)",
       "release": "2024-10-31",
-      "url": "https://fdc.nal.usda.gov/download-datasets.html",
-      "license": "Public domain \u2014 U.S. Government work. No copyright; USDA requests citation."
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_survey_food_json_2024-10-31.zip",
+      "license": "Public domain — U.S. Government work. No copyright; USDA requests citation.",
+      "extract": "data/raw/dishes_food.csv, dishes_food_nutrient.csv, dishes_food_portion.csv",
+      "reproducible": true,
+      "note": "Composite dishes (soups, mixed dishes, sandwiches, pizza, breakfast). Regenerate with `npm run capture:catalog`."
     }
   ],
-  "notes": "EU-origin national food-composition databases (EuroFIR FoodEXplorer and national FDCs) were not bundled because their redistribution licenses do not permit checked-in exports. The catalog therefore ships USDA FoodData Central rows (public domain) with per-row provenance; EU-oriented foods are included where USDA coverage exists and are labeled with their USDA source. No nutrient rows from different sources are merged under one ID.",
+  "sourceReleases": {
+    "foundation": "2025-04-24",
+    "survey": "2022-10-28",
+    "fndds": "2024-10-31"
+  },
+  "notes": "Every row is USDA FoodData Central (public domain) with per-row provenance and no nutrient rows merged across sources under one id. The catalog spans three FDC datasets: Foundation Foods, and two FNDDS survey releases. EU-origin national food-composition databases (CIQUAL, CoFID, Fineli, EuroFIR) were evaluated and are not bundled: each would need its own redistribution review, and none covers Hungarian/Turkish dishes, which remain the main uncovered cuisine. Composite dishes (soups, mixed dishes, sandwiches, pizza, breakfast) come from FNDDS 2021-2023 and are regenerable from the pinned release via scripts/capture-food-extracts.ts; the older Foundation/FNDDS rows are a frozen extract that upstream no longer reproduces.",
   "selection": "data/raw/selection.json",
   "generatedBy": "scripts/build-food-catalog.ts"
 }

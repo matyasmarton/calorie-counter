@@ -1,0 +1,341 @@
+fdc_id,data_type,description,food_category_id,publication_date
+2705702,survey_fndds_food,Tiramisu,3298952,2024-10-31
+2705795,survey_fndds_food,"Cheese sandwich, American cheese, on white bread",3299138,2024-10-31
+2705796,survey_fndds_food,"Cheese sandwich, American cheese, on wheat bread",3299140,2024-10-31
+2705797,survey_fndds_food,"Cheese sandwich, cheddar cheese, on white bread",3299142,2024-10-31
+2705798,survey_fndds_food,"Cheese sandwich, cheddar cheese, on wheat bread",3299144,2024-10-31
+2705800,survey_fndds_food,"Cheese sandwich, reduced fat cheese, on wheat bread",3299148,2024-10-31
+2705872,survey_fndds_food,"Pork, chop, stuffed",3299292,2024-10-31
+2706371,survey_fndds_food,Beef burgundy,3300290,2024-10-31
+2706372,survey_fndds_food,"Guisada, beef",3300292,2024-10-31
+2706377,survey_fndds_food,Chili with meat,3300302,2024-10-31
+2706378,survey_fndds_food,"Sloppy joe, no bun",3300304,2024-10-31
+2706379,survey_fndds_food,Beef with gravy,3300306,2024-10-31
+2706382,survey_fndds_food,Beef stroganoff,3300312,2024-10-31
+2706387,survey_fndds_food,Steak teriyaki,3300322,2024-10-31
+2706388,survey_fndds_food,Beef curry,3300324,2024-10-31
+2706389,survey_fndds_food,Beef curry with rice,3300326,2024-10-31
+2706394,survey_fndds_food,Steak tartare,3300336,2024-10-31
+2706402,survey_fndds_food,Ham stroganoff,3300352,2024-10-31
+2706406,survey_fndds_food,Sausage gravy,3300360,2024-10-31
+2706407,survey_fndds_food,"Guisada, pork",3300362,2024-10-31
+2706415,survey_fndds_food,Veal scallopini,3300378,2024-10-31
+2706416,survey_fndds_food,Veal Marsala,3300380,2024-10-31
+2706417,survey_fndds_food,Veal parmigiana,3300382,2024-10-31
+2706418,survey_fndds_food,Veal cordon bleu,3300384,2024-10-31
+2706421,survey_fndds_food,Chicken or turkey cacciatore,3300390,2024-10-31
+2706425,survey_fndds_food,Chili with chicken and beans,3300398,2024-10-31
+2706426,survey_fndds_food,Chili with chicken,3300400,2024-10-31
+2706427,survey_fndds_food,"Chili, white",3300402,2024-10-31
+2706428,survey_fndds_food,Chicken with gravy,3300404,2024-10-31
+2706429,survey_fndds_food,Chicken or turkey fricassee,3300406,2024-10-31
+2706430,survey_fndds_food,Turkey with gravy,3300408,2024-10-31
+2706434,survey_fndds_food,Barbecue chicken,3300416,2024-10-31
+2706437,survey_fndds_food,Chicken curry,3300422,2024-10-31
+2706438,survey_fndds_food,Chicken curry with rice,3300424,2024-10-31
+2706439,survey_fndds_food,Chicken with mole sauce,3300426,2024-10-31
+2706441,survey_fndds_food,Chicken or turkey cordon bleu,3300430,2024-10-31
+2706442,survey_fndds_food,Chicken or turkey parmigiana,3300432,2024-10-31
+2706443,survey_fndds_food,Orange chicken,3300434,2024-10-31
+2706444,survey_fndds_food,Sesame chicken,3300436,2024-10-31
+2706445,survey_fndds_food,Chicken kiev,3300438,2024-10-31
+2706460,survey_fndds_food,Fish curry,3300468,2024-10-31
+2706462,survey_fndds_food,Shrimp teriyaki,3300472,2024-10-31
+2706463,survey_fndds_food,Ceviche,3300474,2024-10-31
+2706466,survey_fndds_food,"Stew, fish",3300480,2024-10-31
+2706476,survey_fndds_food,"Beef, roast, hash",3300500,2024-10-31
+2706477,survey_fndds_food,Corned beef hash,3300502,2024-10-31
+2706483,survey_fndds_food,Chili with macaroni,3300514,2024-10-31
+2706490,survey_fndds_food,Biryani with meat,3300528,2024-10-31
+2706501,survey_fndds_food,Beef wellington,3300550,2024-10-31
+2706502,survey_fndds_food,Corned beef patty,3300552,2024-10-31
+2706508,survey_fndds_food,Ham croquette,3300564,2024-10-31
+2706519,survey_fndds_food,"Stew, pork",3300586,2024-10-31
+2706521,survey_fndds_food,Lamb or mutton loaf,3300590,2024-10-31
+2706527,survey_fndds_food,Chicken or turkey hash,3300602,2024-10-31
+2706534,survey_fndds_food,Chicken or turkey tetrazzini,3300616,2024-10-31
+2706538,survey_fndds_food,Biryani with chicken,3300624,2024-10-31
+2706544,survey_fndds_food,Chicken or turkey with stuffing,3300636,2024-10-31
+2706546,survey_fndds_food,Chicken or turkey souffle,3300640,2024-10-31
+2706549,survey_fndds_food,"Crab, cake",3300646,2024-10-31
+2706551,survey_fndds_food,Gefilte fish,3300650,2024-10-31
+2706564,survey_fndds_food,Clams Casino,3300676,2024-10-31
+2706567,survey_fndds_food,Shrimp toast,3300682,2024-10-31
+2706591,survey_fndds_food,"Stew, beef, canned",3300730,2024-10-31
+2706592,survey_fndds_food,"Stew, beef",3300732,2024-10-31
+2706594,survey_fndds_food,Shepherd's pie,3300736,2024-10-31
+2706630,survey_fndds_food,"Pot pie, beef",3300808,2024-10-31
+2706660,survey_fndds_food,"Stew, lamb",3300868,2024-10-31
+2706677,survey_fndds_food,"Stew, chicken, with pasta",3300902,2024-10-31
+2706678,survey_fndds_food,"Stew, chicken",3300904,2024-10-31
+2706703,survey_fndds_food,"Pot pie, chicken",3300954,2024-10-31
+2706711,survey_fndds_food,Paella with seafood,3300970,2024-10-31
+2706732,survey_fndds_food,Swiss steak,3301012,2024-10-31
+2706740,survey_fndds_food,Szechuan beef,3301028,2024-10-31
+2706741,survey_fndds_food,Hunan beef,3301030,2024-10-31
+2706743,survey_fndds_food,Kung Pao beef,3301034,2024-10-31
+2706747,survey_fndds_food,Pepper steak,3301042,2024-10-31
+2706749,survey_fndds_food,Beef salad,3301046,2024-10-31
+2706756,survey_fndds_food,Ham or pork salad,3301060,2024-10-31
+2706763,survey_fndds_food,Kung Pao pork,3301074,2024-10-31
+2706766,survey_fndds_food,Pork hash,3301080,2024-10-31
+2706789,survey_fndds_food,Chicken or turkey divan,3301126,2024-10-31
+2706795,survey_fndds_food,Moo Goo Gai Pan,3301138,2024-10-31
+2706796,survey_fndds_food,Kung pao chicken,3301140,2024-10-31
+2706797,survey_fndds_food,Almond chicken,3301142,2024-10-31
+2706824,survey_fndds_food,Crab salad,3301196,2024-10-31
+2706825,survey_fndds_food,Lobster salad,3301198,2024-10-31
+2706826,survey_fndds_food,Salmon salad,3301200,2024-10-31
+2706837,survey_fndds_food,Shrimp salad,3301222,2024-10-31
+2706850,survey_fndds_food,Lomi salmon,3301248,2024-10-31
+2706857,survey_fndds_food,Kung Pao shrimp,3301262,2024-10-31
+2706873,survey_fndds_food,Lau lau,3301294,2024-10-31
+2706890,survey_fndds_food,Cheeseburger (Burger King),3301328,2024-10-31
+2706892,survey_fndds_food,Cheeseburger (McDonalds),3301332,2024-10-31
+2706894,survey_fndds_food,Cheeseburger slider,3301336,2024-10-31
+2706915,survey_fndds_food,McDouble (McDonalds),3301378,2024-10-31
+2706916,survey_fndds_food,Big Mac (McDonalds),3301380,2024-10-31
+2706922,survey_fndds_food,Hamburger (Burger King),3301392,2024-10-31
+2706923,survey_fndds_food,Whopper Jr (Burger King),3301394,2024-10-31
+2706924,survey_fndds_food,Hamburger (McDonalds),3301396,2024-10-31
+2706926,survey_fndds_food,Hamburger slider,3301400,2024-10-31
+2706931,survey_fndds_food,Whopper (Burger King),3301410,2024-10-31
+2706945,survey_fndds_food,Meatball sandwich or sub,3301438,2024-10-31
+2706946,survey_fndds_food,Meatloaf sandwich,3301440,2024-10-31
+2706952,survey_fndds_food,Reuben sandwich,3301452,2024-10-31
+2706957,survey_fndds_food,French dip sandwich,3301462,2024-10-31
+2706959,survey_fndds_food,Steak sandwich or sub on wheat,3301466,2024-10-31
+2706962,survey_fndds_food,Gyro sandwich,3301472,2024-10-31
+2706964,survey_fndds_food,Ham sandwich on white,3301476,2024-10-31
+2706966,survey_fndds_food,Ham sandwich on wheat,3301480,2024-10-31
+2706970,survey_fndds_food,Ham sandwich wrap,3301488,2024-10-31
+2706973,survey_fndds_food,Cuban sandwich,3301494,2024-10-31
+2706974,survey_fndds_food,Barbecue rib sandwich,3301496,2024-10-31
+2706977,survey_fndds_food,Pork sandwich,3301502,2024-10-31
+2706978,survey_fndds_food,"Pork sandwich, with cheese",3301504,2024-10-31
+2706987,survey_fndds_food,Turkey sandwich wrap,3301522,2024-10-31
+2706990,survey_fndds_food,Chicken salad sandwich on white,3301528,2024-10-31
+2706991,survey_fndds_food,Chicken salad sandwich on wheat,3301530,2024-10-31
+2706992,survey_fndds_food,Chicken salad sandwich wrap,3301532,2024-10-31
+2706993,survey_fndds_food,Club sandwich on white,3301534,2024-10-31
+2706995,survey_fndds_food,Club sandwich on wheat,3301538,2024-10-31
+2707001,survey_fndds_food,"Chicken fillet sandwich, from school cafeteria",3301550,2024-10-31
+2707002,survey_fndds_food,"Chicken fillet biscuit, from fast food",3301552,2024-10-31
+2707003,survey_fndds_food,"Chicken fillet sandwich, fried, from fast food",3301554,2024-10-31
+2707008,survey_fndds_food,"Chicken fillet sandwich, fried, on white bun",3301564,2024-10-31
+2707010,survey_fndds_food,"Chicken fillet sandwich, fried, on wheat bun",3301568,2024-10-31
+2707022,survey_fndds_food,Crab cake sandwich,3301592,2024-10-31
+2707023,survey_fndds_food,Salmon cake sandwich,3301594,2024-10-31
+2707031,survey_fndds_food,"Fish sandwich, grilled",3301610,2024-10-31
+2707032,survey_fndds_food,Fish wrap sandwich,3301612,2024-10-31
+2707033,survey_fndds_food,Sardine sandwich,3301614,2024-10-31
+2707044,survey_fndds_food,Corn dog,3301636,2024-10-31
+2707045,survey_fndds_food,Pig in a blanket,3301638,2024-10-31
+2707048,survey_fndds_food,Salami sandwich on wheat,3301644,2024-10-31
+2707053,survey_fndds_food,Italian sausage sandwich on white,3301654,2024-10-31
+2707055,survey_fndds_food,Spam sandwich,3301658,2024-10-31
+2707061,survey_fndds_food,"Hot dog sandwich, beef, on wheat bun",3301670,2024-10-31
+2707078,survey_fndds_food,"Chili hot dog sandwich, on white bun",3301704,2024-10-31
+2707079,survey_fndds_food,"Chili hot dog sandwich, on wheat bun",3301706,2024-10-31
+2707123,survey_fndds_food,"Soup, meatball",3301794,2024-10-31
+2707124,survey_fndds_food,"Soup, pho, with meat",3301796,2024-10-31
+2707125,survey_fndds_food,"Soup, pho, no meat",3301798,2024-10-31
+2707126,survey_fndds_food,"Soup, pepperpot",3301800,2024-10-31
+2707129,survey_fndds_food,"Soup, pozole",3301806,2024-10-31
+2707131,survey_fndds_food,"Soup, pork or ham",3301810,2024-10-31
+2707132,survey_fndds_food,"Soup, broth",3301812,2024-10-31
+2707134,survey_fndds_food,"Soup, chicken",3301816,2024-10-31
+2707136,survey_fndds_food,"Soup, hot and sour",3301820,2024-10-31
+2707137,survey_fndds_food,"Soup, cream of chicken",3301822,2024-10-31
+2707140,survey_fndds_food,"Soup, bisque",3301828,2024-10-31
+2707141,survey_fndds_food,Lobster gumbo,3301830,2024-10-31
+2707142,survey_fndds_food,Shrimp gumbo,3301832,2024-10-31
+2707282,survey_fndds_food,"Soup, egg drop",3302112,2024-10-31
+2707328,survey_fndds_food,Egg sandwich on bagel,3302204,2024-10-31
+2707334,survey_fndds_food,Egg white sandwich,3302216,2024-10-31
+2707338,survey_fndds_food,Ham biscuit sandwich,3302224,2024-10-31
+2707343,survey_fndds_food,Egg burrito,3302234,2024-10-31
+2707346,survey_fndds_food,"Egg burrito, with ham",3302240,2024-10-31
+2707395,survey_fndds_food,Black bean salad,3302338,2024-10-31
+2707408,survey_fndds_food,Falafel,3302364,2024-10-31
+2707409,survey_fndds_food,Bean cake,3302366,2024-10-31
+2707411,survey_fndds_food,"Chili, vegetarian",3302370,2024-10-31
+2707431,survey_fndds_food,Lentil curry,3302410,2024-10-31
+2707432,survey_fndds_food,Lentil curry with rice,3302412,2024-10-31
+2707453,survey_fndds_food,"Soup, bean",3302454,2024-10-31
+2707454,survey_fndds_food,"Soup, bean, canned",3302456,2024-10-31
+2707455,survey_fndds_food,"Soup, miso or tofu",3302458,2024-10-31
+2707459,survey_fndds_food,"Soup, split pea",3302466,2024-10-31
+2707462,survey_fndds_food,"Soup, lentil",3302472,2024-10-31
+2707475,survey_fndds_food,"Pot pie, no meat",3302498,2024-10-31
+2707480,survey_fndds_food,Vegetarian stroganoff,3302508,2024-10-31
+2707481,survey_fndds_food,"Veggie burger, on bun",3302510,2024-10-31
+2707483,survey_fndds_food,Falafel sandwich,3302514,2024-10-31
+2707547,survey_fndds_food,"Soup, peanut",3302642,2024-10-31
+2707566,survey_fndds_food,Nutella sandwich on white bread,3302680,2024-10-31
+2707567,survey_fndds_food,Nutella sandwich on wheat bread,3302682,2024-10-31
+2707652,survey_fndds_food,Bruschetta,3302852,2024-10-31
+2707687,survey_fndds_food,Bread stuffing,3302922,2024-10-31
+2707812,survey_fndds_food,Cornbread stuffing,3303172,2024-10-31
+2707872,survey_fndds_food,"Cake, cream",3303292,2024-10-31
+2707882,survey_fndds_food,"Cake, pound",3303312,2024-10-31
+2707886,survey_fndds_food,"Cake, sponge",3303320,2024-10-31
+2707888,survey_fndds_food,"Cake, torte",3303324,2024-10-31
+2707995,survey_fndds_food,"Pie, apple",3303538,2024-10-31
+2707997,survey_fndds_food,"Pie, berry",3303542,2024-10-31
+2707999,survey_fndds_food,"Pie, cherry",3303546,2024-10-31
+2708000,survey_fndds_food,"Pie, lemon",3303548,2024-10-31
+2708002,survey_fndds_food,"Pie, peach",3303552,2024-10-31
+2708015,survey_fndds_food,"Pie, pecan",3303578,2024-10-31
+2708017,survey_fndds_food,Pie shell,3303582,2024-10-31
+2708044,survey_fndds_food,Baklava,3303636,2024-10-31
+2708045,survey_fndds_food,Basbousa,3303638,2024-10-31
+2708304,survey_fndds_food,"Pancakes, plain",3304156,2024-10-31
+2708306,survey_fndds_food,"Pancakes, fruit",3304160,2024-10-31
+2708307,survey_fndds_food,"Pancakes, pumpkin",3304162,2024-10-31
+2708325,survey_fndds_food,"Waffle, plain",3304198,2024-10-31
+2708326,survey_fndds_food,"Waffle, fruit",3304200,2024-10-31
+2708327,survey_fndds_food,"Waffle, chocolate",3304202,2024-10-31
+2708328,survey_fndds_food,"Waffle, cinnamon",3304204,2024-10-31
+2708342,survey_fndds_food,"Crepe, plain",3304232,2024-10-31
+2708343,survey_fndds_food,Chinese pancake,3304234,2024-10-31
+2708346,survey_fndds_food,Idli,3304240,2024-10-31
+2708347,survey_fndds_food,"Dosa, plain",3304242,2024-10-31
+2708505,survey_fndds_food,Chilaquiles,3304558,2024-10-31
+2708506,survey_fndds_food,Frito pie,3304560,2024-10-31
+2708507,survey_fndds_food,Mexican pizza,3304562,2024-10-31
+2708566,survey_fndds_food,"Enchilada, beef",3304680,2024-10-31
+2708567,survey_fndds_food,"Enchilada, pork",3304682,2024-10-31
+2708571,survey_fndds_food,"Tamale, beef",3304690,2024-10-31
+2708572,survey_fndds_food,"Tamale, pork",3304692,2024-10-31
+2708573,survey_fndds_food,"Tamale, chicken",3304694,2024-10-31
+2708574,survey_fndds_food,"Tamale, no meat",3304696,2024-10-31
+2708585,survey_fndds_food,"Gordita, meat",3304718,2024-10-31
+2708587,survey_fndds_food,"Chimichanga, meat",3304722,2024-10-31
+2708597,survey_fndds_food,"Quesadilla, egg",3304742,2024-10-31
+2708601,survey_fndds_food,"Taquito, chicken",3304750,2024-10-31
+2708602,survey_fndds_food,"Taquito, egg",3304752,2024-10-31
+2708604,survey_fndds_food,"Fajita, chicken",3304756,2024-10-31
+2708606,survey_fndds_food,"Fajita, shrimp",3304760,2024-10-31
+2708610,survey_fndds_food,"Pupusa, meat",3304768,2024-10-31
+2708618,survey_fndds_food,"Pizza, cheese, stuffed crust",3304784,2024-10-31
+2708622,survey_fndds_food,"Pizza, extra cheese, thin crust",3304792,2024-10-31
+2708623,survey_fndds_food,"Pizza, extra cheese, thick crust",3304794,2024-10-31
+2708657,survey_fndds_food,"Pizza with extra meat, thin crust",3304862,2024-10-31
+2708659,survey_fndds_food,"Pizza with extra meat, thick crust",3304866,2024-10-31
+2708674,survey_fndds_food,"Pizza, no cheese, thin crust",3304896,2024-10-31
+2708675,survey_fndds_food,"Pizza, no cheese, thick crust",3304898,2024-10-31
+2708676,survey_fndds_food,"White pizza, cheese, thin crust",3304900,2024-10-31
+2708677,survey_fndds_food,"White pizza, cheese, thick crust",3304902,2024-10-31
+2708684,survey_fndds_food,"Calzone, with cheese, meatless",3304916,2024-10-31
+2708685,survey_fndds_food,"Calzone, with meat and cheese",3304918,2024-10-31
+2708686,survey_fndds_food,Pizza rolls,3304920,2024-10-31
+2708700,survey_fndds_food,"Egg roll, meatless",3304948,2024-10-31
+2708701,survey_fndds_food,"Egg roll, with shrimp",3304950,2024-10-31
+2708710,survey_fndds_food,"Empanada, no meat",3304968,2024-10-31
+2708711,survey_fndds_food,"Empanada, beef",3304970,2024-10-31
+2708713,survey_fndds_food,"Empanada, chicken",3304974,2024-10-31
+2708719,survey_fndds_food,"Crepe, with meat",3304986,2024-10-31
+2708720,survey_fndds_food,Pierogi,3304988,2024-10-31
+2708721,survey_fndds_food,"Gnocchi, cheese",3304990,2024-10-31
+2708722,survey_fndds_food,"Gnocchi, potato",3304992,2024-10-31
+2708723,survey_fndds_food,Knish,3304994,2024-10-31
+2708724,survey_fndds_food,Bao bun,3304996,2024-10-31
+2708725,survey_fndds_food,"Bao bun, no meat",3304998,2024-10-31
+2708729,survey_fndds_food,Spanakopita,3305006,2024-10-31
+2708730,survey_fndds_food,Samosa,3305008,2024-10-31
+2708741,survey_fndds_food,"Turnover, seafood",3305030,2024-10-31
+2708744,survey_fndds_food,Biscuit with gravy,3305036,2024-10-31
+2708745,survey_fndds_food,Chicken cornbread,3305038,2024-10-31
+2708750,survey_fndds_food,Lasagna with meat,3305048,2024-10-31
+2708751,survey_fndds_food,"Lasagna with meat, canned",3305050,2024-10-31
+2708752,survey_fndds_food,"Lasagna with meat, from restaurant",3305052,2024-10-31
+2708753,survey_fndds_food,"Lasagna with meat, home recipe",3305054,2024-10-31
+2708754,survey_fndds_food,"Lasagna with meat, frozen",3305056,2024-10-31
+2708755,survey_fndds_food,Lasagna with meat and spinach,3305058,2024-10-31
+2708756,survey_fndds_food,Lasagna with chicken or turkey,3305060,2024-10-31
+2708758,survey_fndds_food,"Lasagna, meatless",3305064,2024-10-31
+2708759,survey_fndds_food,"Lasagna, meatless, with vegetables",3305066,2024-10-31
+2708763,survey_fndds_food,"Ravioli, meat-filled, no sauce",3305074,2024-10-31
+2708767,survey_fndds_food,"Ravioli, cheese-filled, no sauce",3305082,2024-10-31
+2708775,survey_fndds_food,"Manicotti, cheese-filled, no sauce",3305098,2024-10-31
+2708790,survey_fndds_food,"Tortellini, meat-filled, no sauce",3305128,2024-10-31
+2708799,survey_fndds_food,"Lo mein, meatless",3305146,2024-10-31
+2708800,survey_fndds_food,"Lo mein, with shrimp",3305148,2024-10-31
+2708801,survey_fndds_food,"Lo mein, with pork",3305150,2024-10-31
+2708802,survey_fndds_food,"Lo mein, with beef",3305152,2024-10-31
+2708803,survey_fndds_food,"Lo mein, with chicken",3305154,2024-10-31
+2708805,survey_fndds_food,"Pad Thai, meatless",3305158,2024-10-31
+2708806,survey_fndds_food,Pad Thai with chicken,3305160,2024-10-31
+2708807,survey_fndds_food,Pad Thai with seafood,3305162,2024-10-31
+2708808,survey_fndds_food,Pad Thai with meat,3305164,2024-10-31
+2708809,survey_fndds_food,"Adobo, with noodles",3305166,2024-10-31
+2708930,survey_fndds_food,Flavored pasta,3305408,2024-10-31
+2708941,survey_fndds_food,Macaroni or pasta salad with egg,3305430,2024-10-31
+2708942,survey_fndds_food,Macaroni or pasta salad with tuna,3305432,2024-10-31
+2708948,survey_fndds_food,Macaroni or pasta salad with meat,3305444,2024-10-31
+2708949,survey_fndds_food,Noodle pudding,3305446,2024-10-31
+2708950,survey_fndds_food,"Bibimbap, Korean",3305448,2024-10-31
+2708951,survey_fndds_food,"Rice, fried, meatless",3305450,2024-10-31
+2708958,survey_fndds_food,"Adobo, with rice",3305464,2024-10-31
+2708960,survey_fndds_food,"Sushi roll, avocado",3305468,2024-10-31
+2708961,survey_fndds_food,"Sushi roll, California",3305470,2024-10-31
+2708962,survey_fndds_food,"Sushi roll, eel",3305472,2024-10-31
+2708963,survey_fndds_food,"Sushi roll, salmon",3305474,2024-10-31
+2708964,survey_fndds_food,"Sushi roll, shrimp",3305476,2024-10-31
+2708965,survey_fndds_food,Sushi roll tuna,3305478,2024-10-31
+2708966,survey_fndds_food,"Sushi roll, vegetable",3305480,2024-10-31
+2708967,survey_fndds_food,"Sushi, topped with crab",3305482,2024-10-31
+2708968,survey_fndds_food,"Sushi, topped with eel",3305484,2024-10-31
+2708971,survey_fndds_food,"Sushi, topped with tuna",3305490,2024-10-31
+2708972,survey_fndds_food,"Sushi, topped with egg",3305492,2024-10-31
+2708983,survey_fndds_food,"Congee, with vegetables",3305514,2024-10-31
+2708984,survey_fndds_food,"Congee, with egg",3305516,2024-10-31
+2708985,survey_fndds_food,Biryani with vegetables,3305518,2024-10-31
+2708990,survey_fndds_food,Beans and white rice,3305528,2024-10-31
+2709033,survey_fndds_food,Beans and brown rice,3305614,2024-10-31
+2709071,survey_fndds_food,Rice croquette,3305690,2024-10-31
+2709077,survey_fndds_food,Rice pilaf,3305702,2024-10-31
+2709078,survey_fndds_food,Dirty rice,3305704,2024-10-31
+2709079,survey_fndds_food,Flavored rice mixture,3305706,2024-10-31
+2709085,survey_fndds_food,"Spanish rice, fat added",3305718,2024-10-31
+2709089,survey_fndds_food,Rice dressing,3305726,2024-10-31
+2709090,survey_fndds_food,Rice with raisins,3305728,2024-10-31
+2709130,survey_fndds_food,Vada,3305808,2024-10-31
+2709131,survey_fndds_food,Tabbouleh,3305810,2024-10-31
+2709136,survey_fndds_food,Vegetable sandwich wrap,3305820,2024-10-31
+2709138,survey_fndds_food,"Jelly sandwich, on white bread",3305824,2024-10-31
+2709139,survey_fndds_food,"Jelly sandwich, on wheat bread",3305826,2024-10-31
+2709146,survey_fndds_food,"Soup, rice",3305840,2024-10-31
+2709147,survey_fndds_food,"Soup, barley",3305842,2024-10-31
+2709151,survey_fndds_food,"Soup, Matzo ball",3305850,2024-10-31
+2709154,survey_fndds_food,Ramen bowl with beef,3305856,2024-10-31
+2709156,survey_fndds_food,Ramen bowl with fish,3305860,2024-10-31
+2709157,survey_fndds_food,"Ramen bowl, vegetarian",3305862,2024-10-31
+2709160,survey_fndds_food,"Soup, wonton",3305868,2024-10-31
+2709162,survey_fndds_food,"Soup, tortilla",3305872,2024-10-31
+2709311,survey_fndds_food,"Soup, fruit",3306170,2024-10-31
+2709556,survey_fndds_food,"Soup, potato",3306660,2024-10-31
+2709557,survey_fndds_food,"Soup, potato with meat",3306662,2024-10-31
+2709659,survey_fndds_food,"Soup, broccoli cheese",3306866,2024-10-31
+2709718,survey_fndds_food,"Soup, pumpkin",3306984,2024-10-31
+2709757,survey_fndds_food,"Soup, tomato",3307062,2024-10-31
+2709758,survey_fndds_food,"Soup, cream of tomato",3307064,2024-10-31
+2709982,survey_fndds_food,Sauerkraut,3307512,2024-10-31
+2710071,survey_fndds_food,"Beets, pickled",3307690,2024-10-31
+2710073,survey_fndds_food,"Relish, corn",3307694,2024-10-31
+2710077,survey_fndds_food,Kimchi,3307702,2024-10-31
+2710078,survey_fndds_food,"Pickles, dill",3307704,2024-10-31
+2710079,survey_fndds_food,"Relish, pickle",3307706,2024-10-31
+2710080,survey_fndds_food,"Pickles, sweet",3307708,2024-10-31
+2710087,survey_fndds_food,"Okra, pickled",3307722,2024-10-31
+2710089,survey_fndds_food,"Olives, green",3307726,2024-10-31
+2710090,survey_fndds_food,"Olives, black",3307728,2024-10-31
+2710092,survey_fndds_food,Olive tapenade,3307732,2024-10-31
+2710105,survey_fndds_food,"Soup, borscht",3307758,2024-10-31
+2710106,survey_fndds_food,"Soup, gazpacho",3307760,2024-10-31
+2710108,survey_fndds_food,"Soup, French onion",3307764,2024-10-31
+2710110,survey_fndds_food,"Soup, seaweed",3307768,2024-10-31
+2710113,survey_fndds_food,"Soup, vegetable",3307774,2024-10-31
+2710114,survey_fndds_food,"Soup, minestrone",3307776,2024-10-31
+2710115,survey_fndds_food,"Soup, beef",3307778,2024-10-31
