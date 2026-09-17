@@ -5,8 +5,9 @@
  * Add/edit/delete entries, live serving preview, explicit empty/error states.
  *
  * Layout: one centered reading column on phones and tablets (Summary, This week,
- * Entries, Add form). Past the tablet breakpoint the summary goes full-bleed and
- * the rest opens into three columns — entries, form, then the week graph.
+ * Entries, Add form). Past the tablet breakpoint the same blocks sit in a
+ * two-column grid: the summary across the top, entries beside the add form, and
+ * the week charts across the bottom.
  */
 import { FoodPicker } from '@/components/FoodPicker';
 import { ServingAmountInput } from '@/components/ServingAmountInput';
@@ -21,7 +22,7 @@ import { addDays, formatDateKey, isValidDateKey, todayKey } from '@/domain/dates
 import { netEnergy } from '@/domain/energy';
 import type { DailyEnergy, DailyEntry, Food } from '@/domain/types';
 import { useSyncStatus, syncStatusLabel } from '@/hooks/useSyncStatus';
-import { colors, font, fontDisplay, spacing } from '@/theme';
+import { colors, font, spacing } from '@/theme';
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { LayoutAnimation, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
@@ -72,7 +73,7 @@ function SummaryCard({
   return (
     <Card style={styles.totalCard}>
       <Text style={styles.totalLabel}>Daily total</Text>
-      <Text style={[styles.totalValue, { fontFamily: fontDisplay }]} testID="daily-total">
+      <Text style={styles.totalValue} testID="daily-total">
         {total.toLocaleString()} kcal
       </Text>
       <Text style={styles.burnLine} testID="burn-total">
@@ -100,10 +101,7 @@ function WeekGraphCard({ week, weekNet }: { week: DailyEnergy[]; weekNet: number
   return (
     <Card>
       <SectionTitle>This week</SectionTitle>
-      <Text
-        style={[styles.weekHeadline, { fontFamily: fontDisplay }, netTone(weekNet)]}
-        testID="week-net"
-      >
+      <Text style={[styles.weekHeadline, netTone(weekNet)]} testID="week-net">
         {week.length === 0 ? 'No days logged yet' : `${balanceLabel(weekNet)} this week`}
       </Text>
       <View style={styles.chartBlock}>
@@ -505,11 +503,13 @@ export default function LogScreen() {
       {formError ? <ErrorBanner message={formError} /> : null}
 
       {wide ? (
-        <View style={styles.columns}>
-          <View style={styles.colEntries}>{entriesBlock}</View>
-          <View style={styles.colForm}>{formBlock}</View>
-          <View style={styles.colGraph}>{graphBlock}</View>
-        </View>
+        <>
+          <View style={styles.gridRow}>
+            <View style={styles.gridCell}>{entriesBlock}</View>
+            <View style={styles.gridCell}>{formBlock}</View>
+          </View>
+          {graphBlock}
+        </>
       ) : (
         <>
           {graphBlock}
@@ -539,9 +539,7 @@ const styles = StyleSheet.create({
   dateSub: { fontSize: font.caption, color: colors.textMuted },
   totalCard: { alignItems: 'center' },
   totalLabel: { fontSize: font.caption, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 1 },
-  // The display face carries its own 700 weight; setting fontWeight here would ask
-  // the platform for a second, synthetic bold.
-  totalValue: { fontSize: 46, color: colors.primaryDark, fontVariant: ['tabular-nums'] },
+  totalValue: { fontSize: 34, fontWeight: '800', color: colors.primaryDark, fontVariant: ['tabular-nums'] },
   burnLine: { fontSize: font.body, color: colors.textMuted, fontVariant: ['tabular-nums'] },
   netLine: { fontSize: font.section, fontWeight: '700', fontVariant: ['tabular-nums'] },
   netSurplus: { color: colors.rust },
@@ -557,7 +555,7 @@ const styles = StyleSheet.create({
   entriesCard: { paddingVertical: spacing.sm },
   showAllRow: { paddingVertical: spacing.sm, alignItems: 'center' },
   showAllText: { fontSize: font.caption, fontWeight: '600', color: colors.primary },
-  weekHeadline: { fontSize: 28, fontVariant: ['tabular-nums'] },
+  weekHeadline: { fontSize: font.section, fontWeight: '700', fontVariant: ['tabular-nums'] },
   chartBlock: { gap: spacing.xs },
   chartCaption: {
     fontSize: font.caption,
@@ -567,8 +565,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.6,
   },
   chartNote: { fontSize: font.caption, color: colors.textMuted },
-  columns: { flexDirection: 'row', gap: spacing.lg, alignItems: 'flex-start' },
-  colEntries: { flex: 3, gap: spacing.md },
-  colForm: { flex: 2, gap: spacing.md },
-  colGraph: { flex: 2, gap: spacing.md },
+  gridRow: { flexDirection: 'row', gap: spacing.lg, alignItems: 'flex-start' },
+  gridCell: { flex: 1, gap: spacing.md },
 });

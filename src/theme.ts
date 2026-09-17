@@ -16,23 +16,6 @@ export const colors = {
   rust: '#C2410C',
 };
 
-/**
- * Display face — Bodoni Moda (editorial serif) for typography-as-art headings.
- * Set by the root layout once the font has loaded; falls back to a system serif
- * when loading fails so a missing font never blanks a heading. Read it at render
- * time (inline style) rather than baking it into StyleSheet.create, which would
- * freeze the value before the font resolves.
- */
-export let fontDisplay = 'BodoniModa_700Bold';
-
-/** Called by the root layout: the loaded family, or the fallback. */
-export function setDisplayFont(family: string): void {
-  fontDisplay = family;
-}
-
-/** System serif used when the display font cannot be loaded. */
-export const displayFontFallback = 'Georgia';
-
 export const spacing = {
   xs: 4,
   sm: 8,

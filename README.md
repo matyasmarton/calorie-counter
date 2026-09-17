@@ -5,8 +5,8 @@ Offline-capable personal calorie counter with account sync. Built with Expo (Rea
 ## Features
 
 - Daily food logging with servings and amounts; calorie plus protein/carb/fat totals for the day, ISO week, and calendar month
-- Log front page: the day's intake, burn (activity + workouts) and surplus/deficit balance in display type, the two most recent entries with the rest behind "Show all", and 7-day intake and balance trend charts. One centered reading column on phones, three columns past 1024 px
-- Paper-and-ink theme with an editorial serif display face (Bodoni Moda, falling back to a system serif) and tabular numerals; a tiled paper-grain texture behind every screen, tiled from `assets/grain.png` and toggled under Settings → Appearance → Paper texture (on by default)
+- Log front page: the day's intake, burn (activity + workouts) and surplus/deficit balance, the two most recent entries with the rest behind "Show all", and 7-day intake and balance trend charts. One centered column on phones; past 1024 px a two-column grid — the summary across the top, entries beside the add form, the week charts across the bottom
+- Light paper-and-ink palette shared by every screen (`src/theme.ts`), with tabular numerals on the calorie figures
 - USDA-provenanced food catalog (every row carries its `sourceRef`), plus user-defined custom foods
 - Offline-first storage (IndexedDB on web, SQLite on native) with a Supabase sync engine: local changes queue, push/pull on sync, newest-update-wins conflicts, tombstones
 - Health tab: weight/height measurements, BMI, and a daily-intake trend chart
@@ -76,8 +76,7 @@ Not covered: Hungarian and Turkish dishes. No USDA dataset contains them, and th
 - `src/db/` — storage adapters (IndexedDB / SQLite), repository, catalog seeding
 - `src/sync/` — Supabase sync engine and migrations
 - `src/local-ai/` — model contracts, bridge adapter, meal-parsing pipeline, draft validation, recipe memory
-- `scripts/` — catalog capture + build, paper-grain generator, desktop launcher + installer, local-model bridge (server lifecycle + CORS proxy), model benchmark fixture
-- `assets/grain.png` — generated 128×128 paper-grain tile; regenerate byte-identically with `npm run build:grain`
+- `scripts/` — catalog capture + build, desktop launcher + installer, local-model bridge (server lifecycle + CORS proxy), model benchmark fixture
 - `data/foods.json` — USDA-provenanced catalog bundle
 
 ## Testing

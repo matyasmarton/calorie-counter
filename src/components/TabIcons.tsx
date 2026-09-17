@@ -1,6 +1,6 @@
 /** Small SVG tab icons (react-native-svg) — no icon font dependency. */
 import React from 'react';
-import Svg, { Circle, Ellipse, Line, Path, Rect } from 'react-native-svg';
+import Svg, { Circle, Line, Path, Rect } from 'react-native-svg';
 import { colors } from '@/theme';
 
 function Icon({ children }: { children: React.ReactNode }) {
@@ -22,17 +22,15 @@ export function LogIcon() {
   );
 }
 
-/** Fork above a plate: three tines, bridge, handle, plate ellipse + inner rim. */
+/** A fork: three tines on a handle. */
 export function FoodsIcon() {
   return (
     <Icon>
-      <Line x1="10" y1="2.5" x2="10" y2="5.5" />
-      <Line x1="12" y1="2.5" x2="12" y2="5.5" />
-      <Line x1="14" y1="2.5" x2="14" y2="5.5" />
-      <Line x1="10" y1="5.5" x2="14" y2="5.5" />
-      <Line x1="12" y1="5.5" x2="12" y2="10" />
-      <Ellipse cx="12" cy="16" rx="7.5" ry="4" />
-      <Ellipse cx="12" cy="16" rx="4" ry="2" />
+      <Line x1="9.5" y1="2.5" x2="9.5" y2="8" />
+      <Line x1="12" y1="2.5" x2="12" y2="8" />
+      <Line x1="14.5" y1="2.5" x2="14.5" y2="8" />
+      <Line x1="9.5" y1="8" x2="14.5" y2="8" />
+      <Line x1="12" y1="8" x2="12" y2="21.5" />
     </Icon>
   );
 }
