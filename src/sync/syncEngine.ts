@@ -333,6 +333,17 @@ export class SyncEngine {
     return () => this.listeners.delete(cb);
   }
 
+  /**
+   * Drop the Supabase auth listener. Idempotent: the stored closure is cleared
+   * before it runs, so a repeated dispose is a no-op and a throwing
+   * unsubscribe cannot leave a stale callable behind.
+   */
+  dispose(): void {
+    const stop = this.unsubscribeAuth;
+    this.unsubscribeAuth = null;
+    stop?.();
+  }
+
   getStatus(): SyncStatus {
     return this.status;
   }
@@ -362,6 +373,8 @@ export class SyncEngine {
       this.setStatus('not-configured');
       return;
     }
+    // A second initialize must not orphan the listener the first one wired up.
+    this.dispose();
     const { data } = await client.auth.getSession();
     this.setStatus(data.session ? 'pending' : 'signed-out');
     const authSub = client.auth.onAuthStateChange((event) => {

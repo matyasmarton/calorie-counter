@@ -5,7 +5,7 @@
  */
 import * as SQLite from 'expo-sqlite';
 import { TABLES } from './schema';
-import type { Query, Row, StorageAdapter } from './storage';
+import { toRow, type Query, type Row, type StorageAdapter } from './storage';
 
 export class SqliteStorage implements StorageAdapter {
   readonly kind = 'sqlite' as const;
@@ -49,23 +49,26 @@ export class SqliteStorage implements StorageAdapter {
     return this.getDb().runAsync(sql, ...params);
   }
 
-  async get(table: string, id: string): Promise<Row | null> {
+  async get<T = Row>(table: string, id: string): Promise<T | null> {
     const rows = await this.getDb().getAllAsync<{ json: string }>(
       `SELECT json FROM "${table}" WHERE id = ?`,
       [id],
     );
     const row = rows[0];
-    return row ? (JSON.parse(row.json) as Row) : null;
+    return row ? (JSON.parse(row.json) as T) : null;
   }
 
-  async put(table: string, row: Row): Promise<void> {
+  async put<T extends object = Row>(table: string, row: T): Promise<void> {
     const spec = TABLES[table];
     if (!spec) throw new Error(`unknown table: ${table}`);
+    // Storage records are plain JSON objects; index columns read off the same
+    // row the adapter is about to serialize.
+    const record = toRow(row);
     const cols = ['id', 'json', ...spec.indexes];
     const values = [
-      String(row.id),
-      JSON.stringify(row),
-      ...spec.indexes.map((f) => (row[f] == null ? null : String(row[f]))),
+      String(record.id),
+      JSON.stringify(record),
+      ...spec.indexes.map((f) => (record[f] == null ? null : String(record[f]))),
     ];
     const placeholders = cols.map(() => '?').join(', ');
     await this.exec(
@@ -79,7 +82,7 @@ export class SqliteStorage implements StorageAdapter {
     );
   }
 
-  async bulkPut(table: string, rows: Row[]): Promise<void> {
+  async bulkPut<T extends object = Row>(table: string, rows: T[]): Promise<void> {
     const db = this.getDb();
     await db.withTransactionAsync(async () => {
       for (const row of rows) await this.put(table, row);
@@ -90,7 +93,7 @@ export class SqliteStorage implements StorageAdapter {
     await this.exec(`DELETE FROM "${table}" WHERE id = ?`, [id]);
   }
 
-  async query(table: string, q: Query = {}): Promise<Row[]> {
+  async query<T = Row>(table: string, q: Query<T> = {}): Promise<T[]> {
     const spec = TABLES[table];
     if (!spec) throw new Error(`unknown table: ${table}`);
     const where: string[] = [];
@@ -114,7 +117,7 @@ export class SqliteStorage implements StorageAdapter {
       where.length ? `WHERE ${where.join(' AND ')}` : ''
     } ORDER BY "${orderCol}" ${q.direction === 'desc' ? 'DESC' : 'ASC'}`;
     const rows = await this.getDb().getAllAsync<{ json: string }>(sql, ...params);
-    let out = rows.map((r) => JSON.parse(r.json) as Row);
+    let out = rows.map((r) => JSON.parse(r.json) as T);
     if (q.filter) out = out.filter(q.filter);
     if (q.limit && out.length > q.limit) out = out.slice(0, q.limit);
     return out;

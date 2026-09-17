@@ -226,9 +226,8 @@ export class Repository {
   /* ------------------------------------------------------------------ */
 
   private async loadFood(id: string, includeDeleted = false): Promise<Food> {
-    const row = await this.db.get('foods', id);
-    if (!row) throw new NotFoundError(`Food ${id} not found`);
-    const food = row as unknown as Food;
+    const food = await this.db.get<Food>('foods', id);
+    if (!food) throw new NotFoundError(`Food ${id} not found`);
     if (!includeDeleted && food.deletedAt) throw new NotFoundError(`Food ${id} not found`);
     return food;
   }
@@ -236,12 +235,9 @@ export class Repository {
   /** Catalog + user foods whose name contains `query`, excluding deleted. */
   async searchFoods(query: string, limit = 30): Promise<Food[]> {
     const q = query.trim().toLowerCase();
-    const rows = (await this.db.query('foods', {
-      filter: (r) => {
-        const f = r as unknown as Food;
-        return !f.deletedAt && (q === '' || f.name.toLowerCase().includes(q));
-      },
-    })) as unknown as Food[];
+    const rows = await this.db.query<Food>('foods', {
+      filter: (r) => !r.deletedAt && (q === '' || r.name.toLowerCase().includes(q)),
+    });
     // An empty query is a browse, so it stays alphabetical. A real query is
     // ranked, otherwise plain alphabetical order decides which hit is first —
     // and "Broccoli cheese soup" beats "Broccoli, raw" for "broccoli".
@@ -261,12 +257,12 @@ export class Repository {
 
   /** All foods a user owns (for the foods tab). */
   async getUserFoods(): Promise<UserFood[]> {
-    const rows = (await this.db.query('foods', {
+    const rows = await this.db.query<UserFood>('foods', {
       index: 'source',
       lower: 'user',
       upper: 'user',
-      filter: (r) => !(r as unknown as Food).deletedAt,
-    })) as unknown as UserFood[];
+      filter: (r) => !r.deletedAt,
+    });
     rows.sort((a, b) => a.name.localeCompare(b.name));
     return rows;
   }
@@ -301,7 +297,7 @@ export class Repository {
       updatedAt: now,
       deletedAt: null,
     };
-    await this.writeAndQueue('foods', food as unknown as Row);
+    await this.writeAndQueue('foods', food);
     return food;
   }
 
@@ -332,7 +328,7 @@ export class Repository {
       servings: input.servings.map((s) => ({ ...s, label: s.label.trim() })),
       updatedAt: new Date().toISOString(),
     };
-    await this.writeAndQueue('foods', updated as unknown as Row);
+    await this.writeAndQueue('foods', updated);
     return updated;
   }
 
@@ -348,9 +344,8 @@ export class Repository {
   /* ------------------------------------------------------------------ */
 
   private async loadEntry(id: string): Promise<DailyEntry> {
-    const row = await this.db.get('daily_entries', id);
-    if (!row) throw new NotFoundError(`Entry ${id} not found`);
-    const entry = row as unknown as DailyEntry;
+    const entry = await this.db.get<DailyEntry>('daily_entries', id);
+    if (!entry) throw new NotFoundError(`Entry ${id} not found`);
     if (entry.deletedAt) throw new NotFoundError(`Entry ${id} not found`);
     return entry;
   }
@@ -358,12 +353,12 @@ export class Repository {
   /** Entries for one local calendar day, newest-created first. */
   async getDailyEntries(date: string): Promise<DailyEntry[]> {
     assertDate(date);
-    const rows = (await this.db.query('daily_entries', {
+    const rows = await this.db.query<DailyEntry>('daily_entries', {
       index: 'logDate',
       lower: date,
       upper: date,
-      filter: (r) => !(r as unknown as DailyEntry).deletedAt,
-    })) as unknown as DailyEntry[];
+      filter: (r) => !r.deletedAt,
+    });
     rows.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
     return rows;
   }
@@ -402,7 +397,7 @@ export class Repository {
       updatedAt: now,
       deletedAt: null,
     };
-    await this.writeAndQueue('daily_entries', entry as unknown as Row);
+    await this.writeAndQueue('daily_entries', entry);
     return entry;
   }
 
@@ -440,7 +435,7 @@ export class Repository {
       fatGrams: macroSnap?.fatGrams ?? null,
       updatedAt: new Date().toISOString(),
     };
-    await this.writeAndQueue('daily_entries', updated as unknown as Row);
+    await this.writeAndQueue('daily_entries', updated);
     return updated;
   }
 
@@ -454,9 +449,8 @@ export class Repository {
   /* ------------------------------------------------------------------ */
 
   private async loadMeasurement(id: string): Promise<HealthMeasurement> {
-    const row = await this.db.get('health_measurements', id);
-    if (!row) throw new NotFoundError(`Measurement ${id} not found`);
-    const m = row as unknown as HealthMeasurement;
+    const m = await this.db.get<HealthMeasurement>('health_measurements', id);
+    if (!m) throw new NotFoundError(`Measurement ${id} not found`);
     if (m.deletedAt) throw new NotFoundError(`Measurement ${id} not found`);
     return m;
   }
@@ -465,12 +459,12 @@ export class Repository {
   async getHealthMeasurements(from?: string, to?: string): Promise<HealthMeasurement[]> {
     if (from) assertDate(from, 'from date');
     if (to) assertDate(to, 'to date');
-    const rows = (await this.db.query('health_measurements', {
+    const rows = await this.db.query<HealthMeasurement>('health_measurements', {
       index: 'measuredAt',
       lower: from ?? undefined,
       upper: to ?? undefined,
-      filter: (r) => !(r as unknown as HealthMeasurement).deletedAt,
-    })) as unknown as HealthMeasurement[];
+      filter: (r) => !r.deletedAt,
+    });
     rows.sort((a, b) => (a.measuredAt < b.measuredAt ? 1 : -1));
     return rows;
   }
@@ -492,7 +486,7 @@ export class Repository {
       updatedAt: now,
       deletedAt: null,
     };
-    await this.writeAndQueue('health_measurements', m as unknown as Row);
+    await this.writeAndQueue('health_measurements', m);
     return m;
   }
 
@@ -514,7 +508,7 @@ export class Repository {
       heightCm: patch.heightCm,
       updatedAt: new Date().toISOString(),
     };
-    await this.writeAndQueue('health_measurements', updated as unknown as Row);
+    await this.writeAndQueue('health_measurements', updated);
     return updated;
   }
 
@@ -535,11 +529,8 @@ export class Repository {
   /* ------------------------------------------------------------------ */
 
   private async loadActivityDay(id: string): Promise<ActivityDay> {
-    const row = await this.db.get('activity_days', id);
-    if (!row) throw new NotFoundError(`Activity day ${id} not found`);
-    // SAFETY: activity_days only ever stores ActivityDay rows written by this
-    // repository, so a row read back by id is one (or a tombstone of one).
-    const day = row as unknown as ActivityDay;
+    const day = await this.db.get<ActivityDay>('activity_days', id);
+    if (!day) throw new NotFoundError(`Activity day ${id} not found`);
     if (day.deletedAt) throw new NotFoundError(`Activity day ${id} not found`);
     return day;
   }
@@ -580,9 +571,7 @@ export class Repository {
       updatedAt: now,
       deletedAt: null,
     };
-    // SAFETY: ActivityDay is the exact row shape activity_days stores; the
-    // adapter serializes it verbatim, so the widening is a no-op.
-    await this.writeAndQueue('activity_days', day as unknown as Row);
+    await this.writeAndQueue('activity_days', day);
     return day;
   }
 
@@ -592,10 +581,8 @@ export class Repository {
   }
 
   private async loadWorkout(id: string): Promise<Workout> {
-    const row = await this.db.get('workouts', id);
-    if (!row) throw new NotFoundError(`Workout ${id} not found`);
-    // SAFETY: workouts only ever stores Workout rows written by this repository.
-    const workout = row as unknown as Workout;
+    const workout = await this.db.get<Workout>('workouts', id);
+    if (!workout) throw new NotFoundError(`Workout ${id} not found`);
     if (workout.deletedAt) throw new NotFoundError(`Workout ${id} not found`);
     return workout;
   }
@@ -658,8 +645,7 @@ export class Repository {
       updatedAt: now,
       deletedAt: null,
     };
-    // SAFETY: Workout is the exact row shape workouts stores.
-    await this.writeAndQueue('workouts', workout as unknown as Row);
+    await this.writeAndQueue('workouts', workout);
     return workout;
   }
 
@@ -675,8 +661,7 @@ export class Repository {
       caloriesSource,
       updatedAt: new Date().toISOString(),
     };
-    // SAFETY: same Workout row shape as addWorkout.
-    await this.writeAndQueue('workouts', updated as unknown as Row);
+    await this.writeAndQueue('workouts', updated);
     return updated;
   }
 
@@ -690,10 +675,8 @@ export class Repository {
    * or null when the user has never saved one.
    */
   async getProfile(): Promise<UserProfile | null> {
-    const row = await this.db.get('user_profile', PROFILE_ID);
-    if (!row) return null;
-    // SAFETY: user_profile only ever stores the one UserProfile row.
-    const profile = row as unknown as UserProfile;
+    const profile = await this.db.get<UserProfile>('user_profile', PROFILE_ID);
+    if (!profile) return null;
     return profile.deletedAt ? null : profile;
   }
 
@@ -720,8 +703,7 @@ export class Repository {
       updatedAt: now,
       deletedAt: null,
     };
-    // SAFETY: UserProfile is the exact row shape user_profile stores.
-    await this.writeAndQueue('user_profile', profile as unknown as Row);
+    await this.writeAndQueue('user_profile', profile);
     return profile;
   }
 
@@ -735,17 +717,15 @@ export class Repository {
    */
   async searchRecipes(query: string, limit = 10): Promise<SavedRecipe[]> {
     const q = query.trim().toLowerCase();
-    const rows = (await this.db.query('saved_recipes', {
+    const rows = await this.db.query<SavedRecipe>('saved_recipes', {
       filter: (r) => {
-        const rec = r as unknown as SavedRecipe;
-        if (rec.deletedAt) return false;
+        if (r.deletedAt) return false;
         if (q === '') return true;
         return (
-          rec.name.toLowerCase().includes(q) ||
-          rec.aliases.some((a: string) => a.toLowerCase().includes(q))
+          r.name.toLowerCase().includes(q) || r.aliases.some((a) => a.toLowerCase().includes(q))
         );
       },
-    })) as unknown as SavedRecipe[];
+    });
     rows.sort((a, b) => a.name.localeCompare(b.name));
     return rows.slice(0, limit);
   }
@@ -798,7 +778,7 @@ export class Repository {
       updatedAt: now,
       deletedAt: null,
     };
-    await this.writeAndQueue('saved_recipes', recipe as unknown as Row);
+    await this.writeAndQueue('saved_recipes', recipe);
     return recipe;
   }
 
@@ -813,12 +793,12 @@ export class Repository {
   async getMacroSummary(range: SummaryRange, anchorDate: string): Promise<MacroSummary> {
     assertDate(anchorDate, 'anchor date');
     const { from, to } = rangeBounds(range, anchorDate);
-    const entries = (await this.db.query('daily_entries', {
+    const entries = await this.db.query<DailyEntry>('daily_entries', {
       index: 'logDate',
       lower: from,
       upper: to,
-      filter: (r) => !(r as unknown as DailyEntry).deletedAt,
-    })) as unknown as DailyEntry[];
+      filter: (r) => !r.deletedAt,
+    });
     const sum = { calories: 0, proteinGrams: 0, carbsGrams: 0, fatGrams: 0, entryCount: 0 };
     for (const e of entries) {
       sum.calories += e.calories;
@@ -849,18 +829,18 @@ export class Repository {
     assertDate(to, 'to date');
     if (from > to) throw new ValidationError('from date must be <= to date');
 
-    const entries = (await this.db.query('daily_entries', {
+    const entries = await this.db.query<DailyEntry>('daily_entries', {
       index: 'logDate',
       lower: from,
       upper: to,
-      filter: (r) => !(r as unknown as DailyEntry).deletedAt,
-    })) as unknown as DailyEntry[];
+      filter: (r) => !r.deletedAt,
+    });
 
-    const allMeasurements = (await this.db.query('health_measurements', {
+    const allMeasurements = await this.db.query<HealthMeasurement>('health_measurements', {
       index: 'measuredAt',
       upper: to,
-      filter: (r) => !(r as unknown as HealthMeasurement).deletedAt,
-    })) as unknown as HealthMeasurement[];
+      filter: (r) => !r.deletedAt,
+    });
     allMeasurements.sort((a, b) => (a.measuredAt < b.measuredAt ? -1 : 1)); // ascending
 
     const byDate = new Map<string, { calories: number; proteinGrams: number; carbsGrams: number; fatGrams: number; entryCount: number }>();
@@ -967,9 +947,9 @@ export class Repository {
   /* ------------------------------------------------------------------ */
 
   async getUnsyncedChanges(): Promise<SyncRecord[]> {
-    const rows = (await this.db.query('sync_queue', {
-      filter: (r) => (r as unknown as SyncRecord).pushedAt == null,
-    })) as unknown as SyncRecord[];
+    const rows = await this.db.query<SyncRecord>('sync_queue', {
+      filter: (r) => r.pushedAt == null,
+    });
     rows.sort((a, b) => (a.updatedAt < b.updatedAt ? -1 : 1));
     return rows;
   }
@@ -990,8 +970,8 @@ export class Repository {
   }
 
   /** All live rows of a syncable table (including deleted tombstones). */
-  async listForSync(table: SyncTable): Promise<Row[]> {
-    return this.db.query(table);
+  async listForSync<T = Row>(table: SyncTable): Promise<T[]> {
+    return this.db.query<T>(table);
   }
 
   /** Fetch one row (including tombstones) — used by the sync engine to push. */
@@ -1025,8 +1005,7 @@ export class Repository {
   }
 
   async getCatalogMetadata(): Promise<CatalogMetadata | null> {
-    const row = await this.db.get('catalog_metadata', CATALOG_VERSION_KEY);
-    return row ? (row as unknown as CatalogMetadata) : null;
+    return this.db.get<CatalogMetadata>('catalog_metadata', CATALOG_VERSION_KEY);
   }
 
   /* ------------------------------------------------------------------ */
@@ -1036,17 +1015,14 @@ export class Repository {
   /** JSON backup of all user data (live rows only; tombstones excluded). */
   async exportBackup(): Promise<BackupPayload> {
     const userFoods = await this.getUserFoods();
-    const entries = (await this.listForSync('daily_entries'))
-      .filter((r) => !r.deletedAt) as unknown as DailyEntry[];
-    const measurements = (await this.listForSync('health_measurements'))
-      .filter((r) => !r.deletedAt) as unknown as HealthMeasurement[];
-    // SAFETY: these stores only ever hold the corresponding domain rows
-    // (written by this repository), and backup export re-serializes them as-is.
-    const activityDays = (await this.listForSync('activity_days'))
-      .filter((r) => !r.deletedAt) as unknown as ActivityDay[];
-    // SAFETY: same as activityDays — workouts holds Workout rows only.
-    const workouts = (await this.listForSync('workouts'))
-      .filter((r) => !r.deletedAt) as unknown as Workout[];
+    const entries = (await this.listForSync<DailyEntry>('daily_entries')).filter((r) => !r.deletedAt);
+    const measurements = (await this.listForSync<HealthMeasurement>('health_measurements')).filter(
+      (r) => !r.deletedAt,
+    );
+    const activityDays = (await this.listForSync<ActivityDay>('activity_days')).filter(
+      (r) => !r.deletedAt,
+    );
+    const workouts = (await this.listForSync<Workout>('workouts')).filter((r) => !r.deletedAt);
     return {
       app: 'calorie-counter',
       version: 3,
@@ -1102,17 +1078,17 @@ export class Repository {
     if (data.version !== 1 && data.version !== 2 && data.version !== 3) {
       throw new ValidationError(`Unsupported backup version ${String(data.version)}`);
     }
-    const foods = data.userFoods as unknown as Food[];
-    const entries = data.entries as unknown as DailyEntry[];
-    const measurements = data.measurements as unknown as HealthMeasurement[];
-    // SAFETY: the shape checks below reject anything that is not the expected
-    // row type before a single row reaches storage.
-    const activityDays = (Array.isArray(data.activityDays) ? data.activityDays : []) as unknown as ActivityDay[];
-    // SAFETY: same — validated per row below.
-    const workouts = (Array.isArray(data.workouts) ? data.workouts : []) as unknown as Workout[];
-    // SAFETY: profile is validated below (id + updatedAt) before it is merged.
+    // Untrusted payloads: these arrays are narrowed, not trusted — the per-row
+    // loops below reject anything that is not the expected row shape before a
+    // single row reaches storage.
+    const foods = data.userFoods as Food[];
+    const entries = data.entries as DailyEntry[];
+    const measurements = data.measurements as HealthMeasurement[];
+    const activityDays = (Array.isArray(data.activityDays) ? data.activityDays : []) as ActivityDay[];
+    const workouts = (Array.isArray(data.workouts) ? data.workouts : []) as Workout[];
+    // Absent profile keeps its null-versus-object behavior.
     const profile =
-      data.profile && typeof data.profile === 'object' ? (data.profile as unknown as UserProfile) : null;
+      data.profile && typeof data.profile === 'object' ? (data.profile as UserProfile) : null;
     // version-1 backups have no macro columns; normalize to null (legacy)
     if (data.version === 1) {
       for (const f of foods) {
@@ -1177,7 +1153,7 @@ export class Repository {
       for (const row of rows) {
         const local = await this.db.get(table, row.id);
         if (local && String(local.updatedAt) > row.updatedAt) continue;
-        await this.writeAndQueue(table as SyncTable, row as unknown as Row);
+        await this.writeAndQueue(table, row);
         applied++;
       }
       return applied;
@@ -1202,37 +1178,36 @@ export class Repository {
    * The callers sort; these stay unsorted so each aggregation reads once.
    */
   private async liveEntries(from?: string, to?: string): Promise<DailyEntry[]> {
-    // SAFETY: daily_entries only ever stores DailyEntry rows written by this
-    // repository, so the queried rows are exactly that shape.
-    return (await this.db.query('daily_entries', {
+    return this.db.query<DailyEntry>('daily_entries', {
       index: 'logDate',
       lower: from ?? undefined,
       upper: to ?? undefined,
-      filter: (r) => !(r as unknown as DailyEntry).deletedAt,
-    })) as unknown as DailyEntry[];
+      filter: (r) => !r.deletedAt,
+    });
   }
 
   private async liveActivityDays(from?: string, to?: string): Promise<ActivityDay[]> {
-    // SAFETY: activity_days only ever stores ActivityDay rows.
-    return (await this.db.query('activity_days', {
+    return this.db.query<ActivityDay>('activity_days', {
       index: 'logDate',
       lower: from ?? undefined,
       upper: to ?? undefined,
-      filter: (r) => !(r as unknown as ActivityDay).deletedAt,
-    })) as unknown as ActivityDay[];
+      filter: (r) => !r.deletedAt,
+    });
   }
 
   private async liveWorkouts(from?: string, to?: string): Promise<Workout[]> {
-    // SAFETY: workouts only ever stores Workout rows.
-    return (await this.db.query('workouts', {
+    return this.db.query<Workout>('workouts', {
       index: 'logDate',
       lower: from ?? undefined,
       upper: to ?? undefined,
-      filter: (r) => !(r as unknown as Workout).deletedAt,
-    })) as unknown as Workout[];
+      filter: (r) => !r.deletedAt,
+    });
   }
 
-  private async writeAndQueue(table: SyncTable, row: Row): Promise<void> {
+  private async writeAndQueue<T extends { id: unknown; updatedAt: unknown }>(
+    table: SyncTable,
+    row: T,
+  ): Promise<void> {
     await this.db.put(table, row);
     const record: SyncRecord = {
       id: String(row.id),
@@ -1242,7 +1217,7 @@ export class Repository {
       pushedAt: null,
       error: null,
     };
-    await this.db.put('sync_queue', record as unknown as Row);
+    await this.db.put('sync_queue', record);
   }
 
   private async tombstoneAndQueue(table: SyncTable, id: string): Promise<void> {
@@ -1258,7 +1233,7 @@ export class Repository {
       pushedAt: null,
       error: null,
     };
-    await this.db.put('sync_queue', record as unknown as Row);
+    await this.db.put('sync_queue', record);
   }
 
   /** For tests/UI convenience: the local "today" key. */

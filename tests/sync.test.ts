@@ -14,10 +14,12 @@ import bundle from '../data/foods.json';
 
 type RemoteRow = Record<string, unknown>;
 
+type AuthSubscription = { data: { subscription: { unsubscribe: () => void } } };
+
 interface FakeSupabaseClient {
   auth: {
     getSession(): Promise<{ data: { session: { user: { id: string; email: string } } | null }; error: null }>;
-    onAuthStateChange(cb: (event: string) => void): () => void;
+    onAuthStateChange(cb: (event: string) => void): AuthSubscription;
     signInWithPassword(): Promise<{ error: null }>;
     signUp(): Promise<{ error: null }>;
     signOut(): Promise<{ error: null }>;
@@ -47,13 +49,18 @@ interface FakeClientOptions {
   remote: Record<string, RemoteRow[]>;
   session: { user: { id: string; email: string } } | null;
   failNextUpsert?: () => boolean;
+  /** Override to observe how many auth listeners the engine holds. */
+  onAuthStateChange?: () => AuthSubscription;
 }
 
 function makeFakeClient(opts: FakeClientOptions): FakeSupabaseClient {
   let fail = false;
   const auth = {
     getSession: async () => ({ data: { session: opts.session }, error: null }),
-    onAuthStateChange: () => () => {},
+    // Mirrors the real supabase-js shape: the caller unsubscribes through
+    // `data.subscription.unsubscribe`, not through the return value itself.
+    onAuthStateChange:
+      opts.onAuthStateChange ?? (() => ({ data: { subscription: { unsubscribe: () => {} } } })),
     signInWithPassword: async () => ({ error: null }),
     signUp: async () => ({ error: null }),
     signOut: async () => ({ error: null }),
@@ -240,6 +247,49 @@ describe('SyncEngine', () => {
     expect(await noSession.getUserEmail()).toBeNull();
     await noSession.sync();
     expect(noSession.getStatus()).toBe('signed-out');
+  });
+
+  it('holds exactly one auth subscription across re-initialization and disposes idempotently', async () => {
+    let live = 0;
+    let unsubscribes = 0;
+    const repo = new Repository(new IndexedDbStorage());
+    await repo.init();
+    const engine = new SyncEngine(repo, () =>
+      makeFakeClient({
+        remote: {},
+        session: null,
+        onAuthStateChange: () => {
+          live++;
+          return {
+            data: {
+              subscription: {
+                unsubscribe: () => {
+                  live--;
+                  unsubscribes++;
+                },
+              },
+            },
+          };
+        },
+      }) as never,
+    );
+
+    await engine.initialize();
+    expect(live).toBe(1);
+    expect(engine.getStatus()).toBe('signed-out');
+
+    // Re-initializing tears the previous listener down instead of orphaning it.
+    await engine.initialize();
+    expect(live).toBe(1);
+    expect(engine.getStatus()).toBe('signed-out');
+
+    engine.dispose();
+    expect(live).toBe(0);
+
+    // Idempotent: nothing is left to unsubscribe, so no extra call happens.
+    engine.dispose();
+    expect(live).toBe(0);
+    expect(unsubscribes).toBe(2);
   });
 
   it('signals pending when local changes exist after a successful sync', async () => {
