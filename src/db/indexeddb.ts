@@ -57,17 +57,17 @@ export class IndexedDbStorage implements StorageAdapter {
     return tx.objectStore(table);
   }
 
-  async get(table: string, id: string): Promise<Row | null> {
+  async get<T = Row>(table: string, id: string): Promise<T | null> {
     await this.init();
     return new Promise((resolve, reject) => {
       const tx = this.db!.transaction(table, 'readonly');
       const req = this.store(tx, table).get(id);
-      req.onsuccess = () => resolve((req.result as Row) ?? null);
+      req.onsuccess = () => resolve((req.result as T) ?? null);
       req.onerror = () => reject(req.error);
     });
   }
 
-  async put(table: string, row: Row): Promise<void> {
+  async put<T extends object = Row>(table: string, row: T): Promise<void> {
     await this.init();
     return new Promise((resolve, reject) => {
       const tx = this.db!.transaction(table, 'readwrite');
@@ -77,7 +77,7 @@ export class IndexedDbStorage implements StorageAdapter {
     });
   }
 
-  async bulkPut(table: string, rows: Row[]): Promise<void> {
+  async bulkPut<T extends object = Row>(table: string, rows: T[]): Promise<void> {
     await this.init();
     if (rows.length === 0) return;
     return new Promise((resolve, reject) => {
@@ -99,7 +99,7 @@ export class IndexedDbStorage implements StorageAdapter {
     });
   }
 
-  async query(table: string, q: Query = {}): Promise<Row[]> {
+  async query<T = Row>(table: string, q: Query<T> = {}): Promise<T[]> {
     await this.init();
     return new Promise((resolve, reject) => {
       const tx = this.db!.transaction(table, 'readonly');
@@ -127,11 +127,13 @@ export class IndexedDbStorage implements StorageAdapter {
         }
       }
       const req = source.openCursor(keyRange, q.direction === 'desc' ? 'prev' : 'next');
-      const out: Row[] = [];
+      const out: T[] = [];
       req.onsuccess = () => {
         const cursor = req.result;
         if (cursor) {
-          const row = cursor.value as Row;
+          // IndexedDB stores the JSON record we wrote; the cursor value is the
+          // caller's row type by construction of the table.
+          const row = cursor.value as T;
           if (!q.filter || q.filter(row)) out.push(row);
           if (q.limit && out.length >= q.limit) {
             resolve(out);

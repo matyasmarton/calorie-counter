@@ -57,6 +57,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     })();
     return () => {
       cancelled = true;
+      sync.dispose();
     };
   }, [repo, sync]);
 

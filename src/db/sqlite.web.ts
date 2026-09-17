@@ -15,19 +15,19 @@ export class SqliteStorage implements StorageAdapter {
   init(): Promise<void> {
     return Promise.reject(unavailable());
   }
-  get(): Promise<Row | null> {
+  get<T = Row>(): Promise<T | null> {
     return Promise.reject(unavailable());
   }
-  put(): Promise<void> {
+  put<T extends object = Row>(): Promise<void> {
     return Promise.reject(unavailable());
   }
-  bulkPut(): Promise<void> {
+  bulkPut<T extends object = Row>(): Promise<void> {
     return Promise.reject(unavailable());
   }
   remove(): Promise<void> {
     return Promise.reject(unavailable());
   }
-  query(_table: string, _q?: Query): Promise<Row[]> {
+  query<T = Row>(_table: string, _q?: Query<T>): Promise<T[]> {
     return Promise.reject(unavailable());
   }
   count(): Promise<number> {
