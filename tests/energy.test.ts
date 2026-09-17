@@ -66,6 +66,7 @@ describe('getEnergySummary', () => {
       from: '2026-09-01',
       to: '2026-09-01',
       intakeCalories: 0,
+      restingCalories: null,
       burnCalories: 0,
       netCalories: 0,
       workoutCount: 0,
@@ -92,11 +93,14 @@ describe('getEnergySummary', () => {
 
     expect(workout.caloriesSource).toBe('hr-estimate');
     const summary = await repo.getEnergySummary('day', '2026-08-17');
+    // The measurement carries a weight but no height, so there is no baseline to
+    // add: burn is exactly the logged activity and workout.
     expect(summary).toEqual({
       range: 'day',
       from: '2026-08-17',
       to: '2026-08-17',
       intakeCalories: 1200,
+      restingCalories: null,
       burnCalories: 300 + workout.calories,
       netCalories: 1200 - (300 + workout.calories),
       workoutCount: 1,
@@ -171,8 +175,22 @@ describe('getDailyEnergy', () => {
 
     const daily = await repo.getDailyEnergy('2026-08-10', '2026-08-13');
     expect(daily).toEqual([
-      { logDate: '2026-08-10', intakeCalories: 900, burnCalories: 0, netCalories: 900 },
-      { logDate: '2026-08-12', intakeCalories: 0, burnCalories: 400, netCalories: -400 },
+      {
+        logDate: '2026-08-10',
+        intakeCalories: 900,
+        activeCalories: 0,
+        restingCalories: null,
+        burnCalories: 0,
+        netCalories: 900,
+      },
+      {
+        logDate: '2026-08-12',
+        intakeCalories: 0,
+        activeCalories: 400,
+        restingCalories: null,
+        burnCalories: 400,
+        netCalories: -400,
+      },
     ]);
     // 2026-08-11 and 2026-08-13 are absent (no data), never zero-filled
     expect(daily.some((d) => d.logDate === '2026-08-11')).toBe(false);
@@ -186,5 +204,92 @@ describe('getDailyEnergy', () => {
   it('rejects an inverted range', async () => {
     const repo = await makeRepo();
     await expect(repo.getDailyEnergy('2026-08-10', '2026-08-09')).rejects.toBeInstanceOf(ValidationError);
+  });
+});
+
+describe('resting baseline', () => {
+  /**
+   * A profile and a dated weight/height pair. Age on 2026-08-17 is 36, so the
+   * Mifflin-St Jeor baseline is 10×75 + 6.25×180 − 5×36 + 5 = 1700 kcal/day.
+   */
+  async function withBaseline(repo: Repository): Promise<void> {
+    await repo.saveProfile({ sex: 'male', birthYear: 1990 });
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-01', weightKg: 75, heightCm: 180 });
+  }
+
+  it('adds the baseline to a day that also has logged burn', async () => {
+    const repo = await makeRepo();
+    const food = await denseFood(repo);
+    await withBaseline(repo);
+    await repo.addEntry({ logDate: '2026-08-17', foodId: food.id, servingId: 'g', amount: 1200 });
+    await repo.upsertActivityDay({ logDate: '2026-08-17', steps: 9000, activeKcal: 300, activeMinutes: 45 });
+
+    const summary = await repo.getEnergySummary('day', '2026-08-17');
+    expect(summary.restingCalories).toBe(1700);
+    expect(summary.burnCalories).toBe(1700 + 300);
+    expect(summary.netCalories).toBe(1200 - (1700 + 300));
+
+    const [row] = await repo.getDailyEnergy('2026-08-17', '2026-08-17');
+    expect(row).toMatchObject({
+      activeCalories: 300,
+      restingCalories: 1700,
+      burnCalories: 2000,
+    });
+  });
+
+  it('counts the baseline on unlogged days of a range without emitting rows for them', async () => {
+    const repo = await makeRepo();
+    const food = await denseFood(repo);
+    await withBaseline(repo);
+    await repo.addEntry({ logDate: '2026-08-17', foodId: food.id, servingId: 'g', amount: 1200 });
+    await repo.upsertActivityDay({ logDate: '2026-08-17', steps: 9000, activeKcal: 300, activeMinutes: 45 });
+
+    const week = await repo.getEnergySummary('week', '2026-08-19');
+    expect([week.from, week.to]).toEqual(['2026-08-17', '2026-08-23']);
+    expect(week.intakeCalories).toBe(1200);
+    // Every day of the week carries it, not just the one that was logged.
+    expect(week.restingCalories).toBe(1700 * 7);
+    expect(week.burnCalories).toBe(1700 * 7 + 300);
+    expect(week.netCalories).toBe(1200 - (1700 * 7 + 300));
+
+    // The chart still only gets the day that was logged.
+    const daily = await repo.getDailyEnergy('2026-08-17', '2026-08-23');
+    expect(daily.map((d) => d.logDate)).toEqual(['2026-08-17']);
+  });
+
+  it('ignores a measurement recorded after the day being reported on', async () => {
+    const repo = await makeRepo();
+    await repo.saveProfile({ sex: 'male', birthYear: 1990 });
+    await repo.addHealthMeasurement({ measuredAt: '2026-09-01', weightKg: 75, heightCm: 180 });
+
+    const summary = await repo.getEnergySummary('day', '2026-08-17');
+    expect(summary.restingCalories).toBeNull();
+    expect(summary.burnCalories).toBe(0);
+  });
+
+  it('carries weight and height forward independently, and takes a newer value from its date', async () => {
+    const repo = await makeRepo();
+    await repo.saveProfile({ sex: 'male', birthYear: 1990 });
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-01', weightKg: 75, heightCm: null });
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-10', weightKg: null, heightCm: 180 });
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-14', weightKg: 85, heightCm: null });
+
+    // Weight alone is not enough for a baseline.
+    expect((await repo.getEnergySummary('day', '2026-08-05')).restingCalories).toBeNull();
+    // The height has arrived; the 75 kg weight is still the latest one.
+    expect((await repo.getEnergySummary('day', '2026-08-12')).restingCalories).toBe(1700);
+    // A newer weight takes over from the day it was measured: 10×85 + 6.25×180 − 5×36 + 5.
+    expect((await repo.getEnergySummary('day', '2026-08-14')).restingCalories).toBe(1800);
+  });
+
+  it('needs a birth year, and uses the neutral constant when no sex is disclosed', async () => {
+    const repo = await makeRepo();
+    await repo.saveProfile({ sex: 'male', birthYear: null });
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-01', weightKg: 75, heightCm: 180 });
+    expect((await repo.getEnergySummary('day', '2026-08-17')).restingCalories).toBeNull();
+
+    await repo.saveProfile({ sex: null, birthYear: 1990 });
+    // 10×75 + 6.25×180 − 5×36 − 78 = 1617, between the male and female values.
+    expect((await repo.getEnergySummary('day', '2026-08-17')).restingCalories).toBe(1617);
   });
 });

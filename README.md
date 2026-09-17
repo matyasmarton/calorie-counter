@@ -5,7 +5,8 @@ Offline-capable personal calorie counter with account sync. Built with Expo (Rea
 ## Features
 
 - Daily food logging with servings and amounts; calorie plus protein/carb/fat totals for the day, ISO week, and calendar month
-- Log front page: the day's intake, burn (activity + workouts) and surplus/deficit balance, the two most recent entries with the rest behind "Show all", and 7-day intake and balance trend charts. One centered column on phones; past 1024 px a two-column grid — the summary across the top, entries beside the add form, the week charts across the bottom
+- Log front page: the day's intake, burn (resting + activity + workouts) and surplus/deficit balance, the two most recent entries with the rest behind "Show all", and 7-day intake and balance trend charts. One centered column on phones; past 1024 px a two-column grid — the summary across the top, entries beside the add form, the week charts across the bottom
+- Resting burn: basal metabolic rate from Mifflin-St Jeor (1990) — the latest weight and height measurements plus the profile's birth year, with the sex constants averaged when no sex is disclosed. It is counted for every day of the period, including days nothing was logged, so burn is resting + activity + workouts. Without a birth year and both measurements it is left out entirely, and the Log says where to add them.
 - Light paper-and-ink palette shared by every screen (`src/theme.ts`), with tabular numerals on the calorie figures
 - USDA-provenanced food catalog (every row carries its `sourceRef`), plus user-defined custom foods
 - Offline-first storage (IndexedDB on web, SQLite on native) with a Supabase sync engine: local changes queue, push/pull on sync, newest-update-wins conflicts, tombstones
@@ -81,6 +82,6 @@ Not covered: Hungarian and Turkish dishes. No USDA dataset contains them, and th
 
 ## Testing
 
-- `npm test` (vitest): domain math, repository, sync, catalog, local-ai schema validation, the bridge adapter (against stub HTTP servers), the bridge proxy's own routes (spawned for real against stub backends, a temp model library and a fake oMLX), catalog search ranking, draft→catalog mapping, deterministic per-100 g macro aggregation, and the activity/workout/energy paths (Keytel and MET estimates, one-row-per-day activity upsert, profile validation, calorie snapshots, net-energy aggregation)
+- `npm test` (vitest): domain math, repository, sync, catalog, local-ai schema validation, the bridge adapter (against stub HTTP servers), the bridge proxy's own routes (spawned for real against stub backends, a temp model library and a fake oMLX), catalog search ranking, draft→catalog mapping, deterministic per-100 g macro aggregation, and the activity/workout/energy paths (Keytel and MET estimates, one-row-per-day activity upsert, profile validation, calorie snapshots, Mifflin-St Jeor resting burn and its per-day measurement carry-forward, net-energy aggregation)
 - `sh scripts/desktop-launcher-smoke.sh`: deterministic launcher/bridge behavior checks on isolated test ports — server reuse, occupied-port errors, CORS proxy round-trips, model inventory and download routes, and missing-binary failures
 - `npm run verify:transfer`: end-to-end device-transfer check against two genuinely separate IndexedDB stores — persistence across an app restart, isolation of the second device, the JSON backup path, the sync path (against an in-memory stand-in for Supabase) and deletion propagation. Prints a PASS/FAIL report and exits non-zero on failure.

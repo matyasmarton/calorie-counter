@@ -57,6 +57,7 @@ function SummaryCard({
   total,
   net,
   burn,
+  resting,
   workoutCount,
   entryCount,
   macroTotals,
@@ -65,11 +66,19 @@ function SummaryCard({
   total: number;
   net: number;
   burn: number | null;
+  /** Basal (resting) burn folded into `burn`; null when nothing on file gives one. */
+  resting: number | null;
   workoutCount: number | null;
   entryCount: number;
   macroTotals: { protein: number; carbs: number; fat: number };
   syncLabel: string;
 }) {
+  const workouts = workoutCount ?? 0;
+  // Only present when the burn total actually carries a baseline.
+  const breakdown =
+    burn != null && resting != null
+      ? ` (${resting.toLocaleString()} resting + ${(burn - resting).toLocaleString()} active)`
+      : '';
   return (
     <Card style={styles.totalCard}>
       <Text style={styles.totalLabel}>Daily total</Text>
@@ -79,10 +88,16 @@ function SummaryCard({
       <Text style={styles.burnLine} testID="burn-total">
         {burn === null
           ? 'burn unavailable'
-          : `${burn.toLocaleString()} kcal burnt - ${workoutCount ?? 0} ${
-              (workoutCount ?? 0) === 1 ? 'workout' : 'workouts'
+          : `${burn.toLocaleString()} kcal burnt${breakdown} - ${workouts} ${
+              workouts === 1 ? 'workout' : 'workouts'
             }`}
       </Text>
+      {burn !== null && resting === null ? (
+        <Text style={styles.burnHint}>
+          Add height and weight in Health, and your birth year in Activity, to count the calories you
+          burn at rest.
+        </Text>
+      ) : null}
       <Text style={[styles.netLine, netTone(net)]} testID="net-energy">
         {balanceLabel(net)}
       </Text>
@@ -275,7 +290,11 @@ export default function LogScreen() {
   const [loadError, setLoadError] = useState<string | null>(null);
   /** Burn for the viewed day: null until loaded and whenever the query fails. */
   const [burn, setBurn] = useState<number | null>(null);
+  /** Basal (resting) burn inside `burn`; null when no baseline can be computed. */
+  const [resting, setResting] = useState<number | null>(null);
   const [workoutCount, setWorkoutCount] = useState<number | null>(null);
+  /** The week's own balance, which counts the baseline on unlogged days too. */
+  const [weekNet, setWeekNet] = useState<number | null>(null);
   /** The list previews the two most recent entries until "Show all" is tapped. */
   const [expanded, setExpanded] = useState(false);
   /** Last seven days ending today, for the front-page trend graph. */
@@ -298,7 +317,7 @@ export default function LogScreen() {
         // summary must not take the day's entries down with it. The week window is
         // always anchored on today — the graph is front-page context, not a
         // function of the day being viewed.
-        const [nextEntries, summary, nextWeek] = await Promise.all([
+        const [nextEntries, summary, nextWeek, nextWeekNet] = await Promise.all([
           repo.getDailyEntries(d),
           repo.getEnergySummary('day', d).then(
             (s) => s,
@@ -308,11 +327,17 @@ export default function LogScreen() {
             (w) => w,
             () => null,
           ),
+          repo.getEnergySummary('week', todayKey()).then(
+            (s) => s.netCalories,
+            () => null,
+          ),
         ]);
         setEntries(nextEntries);
         setBurn(summary?.burnCalories ?? null);
+        setResting(summary?.restingCalories ?? null);
         setWorkoutCount(summary?.workoutCount ?? null);
         setWeek(nextWeek ?? []);
+        setWeekNet(nextWeekNet);
         // A reloaded day (or a different day) always starts as a preview.
         setExpanded(false);
       } catch (e) {
@@ -344,7 +369,10 @@ export default function LogScreen() {
       ),
     [week],
   );
-  const weekNet = netEnergy(weekTotals.intake, weekTotals.burn).net;
+  // The week's balance counts the resting baseline on every day, so it comes from
+  // the week summary; the chart's rows only cover days that were logged. If that
+  // query failed, fall back to summing what the chart does have.
+  const weekBalance = weekNet ?? netEnergy(weekTotals.intake, weekTotals.burn).net;
   const macroTotals = useMemo(
     () =>
       entries.reduce(
@@ -461,13 +489,14 @@ export default function LogScreen() {
       total={total}
       net={balance.net}
       burn={burn}
+      resting={resting}
       workoutCount={workoutCount}
       entryCount={entries.length}
       macroTotals={macroTotals}
       syncLabel={syncStatusLabel(status, pending)}
     />
   );
-  const graphBlock = <WeekGraphCard week={week} weekNet={weekNet} sideBySide={wide} />;
+  const graphBlock = <WeekGraphCard week={week} weekNet={weekBalance} sideBySide={wide} />;
   const entriesBlock = (
     <EntriesBlock
       entries={entries}
@@ -566,6 +595,7 @@ const styles = StyleSheet.create({
   totalLabel: { fontSize: font.caption, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 1 },
   totalValue: { fontSize: 34, fontWeight: '800', color: colors.primaryDark, fontVariant: ['tabular-nums'] },
   burnLine: { fontSize: font.body, color: colors.textMuted, fontVariant: ['tabular-nums'] },
+  burnHint: { fontSize: font.caption, color: colors.textMuted, fontStyle: 'italic', textAlign: 'center' },
   netLine: { fontSize: font.section, fontWeight: '700', fontVariant: ['tabular-nums'] },
   netSurplus: { color: colors.rust },
   netDeficit: { color: colors.primary },

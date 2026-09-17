@@ -329,6 +329,11 @@ export default function ActivityScreen() {
   }, [repo, sex, birthYear, load]);
 
   const netColor = summary && summary.netCalories < 0 ? colors.primaryDark : colors.text;
+  // Burn = resting baseline + logged activity. Split them so the resting share —
+  // which comes from the profile and the measurements, not from a tracker — is
+  // visible rather than appearing as an unexplained jump in "Burned".
+  const activeBurn =
+    summary && summary.restingCalories != null ? summary.burnCalories - summary.restingCalories : null;
 
   return (
     <Screen>
@@ -367,7 +372,11 @@ export default function ActivityScreen() {
               </View>
             </View>
             <Text style={styles.statMeta}>
-              kcal · {summary.workoutCount} workout{summary.workoutCount === 1 ? '' : 's'} logged this{' '}
+              kcal
+              {activeBurn != null
+                ? ` · ${summary.restingCalories} resting + ${activeBurn} active`
+                : ''}{' '}
+              · {summary.workoutCount} workout{summary.workoutCount === 1 ? '' : 's'} logged this{' '}
               {range}
             </Text>
             <Text style={styles.hint}>
