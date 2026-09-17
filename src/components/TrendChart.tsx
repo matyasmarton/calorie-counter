@@ -5,7 +5,7 @@
  * summary of the latest value and trend for screen readers.
  */
 import { colors, font, spacing } from '@/theme';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, Line, Polyline, Text as SvgText } from 'react-native-svg';
 
@@ -34,6 +34,31 @@ export function TrendChart({
   color?: string;
 }) {
   const [width, setWidth] = useState(320);
+  const container = useRef<View>(null);
+
+  /**
+   * Width source. `onLayout` is react-native-web's job on web, but it never fires
+   * here: RNW creates its shared ResizeObserver before the DOM exists under Expo's
+   * web rendering, so the observer is null and no layout event is ever dispatched.
+   * On web we measure the host node ourselves; native keeps `onLayout`.
+   *
+   * The measured View wraps BOTH states so the ref is attached on the first render:
+   * a chart that mounts with no points yet would otherwise observe nothing and keep
+   * its default width for good.
+   */
+  useEffect(() => {
+    // RNW hands back the host DOM node here; the cast is the boundary.
+    const node = container.current as unknown as HTMLElement | null;
+    if (!node || typeof node.getBoundingClientRect !== 'function') return;
+    const measure = () => {
+      const next = Math.round(node.getBoundingClientRect().width);
+      if (next > 0) setWidth(next);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const onLayout = (e: LayoutChangeEvent) => setWidth(e.nativeEvent.layout.width);
 
@@ -73,16 +98,8 @@ export function TrendChart({
     };
   }, [points, width]);
 
-  if (points.length === 0 || !last) {
-    return (
-      <View style={styles.emptyBox}>
-        <Text style={styles.emptyText}>No data in this range yet.</Text>
-      </View>
-    );
-  }
-
   const trend =
-    points.length < 2
+    !last || points.length < 2
       ? 'no trend yet'
       : last.value > points[0]!.value
         ? 'rising'
@@ -91,34 +108,42 @@ export function TrendChart({
           : 'steady';
 
   return (
-    <View style={styles.container} onLayout={onLayout}>
-      <Svg width={width} height={H}>
-        {[0.25, 0.5, 0.75].map((f) => (
-          <Line
-            key={f}
-            x1={PAD_X}
-            x2={width - PAD_X}
-            y1={H * f}
-            y2={H * f}
-            stroke={colors.chartGrid}
-            strokeWidth={1}
-          />
-        ))}
-        <SvgText x={PAD_X} y={14} fontSize={10} fill={colors.textMuted}>
-          {max}
-        </SvgText>
-        <SvgText x={PAD_X} y={H - 6} fontSize={10} fill={colors.textMuted}>
-          {min}
-        </SvgText>
-        {segments.map((seg, i) => (
-          <Polyline key={i} points={seg.join(' ')} fill="none" stroke={color} strokeWidth={2.5} />
-        ))}
-        <Circle cx={lastXY.x} cy={lastXY.y} r={4} fill={color} />
-      </Svg>
-      <Text accessibilityRole="text" style={styles.summary}>
-        Latest: {last.value} {unit} on {last.date}. Range {points.length} day
-        {points.length === 1 ? '' : 's'} — {trend}.
-      </Text>
+    <View ref={container} style={styles.container} onLayout={onLayout}>
+      {last ? (
+        <>
+          <Svg width={width} height={H}>
+            {[0.25, 0.5, 0.75].map((f) => (
+              <Line
+                key={f}
+                x1={PAD_X}
+                x2={width - PAD_X}
+                y1={H * f}
+                y2={H * f}
+                stroke={colors.chartGrid}
+                strokeWidth={1}
+              />
+            ))}
+            <SvgText x={PAD_X} y={14} fontSize={10} fill={colors.textMuted}>
+              {max}
+            </SvgText>
+            <SvgText x={PAD_X} y={H - 6} fontSize={10} fill={colors.textMuted}>
+              {min}
+            </SvgText>
+            {segments.map((seg, i) => (
+              <Polyline key={i} points={seg.join(' ')} fill="none" stroke={color} strokeWidth={2.5} />
+            ))}
+            <Circle cx={lastXY.x} cy={lastXY.y} r={4} fill={color} />
+          </Svg>
+          <Text accessibilityRole="text" style={styles.summary}>
+            Latest: {last.value} {unit} on {last.date}. Range {points.length} day
+            {points.length === 1 ? '' : 's'} — {trend}.
+          </Text>
+        </>
+      ) : (
+        <View style={styles.emptyBox}>
+          <Text style={styles.emptyText}>No data in this range yet.</Text>
+        </View>
+      )}
     </View>
   );
 }

@@ -2,16 +2,18 @@
 export const colors = {
   primary: '#16a34a',
   primaryDark: '#15803d',
-  bg: '#f8fafc',
+  bg: '#FAF7F2',
   card: '#ffffff',
-  border: '#e2e8f0',
-  text: '#0f172a',
+  border: '#E7E0D3',
+  text: '#1A2E22',
   textMuted: '#64748b',
   danger: '#dc2626',
   warning: '#d97706',
   chart: '#16a34a',
   chartWeight: '#2563eb',
-  chartGrid: '#e2e8f0',
+  chartGrid: '#E7E0D3',
+  /** Editorial rust — the surplus/warning ink used by the Log summary and balance chart. */
+  rust: '#C2410C',
 };
 
 export const spacing = {

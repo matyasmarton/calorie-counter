@@ -22,12 +22,15 @@ export function LogIcon() {
   );
 }
 
+/** A fork: three tines on a handle. */
 export function FoodsIcon() {
   return (
     <Icon>
-      <Path d="M12 8a5 5 0 0 1 5 5v1a5 5 0 0 1-10 0v-1a5 5 0 0 1 5-5z" />
-      <Path d="M12 3v5" />
-      <Line x1="9" y1="3" x2="15" y2="3" />
+      <Line x1="9.5" y1="2.5" x2="9.5" y2="8" />
+      <Line x1="12" y1="2.5" x2="12" y2="8" />
+      <Line x1="14.5" y1="2.5" x2="14.5" y2="8" />
+      <Line x1="9.5" y1="8" x2="14.5" y2="8" />
+      <Line x1="12" y1="8" x2="12" y2="21.5" />
     </Icon>
   );
 }

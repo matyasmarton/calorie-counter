@@ -42,7 +42,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const { repo, sync } = useMemo(getSingletons, []);
   const [ready, setReady] = useState(false);
   const [initError, setInitError] = useState<string | null>(null);
-
   useEffect(() => {
     let cancelled = false;
     (async () => {

@@ -1,5 +1,4 @@
 import { Stack } from 'expo-router';
-import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { AppProvider, useApp } from '@/app-context';
 import { LocalModelProvider } from '@/local-ai/model-context';

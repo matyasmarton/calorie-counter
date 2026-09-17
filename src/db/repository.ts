@@ -14,12 +14,15 @@
  *    the HR regression, which beats the MET estimate — see domain/workouts.ts)
  */
 import { calculateCalories, roundTo, servingAmountToGrams } from '@/domain/calories';
+import { basalMetabolicRate } from '@/domain/bmr';
+import { estimateStepsCalories } from '@/domain/steps';
 import { calculateMacros } from '@/domain/macros';
 import { isValidDateKey, todayKey } from '@/domain/dates';
 import { netEnergy } from '@/domain/energy';
 import { NotFoundError, ValidationError } from '@/domain/errors';
 import { estimateWorkoutCalories, resolveAge } from '@/domain/workouts';
 import type {
+  ActivityCaloriesSource,
   ActivityDay,
   CatalogMetadata,
   DailyEnergy,
@@ -112,7 +115,11 @@ export interface ActivityDayInput {
   logDate: string;
   /** Whole steps — fractional steps are meaningless, so they are rejected. */
   steps: number;
-  activeKcal: number;
+  /**
+   * Entered active calories, or null to estimate them from the steps and the
+   * body metrics on file. An entered value always wins.
+   */
+  activeKcal: number | null;
   activeMinutes: number;
 }
 
@@ -204,6 +211,12 @@ function assertMacroNullable(value: number | null | undefined, label: string): v
   if (!Number.isFinite(value) || value < 0) {
     throw new ValidationError(`${label} must be a non-negative number`);
   }
+}
+
+/** Weight and height in force on a date; either may be absent. */
+interface BodyMetrics {
+  weightKg: number | null;
+  heightCm: number | null;
 }
 
 export class Repository {
@@ -552,19 +565,50 @@ export class Repository {
     return rows;
   }
 
-  /** Create or update the single live activity row for a date. */
+  /**
+   * One live row per day. Calorie precedence mirrors the workout path: an
+   * entered value is used as given, otherwise the step count is converted with
+   * the body metrics in force on that date, and the source that produced the
+   * number is snapshotted so a later profile or weight change never rewrites it.
+   * With neither an entered value nor the metrics to estimate from, the write is
+   * rejected rather than stored as a silent zero.
+   */
   async upsertActivityDay(input: ActivityDayInput): Promise<ActivityDay> {
     assertDate(input.logDate, 'activity date');
     assertNonNegativeInt(input.steps, 'Steps');
     assertNonNegativeInt(input.activeMinutes, 'Active minutes');
-    assertNonNegative(input.activeKcal, 'Active calories');
+
+    let activeKcal: number;
+    let kcalSource: ActivityCaloriesSource;
+    if (input.activeKcal != null) {
+      assertNonNegative(input.activeKcal, 'Active calories');
+      activeKcal = Math.round(input.activeKcal);
+      kcalSource = 'manual';
+    } else {
+      const { weightKg, heightCm } = await this.metricsAt(input.logDate);
+      if (weightKg == null || heightCm == null) {
+        throw new ValidationError(
+          'Cannot estimate calories from steps — add your height and weight in the Health tab, or enter active calories yourself',
+        );
+      }
+      const profile = await this.getProfile();
+      activeKcal = estimateStepsCalories({
+        steps: input.steps,
+        weightKg,
+        heightCm,
+        sex: profile?.sex ?? null,
+      });
+      kcalSource = 'steps-estimate';
+    }
+
     const existing = await this.getActivityDay(input.logDate);
     const now = new Date().toISOString();
     const day: ActivityDay = {
       id: existing?.id ?? uuid(),
       logDate: input.logDate,
       steps: input.steps,
-      activeKcal: Math.round(input.activeKcal),
+      activeKcal,
+      kcalSource,
       activeMinutes: input.activeMinutes,
       source: 'manual',
       createdAt: existing?.createdAt ?? now,
@@ -879,26 +923,40 @@ export class Repository {
   }
 
   /**
-   * Intake (live food entries) vs. burn (live activity days + live workouts)
-   * over a day / ISO week / calendar month. Net is intake − burn; a range with
-   * no rows reports zeros rather than failing.
+   * Intake (live food entries) vs. burn (resting baseline + live activity days +
+   * live workouts) over a day / ISO week / calendar month. Net is intake − burn;
+   * a range with no rows reports zeros rather than failing.
+   *
+   * The resting baseline is counted for every day of the range, including days
+   * the user never logged — the body burns it either way. That is why it is
+   * summed from `restingByDate` and not from the daily rows, which only cover
+   * days with something logged.
    */
   async getEnergySummary(range: SummaryRange, anchorDate: string): Promise<EnergySummary> {
     assertDate(anchorDate, 'anchor date');
     const { from, to } = rangeBounds(range, anchorDate);
-    const daily = await this.getDailyEnergy(from, to);
+    const resting = await this.restingByDate(from, to);
+    const daily = await this.dailyEnergyRows(from, to, resting);
+
     let intakeCalories = 0;
-    let burnCalories = 0;
+    let activeCalories = 0;
     for (const day of daily) {
       intakeCalories += day.intakeCalories;
-      burnCalories += day.burnCalories;
+      activeCalories += day.activeCalories;
     }
+    let restingCalories: number | null = null;
+    for (const value of resting.values()) {
+      if (value == null) continue;
+      restingCalories = (restingCalories ?? 0) + value;
+    }
+    const burnCalories = activeCalories + (restingCalories ?? 0);
     const workoutCount = (await this.liveWorkouts(from, to)).length;
     return {
       range,
       from,
       to,
       intakeCalories,
+      restingCalories,
       burnCalories,
       netCalories: netEnergy(intakeCalories, burnCalories).net,
       workoutCount,
@@ -906,40 +964,119 @@ export class Repository {
   }
 
   /**
-   * One row per date in [from, to] that has intake or burn (entries, activity
-   * or workouts). Dates with nothing are absent so charts render gaps instead
-   * of a zero line — same convention as getDailySummaries.
+   * One row per date in [from, to] that has logged intake or burn (entries,
+   * activity or workouts). Dates with nothing logged are absent so charts render
+   * gaps instead of a zero line — same convention as getDailySummaries. The
+   * resting baseline alone never creates a row, or every unlogged day in the
+   * range would plot as a zero-intake day.
    */
   async getDailyEnergy(from: string, to: string): Promise<DailyEnergy[]> {
     assertDate(from, 'from date');
     assertDate(to, 'to date');
     if (from > to) throw new ValidationError('from date must be <= to date');
+    return this.dailyEnergyRows(from, to, await this.restingByDate(from, to));
+  }
 
+  private async dailyEnergyRows(
+    from: string,
+    to: string,
+    resting: Map<string, number | null>,
+  ): Promise<DailyEnergy[]> {
     const intakeByDate = new Map<string, number>();
     for (const entry of await this.liveEntries(from, to)) {
       intakeByDate.set(entry.logDate, (intakeByDate.get(entry.logDate) ?? 0) + entry.calories);
     }
-    const burnByDate = new Map<string, number>();
+    const activeByDate = new Map<string, number>();
     for (const day of await this.liveActivityDays(from, to)) {
-      burnByDate.set(day.logDate, (burnByDate.get(day.logDate) ?? 0) + day.activeKcal);
+      activeByDate.set(day.logDate, (activeByDate.get(day.logDate) ?? 0) + day.activeKcal);
     }
     for (const workout of await this.liveWorkouts(from, to)) {
-      burnByDate.set(workout.logDate, (burnByDate.get(workout.logDate) ?? 0) + workout.calories);
+      activeByDate.set(workout.logDate, (activeByDate.get(workout.logDate) ?? 0) + workout.calories);
     }
 
     const out: DailyEnergy[] = [];
     for (let d = from; d <= to; d = nextDateKey(d)) {
       const intakeCalories = intakeByDate.get(d) ?? 0;
-      const burnCalories = burnByDate.get(d) ?? 0;
-      if (intakeCalories === 0 && burnCalories === 0) continue;
+      const activeCalories = activeByDate.get(d) ?? 0;
+      if (intakeCalories === 0 && activeCalories === 0) continue;
+      const restingCalories = resting.get(d) ?? null;
+      const burnCalories = activeCalories + (restingCalories ?? 0);
       out.push({
         logDate: d,
         intakeCalories,
+        activeCalories,
+        restingCalories,
         burnCalories,
         netCalories: netEnergy(intakeCalories, burnCalories).net,
       });
     }
     return out;
+  }
+
+  /**
+   * Basal (resting) burn for every day in [from, to], null where the profile and
+   * the measurements cannot supply weight, height and age.
+   *
+   * Weight and height are tracked independently: one measurement row may carry
+   * only one of them, and each stays in force until a newer row replaces it. The
+   * walk relies on the ascending `measuredAt` order both storage adapters return,
+   * the same assumption `getDailySummaries` makes.
+   */
+  private async restingByDate(from: string, to: string): Promise<Map<string, number | null>> {
+    const profile = await this.getProfile();
+    const metrics = this.metricsByDate(from, to, await this.measurementsUpTo(to));
+    const birthYear = profile?.birthYear ?? null;
+    const sex = profile?.sex ?? null;
+
+    const out = new Map<string, number | null>();
+    for (const [d, m] of metrics) {
+      const age = resolveAge(birthYear, d);
+      out.set(
+        d,
+        m.weightKg != null && m.heightCm != null && age != null
+          ? basalMetabolicRate({ weightKg: m.weightKg, heightCm: m.heightCm, age, sex })
+          : null,
+      );
+    }
+    return out;
+  }
+
+  /** Measurements up to and including `date`, ascending by measurement date. */
+  private async measurementsUpTo(date: string): Promise<HealthMeasurement[]> {
+    return this.db.query<HealthMeasurement>('health_measurements', {
+      index: 'measuredAt',
+      upper: date,
+      filter: (r) => !r.deletedAt,
+    });
+  }
+
+  /**
+   * Weight and height in force on each day of [from, to], walked from ascending
+   * measurement rows. The two are tracked independently — one row may carry only
+   * one of them — and each stays in force until a newer row replaces it.
+   */
+  private metricsByDate(from: string, to: string, rows: HealthMeasurement[]): Map<string, BodyMetrics> {
+    const out = new Map<string, BodyMetrics>();
+    let weightKg: number | null = null;
+    let heightCm: number | null = null;
+    let i = 0;
+    for (let d = from; d <= to; d = nextDateKey(d)) {
+      while (i < rows.length && rows[i]!.measuredAt <= d) {
+        const m = rows[i]!;
+        // A weight-only row must not clear a height recorded earlier.
+        weightKg = m.weightKg ?? weightKg;
+        heightCm = m.heightCm ?? heightCm;
+        i += 1;
+      }
+      out.set(d, { weightKg, heightCm });
+    }
+    return out;
+  }
+
+  /** Weight and height in force on a single date. */
+  private async metricsAt(date: string): Promise<BodyMetrics> {
+    const rows = await this.measurementsUpTo(date);
+    return this.metricsByDate(date, date, rows).get(date) ?? { weightKg: null, heightCm: null };
   }
 
   /* ------------------------------------------------------------------ */

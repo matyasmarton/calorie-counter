@@ -19,11 +19,17 @@ import { colors, contentMaxWidth, font, spacing } from '@/theme';
 export function Screen({
   children,
   scroll = true,
+  maxWidth = contentMaxWidth,
 }: {
   children: ReactNode;
   scroll?: boolean;
+  /**
+   * Cap for the centered content column. Screens that lay out multiple columns on
+   * wide viewports pass a larger value; the default is the mobile reading width.
+   */
+  maxWidth?: number;
 }) {
-  const inner = <View style={styles.content}>{children}</View>;
+  const inner = <View style={[styles.content, { maxWidth }]}>{children}</View>;
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       {scroll ? <ScrollView contentContainerStyle={styles.scroll}>{inner}</ScrollView> : inner}
@@ -198,7 +204,6 @@ const styles = StyleSheet.create({
   scroll: { paddingBottom: spacing.xl },
   content: {
     width: '100%',
-    maxWidth: contentMaxWidth,
     alignSelf: 'center',
     padding: spacing.lg,
     gap: spacing.md,

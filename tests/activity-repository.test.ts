@@ -112,6 +112,84 @@ describe('activity days', () => {
   });
 });
 
+describe('steps calorie estimate', () => {
+  /** 180 cm, 75 kg, male: 0.747 m per step, so 10 000 steps is 7.47 km ≈ 280 kcal. */
+  async function withBody(repo: Repository): Promise<void> {
+    await repo.saveProfile({ sex: 'male', birthYear: 1990 });
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-01', weightKg: 75, heightCm: 180 });
+  }
+
+  it('estimates from the steps when no calories are entered', async () => {
+    const repo = await makeRepo();
+    await withBody(repo);
+    const day = await repo.upsertActivityDay({
+      logDate: '2026-08-17',
+      steps: 10000,
+      activeKcal: null,
+      activeMinutes: 60,
+    });
+    expect(day).toMatchObject({ activeKcal: 280, kcalSource: 'steps-estimate' });
+  });
+
+  it('uses an entered value as given, whatever the steps suggest', async () => {
+    const repo = await makeRepo();
+    await withBody(repo);
+    const day = await repo.upsertActivityDay({
+      logDate: '2026-08-17',
+      steps: 10000,
+      activeKcal: 999,
+      activeMinutes: 60,
+    });
+    expect(day).toMatchObject({ activeKcal: 999, kcalSource: 'manual' });
+  });
+
+  it('rejects a blank calorie entry when it has nothing to estimate from', async () => {
+    const repo = await makeRepo();
+    await expect(
+      repo.upsertActivityDay({ logDate: '2026-08-17', steps: 10000, activeKcal: null, activeMinutes: 60 }),
+    ).rejects.toThrow(/height and weight/i);
+    expect(await repo.getActivityDays()).toEqual([]);
+
+    // A weight alone is not enough — the stride comes from height.
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-01', weightKg: 75, heightCm: null });
+    await expect(
+      repo.upsertActivityDay({ logDate: '2026-08-17', steps: 10000, activeKcal: null, activeMinutes: 60 }),
+    ).rejects.toBeInstanceOf(ValidationError);
+  });
+
+  it('estimates with the body metrics in force on the day being written', async () => {
+    const repo = await makeRepo();
+    await repo.saveProfile({ sex: 'male', birthYear: 1990 });
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-01', weightKg: 75, heightCm: 180 });
+    await repo.addHealthMeasurement({ measuredAt: '2026-08-10', weightKg: 90, heightCm: null });
+
+    const before = await repo.upsertActivityDay({
+      logDate: '2026-08-09',
+      steps: 10000,
+      activeKcal: null,
+      activeMinutes: 60,
+    });
+    const after = await repo.upsertActivityDay({
+      logDate: '2026-08-10',
+      steps: 10000,
+      activeKcal: null,
+      activeMinutes: 60,
+    });
+    // 7.47 km × 0.5 kcal/kg/km: 280 kcal at 75 kg, 336 kcal at 90 kg.
+    expect(before.activeKcal).toBe(280);
+    expect(after.activeKcal).toBe(336);
+  });
+
+  it('feeds the estimate into the day energy balance as active burn', async () => {
+    const repo = await makeRepo();
+    await withBody(repo);
+    await repo.upsertActivityDay({ logDate: '2026-08-17', steps: 10000, activeKcal: null, activeMinutes: 60 });
+
+    const [row] = await repo.getDailyEnergy('2026-08-17', '2026-08-17');
+    expect(row).toMatchObject({ activeCalories: 280, restingCalories: 1700, burnCalories: 1980 });
+  });
+});
+
 describe('workouts', () => {
   it('snapshots the MET estimate at write time and never recomputes it', async () => {
     const repo = await makeRepo();
