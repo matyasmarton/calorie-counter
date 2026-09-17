@@ -97,26 +97,51 @@ function SummaryCard({
 }
 
 /** Seven-day intake and balance trends, always anchored on today. */
-function WeekGraphCard({ week, weekNet }: { week: DailyEnergy[]; weekNet: number }) {
+function WeekGraphCard({
+  week,
+  weekNet,
+  sideBySide,
+}: {
+  week: DailyEnergy[];
+  weekNet: number;
+  /** Wide viewports put the two charts on one row instead of stacking them. */
+  sideBySide: boolean;
+}) {
+  const intake = (
+    <View style={styles.chartBlock}>
+      <Text style={styles.chartCaption}>Intake</Text>
+      <TrendChart points={week.map((d) => ({ date: d.logDate, value: d.intakeCalories }))} unit="kcal" />
+    </View>
+  );
+  const balance = (
+    <View style={styles.chartBlock}>
+      <Text style={styles.chartCaption}>Balance (intake − burn)</Text>
+      <TrendChart
+        points={week.map((d) => ({ date: d.logDate, value: d.netCalories }))}
+        unit="kcal"
+        color={colors.rust}
+      />
+      <Text style={styles.chartNote}>positive = surplus</Text>
+    </View>
+  );
+
   return (
     <Card>
       <SectionTitle>This week</SectionTitle>
       <Text style={[styles.weekHeadline, netTone(weekNet)]} testID="week-net">
         {week.length === 0 ? 'No days logged yet' : `${balanceLabel(weekNet)} this week`}
       </Text>
-      <View style={styles.chartBlock}>
-        <Text style={styles.chartCaption}>Intake</Text>
-        <TrendChart points={week.map((d) => ({ date: d.logDate, value: d.intakeCalories }))} unit="kcal" />
-      </View>
-      <View style={styles.chartBlock}>
-        <Text style={styles.chartCaption}>Balance (intake − burn)</Text>
-        <TrendChart
-          points={week.map((d) => ({ date: d.logDate, value: d.netCalories }))}
-          unit="kcal"
-          color={colors.rust}
-        />
-        <Text style={styles.chartNote}>positive = surplus</Text>
-      </View>
+      {sideBySide ? (
+        <View style={styles.chartRow}>
+          <View style={styles.chartCell}>{intake}</View>
+          <View style={styles.chartCell}>{balance}</View>
+        </View>
+      ) : (
+        <>
+          {intake}
+          {balance}
+        </>
+      )}
     </Card>
   );
 }
@@ -138,7 +163,7 @@ function EntriesBlock({
   onDelete: (id: string) => void;
 }) {
   return (
-    <>
+    <Card>
       <SectionTitle>Logged foods</SectionTitle>
       {entries.length === 0 ? (
         <EmptyState
@@ -146,7 +171,7 @@ function EntriesBlock({
           body={error ? undefined : 'Search a food above and add your first entry.'}
         />
       ) : (
-        <Card style={styles.entriesCard}>
+        <>
           {entries.slice(0, expanded ? undefined : PREVIEW_COUNT).map((e) => (
             <DailyEntryRow key={e.id} entry={e} onEdit={() => onEdit(e)} onDelete={() => onDelete(e.id)} />
           ))}
@@ -165,9 +190,9 @@ function EntriesBlock({
               </Text>
             </Pressable>
           ) : null}
-        </Card>
+        </>
       )}
-    </>
+    </Card>
   );
 }
 
@@ -442,7 +467,7 @@ export default function LogScreen() {
       syncLabel={syncStatusLabel(status, pending)}
     />
   );
-  const graphBlock = <WeekGraphCard week={week} weekNet={weekNet} />;
+  const graphBlock = <WeekGraphCard week={week} weekNet={weekNet} sideBySide={wide} />;
   const entriesBlock = (
     <EntriesBlock
       entries={entries}
@@ -552,7 +577,8 @@ const styles = StyleSheet.create({
   selectedName: { fontSize: font.section, fontWeight: '700', color: colors.text },
   selectedSub: { fontSize: font.caption, color: colors.textMuted },
   formActions: { flexDirection: 'row', gap: spacing.sm },
-  entriesCard: { paddingVertical: spacing.sm },
+  chartRow: { flexDirection: 'row', gap: spacing.lg, alignItems: 'flex-start' },
+  chartCell: { flex: 1 },
   showAllRow: { paddingVertical: spacing.sm, alignItems: 'center' },
   showAllText: { fontSize: font.caption, fontWeight: '600', color: colors.primary },
   weekHeadline: { fontSize: font.section, fontWeight: '700', fontVariant: ['tabular-nums'] },
