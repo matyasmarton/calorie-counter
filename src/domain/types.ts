@@ -91,6 +91,9 @@ export interface HealthMeasurement {
 /** Biological sex used by HR-based energy equations; null = not disclosed. */
 export type Sex = 'male' | 'female';
 
+/** How an activity day's calorie value was obtained (snapshotted at write time). */
+export type ActivityCaloriesSource = 'manual' | 'steps-estimate';
+
 /**
  * Daily activity reported by the user (or a future band import): steps,
  * active calories and active minutes for one local calendar day.
@@ -101,8 +104,13 @@ export interface ActivityDay {
   /** ISO calendar date (YYYY-MM-DD), local timezone. */
   logDate: string;
   steps: number;
-  /** Calories burned through activity, as reported by the source. */
+  /** Calories burned through activity: the value entered, or the steps estimate. */
   activeKcal: number;
+  /**
+   * Absent on rows written before step estimates existed: every one of those
+   * carries an entered value, so a missing source means `manual`.
+   */
+  kcalSource?: ActivityCaloriesSource;
   activeMinutes: number;
   source: 'manual';
   createdAt: string;

@@ -171,10 +171,11 @@ export default function ActivityScreen() {
       return;
     }
     const s = parseCount(steps);
-    const k = parseCount(activeKcal);
+    // Blank calories mean "estimate from the steps", not zero.
+    const k = activeKcal.trim() === '' ? null : parseCount(activeKcal);
     const m = parseCount(activeMinutes);
-    if (s == null || k == null || m == null) {
-      setDayError('Steps, active calories and active minutes must be zero or more');
+    if (s == null || m == null || (k != null && k < 0)) {
+      setDayError('Steps, active minutes and calories must be zero or more');
       return;
     }
     if (!Number.isInteger(s) || !Number.isInteger(m)) {
@@ -204,7 +205,9 @@ export default function ActivityScreen() {
   const startEditDay = useCallback((day: ActivityDay) => {
     setDayDate(day.logDate);
     setSteps(String(day.steps));
-    setActiveKcal(String(day.activeKcal));
+    // An estimated day opens with the field blank so saving estimates again
+    // rather than freezing today's headline number as a manual entry.
+    setActiveKcal(day.kcalSource === 'steps-estimate' ? '' : String(day.activeKcal));
     setActiveMinutes(String(day.activeMinutes));
     setDayError(null);
   }, []);
@@ -405,8 +408,11 @@ export default function ActivityScreen() {
         <Field label="Steps" hint="One row per day — saving the same date updates it.">
           <TextInput value={steps} onChangeText={setSteps} keyboardType="numeric" placeholder="e.g. 9000" testID="activity-steps" />
         </Field>
-        <Field label="Active calories (kcal)">
-          <TextInput value={activeKcal} onChangeText={setActiveKcal} keyboardType="numeric" placeholder="e.g. 300" testID="activity-kcal" />
+        <Field
+          label="Active calories (kcal)"
+          hint="Leave blank to estimate from your steps, height and weight; a value here always wins."
+        >
+          <TextInput value={activeKcal} onChangeText={setActiveKcal} keyboardType="numeric" placeholder="estimated from steps" testID="activity-kcal" />
         </Field>
         <Field label="Active minutes">
           <TextInput value={activeMinutes} onChangeText={setActiveMinutes} keyboardType="numeric" placeholder="e.g. 45" testID="activity-minutes" />
@@ -424,7 +430,8 @@ export default function ActivityScreen() {
               <View style={styles.rowInfo}>
                 <Text style={styles.rowDate}>{day.logDate}</Text>
                 <Text style={styles.rowMeta}>
-                  {day.steps.toLocaleString()} steps · {day.activeKcal} kcal · {day.activeMinutes} min
+                  {day.steps.toLocaleString()} steps · {day.activeKcal} kcal
+                  {day.kcalSource === 'steps-estimate' ? ' (from steps)' : ''} · {day.activeMinutes} min
                 </Text>
               </View>
               <Pressable

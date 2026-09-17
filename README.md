@@ -12,6 +12,7 @@ Offline-capable personal calorie counter with account sync. Built with Expo (Rea
 - Offline-first storage (IndexedDB on web, SQLite on native) with a Supabase sync engine: local changes queue, push/pull on sync, newest-update-wins conflicts, tombstones
 - Health tab: weight/height measurements, BMI, and a daily-intake trend chart
 - Activity tab: daily steps / active calories / active minutes, manual workout logging with heart-rate (Keytel 2005) or MET calorie estimates (MET values from the 2024 Adult Compendium of Physical Activities, cited per type in `src/domain/workouts.ts`), a minimal profile (sex, birth year) powering those estimates, and net-energy (intake − burn) totals for the day, ISO week and calendar month plus a 30-day net trend. All entry is manual — no band API, no native modules.
+- Step-based activity burn: leaving active calories blank converts the day's steps into net walking calories — distance from step length (height and sex) and the ACSM level-walking cost of 0.5 kcal per kg per km, derived in `src/domain/steps.ts`. An entered calorie value always wins, and every day records which of the two produced its number.
 - JSON backup export/import (merge by UUID or explicit restore)
 - Consent-gated localized recipe memory — save dishes like "lecsó" or "Mom's hamburger" for future searches
 - Clickable macOS launcher: `npm run desktop:install` installs a "Calorie Counter" icon in `~/Applications` that starts or reuses the Expo web server (port 8081) and opens the app in the default browser
