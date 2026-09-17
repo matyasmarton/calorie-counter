@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   sub: { fontSize: font.caption, color: colors.textMuted },
   macros: { fontSize: font.caption, color: colors.primaryDark },
   macrosMuted: { fontSize: font.caption, color: colors.textMuted, fontStyle: 'italic' },
-  kcal: { fontSize: font.body, fontWeight: '700', color: colors.text },
+  kcal: { fontSize: font.body, fontWeight: '700', color: colors.text, fontVariant: ['tabular-nums'] },
   action: { padding: 4 },
   actionText: { fontSize: font.caption, color: colors.primary, fontWeight: '600' },
   deleteText: { color: colors.danger },

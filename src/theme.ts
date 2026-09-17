@@ -2,17 +2,36 @@
 export const colors = {
   primary: '#16a34a',
   primaryDark: '#15803d',
-  bg: '#f8fafc',
+  bg: '#FAF7F2',
   card: '#ffffff',
-  border: '#e2e8f0',
-  text: '#0f172a',
+  border: '#E7E0D3',
+  text: '#1A2E22',
   textMuted: '#64748b',
   danger: '#dc2626',
   warning: '#d97706',
   chart: '#16a34a',
   chartWeight: '#2563eb',
-  chartGrid: '#e2e8f0',
+  chartGrid: '#E7E0D3',
+  /** Editorial rust — the surplus/warning ink used by the Log summary and balance chart. */
+  rust: '#C2410C',
 };
+
+/**
+ * Display face — Bodoni Moda (editorial serif) for typography-as-art headings.
+ * Set by the root layout once the font has loaded; falls back to a system serif
+ * when loading fails so a missing font never blanks a heading. Read it at render
+ * time (inline style) rather than baking it into StyleSheet.create, which would
+ * freeze the value before the font resolves.
+ */
+export let fontDisplay = 'BodoniModa_700Bold';
+
+/** Called by the root layout: the loaded family, or the fallback. */
+export function setDisplayFont(family: string): void {
+  fontDisplay = family;
+}
+
+/** System serif used when the display font cannot be loaded. */
+export const displayFontFallback = 'Georgia';
 
 export const spacing = {
   xs: 4,

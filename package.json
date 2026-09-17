@@ -14,15 +14,18 @@
     "export:web": "expo export --platform web",
     "desktop:install": "sh scripts/install-desktop-launcher.sh",
     "verify:transfer": "tsx scripts/verify-device-transfer.ts",
-    "capture:catalog": "tsx scripts/capture-food-extracts.ts"
+    "capture:catalog": "tsx scripts/capture-food-extracts.ts",
+    "build:grain": "tsx scripts/make-grain.ts"
   },
   "dependencies": {
+    "@expo-google-fonts/bodoni-moda": "^0.4.2",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@supabase/supabase-js": "^2.49.0",
     "buffer": "^6.0.3",
     "expo": "~57.0.13",
     "expo-constants": "~57.0.11",
     "expo-crypto": "~15.0.2",
+    "expo-font": "~57.0.4",
     "expo-linking": "~57.0.6",
     "expo-router": "~57.0.13",
     "expo-splash-screen": "~57.0.6",

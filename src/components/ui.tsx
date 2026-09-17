@@ -4,6 +4,7 @@
 import React, { type ReactNode } from 'react';
 import {
   ActivityIndicator,
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -14,18 +15,45 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors, contentMaxWidth, font, spacing } from '@/theme';
+import { useApp } from '@/app-context';
+import { colors, contentMaxWidth, font, fontDisplay, spacing } from '@/theme';
+
+/**
+ * Tiled paper grain, drawn behind the screen content. Decorative only — it never
+ * receives touches, and it covers the safe area rather than the scroll content so
+ * the texture holds still while the page scrolls. Honours the paper-texture
+ * setting, which is on by default.
+ */
+export function PaperGrain() {
+  const { grainOn } = useApp();
+  if (!grainOn) return null;
+  return (
+    <Image
+      source={require('../../assets/grain.png')}
+      resizeMode="repeat"
+      accessible={false}
+      style={styles.grain}
+    />
+  );
+}
 
 export function Screen({
   children,
   scroll = true,
+  maxWidth = contentMaxWidth,
 }: {
   children: ReactNode;
   scroll?: boolean;
+  /**
+   * Cap for the centered content column. Screens that lay out multiple columns on
+   * wide viewports pass a larger value; the default is the mobile reading width.
+   */
+  maxWidth?: number;
 }) {
-  const inner = <View style={styles.content}>{children}</View>;
+  const inner = <View style={[styles.content, { maxWidth }]}>{children}</View>;
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
+      <PaperGrain />
       {scroll ? <ScrollView contentContainerStyle={styles.scroll}>{inner}</ScrollView> : inner}
     </SafeAreaView>
   );
@@ -190,15 +218,30 @@ export function EmptyState({ title, body }: { title: string; body?: string }) {
 }
 
 export function SectionTitle({ children }: { children: ReactNode }) {
-  return <Text style={styles.sectionTitle}>{children}</Text>;
+  // fontDisplay is read per render (not baked into StyleSheet) so the value set
+  // once the font resolves is the one painted.
+  return <Text style={[styles.sectionTitle, { fontFamily: fontDisplay }]}>{children}</Text>;
 }
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
+  /**
+   * Decorative texture: never intercepts touches, and pinned behind the scroll
+   * content. Width/height are explicit because an Image sizes itself from the
+   * asset's intrinsic pixels on web, which would otherwise leave a 128x128 patch.
+   */
+  grain: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    opacity: 0.05,
+    pointerEvents: 'none',
+  },
   scroll: { paddingBottom: spacing.xl },
   content: {
     width: '100%',
-    maxWidth: contentMaxWidth,
     alignSelf: 'center',
     padding: spacing.lg,
     gap: spacing.md,

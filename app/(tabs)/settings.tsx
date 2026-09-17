@@ -33,7 +33,7 @@ function downloadLabel(id: LocalModelId): string {
 }
 
 export default function SettingsScreen() {
-  const { repo, sync } = useApp();
+  const { repo, sync, grainOn, setGrainOn } = useApp();
   const { status, pending, error } = useSyncStatus();
   const {
     models,
@@ -393,6 +393,23 @@ export default function SettingsScreen() {
         ) : (
           <Text style={styles.statusSub}>Catalog metadata unavailable.</Text>
         )}
+      </Card>
+
+      <SectionTitle>Appearance</SectionTitle>
+      <Card>
+        <View style={styles.statusRow}>
+          <View style={styles.statusText}>
+            <Text style={styles.statusTitle}>Paper texture</Text>
+            <Text style={styles.statusSub}>
+              A faint print grain behind every screen. Off gives you the flat, plain background.
+            </Text>
+          </View>
+          <Switch
+            value={grainOn}
+            onValueChange={(v) => void setGrainOn(v)}
+            trackColor={{ true: colors.primary, false: colors.border }}
+          />
+        </View>
       </Card>
 
       <Modal visible={importOpen} transparent animationType="slide" onRequestClose={() => setImportOpen(false)}>
